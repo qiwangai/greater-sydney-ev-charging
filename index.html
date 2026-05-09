@@ -771,17 +771,17 @@
       <div id="valueModeBar" class="value-mode-bar" hidden>
         <p class="value-mode-bar__steps" id="valueModeSteps">
           <strong>Step 1 —</strong> <strong>My location</strong> or <strong>Tap map</strong> (then click the map).<br />
-          <strong>Step 2 —</strong> List on the left; tweak distance and slider to re-rank.
+          <strong>Step 2 —</strong> List on the left; tweak radius and slider to re-rank.
         </p>
         <label class="value-mode-bar__field">
-          Max distance from you (km)
+          Search radius (km)
           <input
             type="number"
             id="maxRangeKm"
             min="1"
             step="1"
             value="80"
-            title="Search radius from your point (straight-line km; margin applied). Need not match your car’s remaining range."
+            title="Straight-line km from your map point. Bigger circle = more stations. Not your car’s remaining range."
           />
         </label>
         <div class="value-mode-bar__slider-row">
@@ -1503,7 +1503,7 @@
               li.style.cursor = "default";
               li.innerHTML = `<div class="meta">No priced stations within ~${maxD.toFixed(
                 0
-              )} km (straight-line). Try a larger <strong>Max distance</strong>, or tap another point on the map.</div>`;
+              )} km (straight-line). Try a larger <strong>search radius</strong>, or tap another point on the map.</div>`;
               listEl.appendChild(li);
               repopulateStationPins(() => false);
               hideStationPins();
