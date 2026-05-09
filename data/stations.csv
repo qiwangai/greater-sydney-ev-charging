@@ -1,0 +1,114 @@
+id,name,lat,lon,address_line1,town,state,postcode,country,operator,usage_cost_raw,price_sort_value,price_available,price_source,last_seen_epoch
+157463,Canterbury Bankstown Council,-33.90764109899798,151.1039129846189,21 Shakespeare St,Campsie,NSW,2194,,,Free,0.0,True,OCM,1778299294
+157457,Charles Street Parking/Charging,-33.91148886722056,151.11746314177572,10B Charles St,Canterbury,NSW,,,,Free,0.0,True,OCM,1778299294
+210904,Cherrybrook Village,-33.721132,151.04396,41-47 Shepherds Drive,CHERRYBROOK,New South Wales,2126,,,Free,0.0,True,OCM,1778299305
+210903,Cherrybrook Village - Basement Carpark,-33.721132,151.04396,41-47 Shepherds Drive,CHERRYBROOK,New South Wales,2126,,,Free,0.0,True,OCM,1778299305
+52844,Crowne Plaza Terrigal,-33.4484777280442,151.445479384747,Pinetree Lane,Terrigal,NSW,2260,,,Free,0.0,True,OCM,1778299323
+212646,Eastern Creek Quarter,-33.78477823234724,150.8530576715741,159 Rooty Hill Road South,Eastern Creek,New South Wales,2766,,,Free,0.0,True,OCM,1778299292
+204317,ECQ XL,-33.78758418286377,150.854268328623,Easter Creek Quarter XL,Eastern Creek ,New South Wales,2766,,,Free,0.0,True,OCM,1778299292
+190055,Eden Gardens,-33.78064947709375,151.13421887082995,Eden Gardens,Macquarie Park,New South Wales,2113,,,Free,0.0,True,OCM,1778299294
+131564,Figtree Grove Shopping Centre ,-34.43743163189117,150.86340370780567,The Avenue,Figtree ,New South Wales,2525,,,Free,0.0,True,OCM,1778299263
+157456,"Georges River Council, Carlton Depot",-33.96493620946319,151,11 Dora St,Hurstville,NSW,2220,,,Free,0.0,True,OCM,1778299281
+190053,Giffnock Avenue,-33.78254134090367,151.1230831406915,22 Giffnock Avenue,Macquarie Park,NSW,2113,,,Free,0.0,True,OCM,1778299294
+190054,Hillcrest Road,-33.73724500047699,151.07106994908884,Hillcrest Road,,New South Wales,2120,,,Free,0.0,True,OCM,1778299305
+131610,Innovation Campus - University of Wollongong,-34.40010718082921,150.8996891900606,Off Innovation Way,North Wollongong,New South Wales,2500,,,Free,0.0,True,OCM,1778299265
+131563,Jax EV @ Warrawong Plaza,-34.4868830425302,150.890772967401,Corner King St & Cowper Street,Warrawong,New South Wales,2502,,,Free,0.0,True,OCM,1778299265
+190875,Kensington [Jolt],-33.907070570863254,151.22409119211284,110 Anzac Pde,Kensington,New South Wales,2033,,,$0.00/kWh up to 7 kWh then $0.40/kWh,0.0,True,OCM,1778299294
+273904,Leppington Village Shopping Centre,-33.961508128351525,150.80570305129015,108 Ingleburn Rd,Leppington,NSW,2179,,,Free,0.0,True,OCM,1778299279
+272614,Mirvac South Eveleigh,-33.8955812,151.1958121,2 Central Avenue,Eveleigh,New South Wales,2015,,,Free,0.0,True,OCM,1778299294
+161844,Mittagong NRMA,-34.450559453605436,150.442468762437,9 Bessemer Street,Mittagong,NSW,2575,,,Currently free but will be fee at some point for non NRMA Members.,0.0,True,OCM,1778299262
+190757,Mona Vale [JOLT],-33.67606087720165,151.30325795651265,2 Bungan St,Mona Vale,NSW,2103,,,$0.00/kWh up to 7 kWh then $0.46/kWh,0.0,True,OCM,1778299309
+191394,NRMA Olympic Park,-33.84605079570373,151.06985459321334,9 Murray Rose Ave,Sydney Olympic Park, NSW,2127,,,Free,0.0,True,OCM,1778299294
+55007,Park Hyatt Sydney,-33.8560032,151.2094239,7 Hickson Road,The Rocks,NSW,2000,,,Free,0.0,True,OCM,1778299294
+128195,PCYC Car Park,-33.75028109544636,151.28666346345153,Civic Parade,Dee Why,NSW,2099,,,Free,0.0,True,OCM,1778299307
+161843,Picton [NRMA],-34.16820562741403,150.61093049806357,5 Walton Lane,Picton,NSW,2571,,,Currently free but will be fee at some point,0.0,True,OCM,1778299263
+190417,Richmond Tavistock No. 3 [Jolt],-33.86602668667314,151.06443969723887,19 Richmond Road,Sydney,New South Wales,2135,,,"Free up to 7kWh, charges thereafter",0.0,True,OCM,1778299292
+191177,Stewart Street Carpark [NRMA],-34.42839437417402,150.9002218527666,17 Stewart Street,Wollongong,NSW,2500,,,FREE,0.0,True,OCM,1778299265
+150024,Supa Centa Moore Park,-33.902079196334896,151.215231409333,,Kensington,NSW,2033,,,Free,0.0,True,OCM,1778299294
+311308,Tesla Destination Charger,-33.883393295749826,151.1945968746586,1 Bay Street,Broadway,NSW,2007,,,0,0.0,True,OCM,1778299294
+170985,The Place @ Warrawong Plaza,-34.486377904198555,150.88795170004096,King Street,Warrawong,New South Wales,2502,,,Free,0.0,True,OCM,1778299265
+54547,Westfield Sydney - Valet Parking,-33.8694048813709,151.208287100525,135 King Street,Sydney,NSW,2000,,,Free,0.0,True,OCM,1778299294
+131841,Wollongong Central - P1 Basement Car Park,-34.4233979669063,150.892280394333,71 Market Street,Wollongong ,New South Wales,2500,,,Free,0.0,True,OCM,1778299265
+191052,Woolworths Kireawee,-34.03429800987962,151.0734299224497,28-34 Flora Street,Kirrawee, NSW ,2232,,,FREE,0.0,True,OCM,1778299281
+133760,Woolworths Prestons,-33.9521597232138,150.855589807906,Corfield Road,Sydney,Liverpool City Council,2170,,,Free,0.0,True,OCM,1778299290
+272613,TLE Electrical Artarmon,-33.81845312500111,151.18932889926964,65 Reserve Road,St Leonards,New South Wales,2065,,,$0.30/kWh,0.3,True,OCM,1778299294
+191160,Bankstown [Evie],-33.93201456375411,151.03015532131081,9-49 Chapel Road,Bankstown,NSW,,,,$0.40/kWh,0.4,True,OCM,1778299292
+191162,Coles Schofields,-33.706161447313946,150.87557080542024,227 Railway Rerrace,Schofields,NSW,,,,$0.40/kWh,0.4,True,OCM,1778299304
+191161,Evie Cabramatta,-33.89880022738458,150.91994378105392,Hungry Jacks,Cabramatta,NSW,,,,$0.40/kWh,0.4,True,OCM,1778299292
+191163,"Evie Caddens Corner, Kingswood. ",-33.76884540471722,150.73565759781445,82a O’Connell Street,Kinswoid,NSW,,,,DC $0.40/kWh AC $0.35/kWh,0.4,True,OCM,1778299290
+191165,Evie Lane Cove,-33.81396420883535,151.16927647670855,2 Rosenthal Ave,Lane Cove,NSW,,,,$0.40/kWh,0.4,True,OCM,1778299294
+191164,Evie Mosman,-33.82544433087931,151.24146564876457,6 Myahgah Road,Mosman,NSW,,,,$0.40/kWh,0.4,True,OCM,1778299295
+192687,Stanley St Peakhurst NSW,-33.961219,151.065897,17-25 Stanley St, Peakhurst ,Nsw,2210,,,0.40,0.4,True,OCM,1778299281
+100404,Broadway Supercharger,-33.882995,151.194332,1 Bay Street,Broadway,,2007,,,AUD 0.42/kWh;other tariffs for older cars,0.42,True,OCM,1778299294
+150032,Macquarie Supercharger,-33.777782,151.12275,Macquarie Supercharger,,,2113,,,AUD 0.42/kWh;other tariffs for older cars,0.42,True,OCM,1778299294
+272619,The Heffron Centre,-33.97374,151.236646,439 Bunnerong Road,Chifley,New South Wales,2036,,,Free - $0.42/kWh,0.42,True,OCM,1778299282
+266872,Chatswood Chase Chargefox,-33.79511781061279,151.18644036778977,345 Victoria Avenue,Chatswood,NSW,2067,,,$0.45/kWh,0.45,True,OCM,1778299294
+272618,ENGIE - DFO Homebush,-33.855576,151.076681,3 -5 Underwood Road,Homebush,New South Wales,2140,,,$0.45/kWh,0.45,True,OCM,1778299294
+272617,ENGIE - Roselands Shopping Centre,-33.935,151.069205,24 Roselands Drive,Roselands,New South Wales,2196,,,$0.45/kWh,0.45,True,OCM,1778299292
+272615,ENGIE - Warriewood Square,-33.695602,151.2962878,12 Jacksons Road,Warriewood,New South Wales,2101,,,$0.45/kWh,0.45,True,OCM,1778299309
+266540,Evie Lawson,-33.72070368975226,150.4297109802278,4-6 New Street,Lawson,New South Wales,2783,,,$0.45 per kWh. ,0.45,True,OCM,1778299302
+265390,HomeCo Castle Hill,-33.72778176586396,150.976245622693,18 Victoria Avenue,Castle Hill,NSW,2154,,,$0.45 per kWh. Parking overstay charges may apply,0.45,True,OCM,1778299305
+192929,Mona Vale library carpark [JOLT],-33.67610252225354,151.3038961163004,1 Park St,Mona Vale,NSW,2103,,,"First 7kWh free, then $0.46 per kWh thereafter. $5/hr idle time",0.46,True,OCM,1778299309
+295979,Barrenjoey Road,-33.597285174014345,151.31997898476163,Barrenjoey Road,,New South Wales,2108,,,"First 7kWh free, then $0.49 per kWh thereafter. $5/hr idle time",0.49,True,OCM,1778299309
+460472,Railway Parade Thirroul,-34.3177075435834,150.91844342618032,Railway Parade,Thirroul,NSW,2515,,,0.5,0.5,True,OCM,1778299265
+128371,Central Coast Supercharger [Tesla],-33.309014,151.421114,Bryant Drive & Wyong Road,Tuggerah,,,,,$0.52/kWh,0.52,True,OCM,1778299340
+191280,Tesla Supercharger South Village,-34.033063649505685,151.07388271966875,Princes Highway,Kirrawee,NSW,2232,,,$0.52/kWh,0.52,True,OCM,1778299281
+266767,BP Pulse,-33.36290641211102,151.44446174596283,Cnr Mingara Dr & Wyong Rd,Tumbi Umbi,NSW,2261,,,$0.55/kwh,0.55,True,OCM,1778299324
+272521,BP Pulse Eastern Creek,-33.811041669720204,150.85030018744214,BP Truckstop,Eastern Creek,New South Wales,2766,,,$0.55/kWh,0.55,True,OCM,1778299292
+272624,ENGIE - Greenway Wetherill Park,-33.850403,150.89840155,1183-1187 The Horsley Drive,Wetherill Park,New South Wales,2164,,,$0.55/kWh,0.55,True,OCM,1778299292
+460473,EVX Austinmer,-34.30096753205442,150.93993271999892,Headland Avenue,Austinmer,NSW,2516,,,0.55,0.55,True,OCM,1778299265
+460474,Georges Place,-34.41859867256016,150.90226317639872,Georges Place,Wollongong,NSW,2500,,,0.55,0.55,True,OCM,1778299265
+170607,Ampol Woolworths MetroGo Seven Hills,-33.767099,150.954883,38 Abbott Rd,Seven Hills,New South Wales,2147,,,$0.60 per kWh,0.6,True,OCM,1778299305
+272620,Berowra Tennis Centre,-33.621379,151.1494478,6 Boundary Street,Berowra,New South Wales,2081,,,$0.60/kWh,0.6,True,OCM,1778299307
+299879,Chargefox Charging Station,-34.07085887727317,150.80665583075495,38 Camden Rd,Campbelltown,NSW,2560,,,$0.60/kWh,0.6,True,OCM,1778299277
+272616,NRMA - Sydney,-33.9055215,151.2128,4 Defries Avenue,Zetland,New South Wales,2017,,,$0.45 - $0.60/kWh,0.6,True,OCM,1778299294
+272622,Pennant Hills Toyota,-33.7366211,151.0743388,330 Pennant Hills Road,Pennant Hills,New South Wales,2120,,,$0.60/kWh,0.6,True,OCM,1778299305
+266501,Campbelltown Supercharger,-34.07151792013103,150.80730085250025,20-22 Camden Road,Campbelltown,New South Wales,2560,,,$0.66/kWh,0.66,True,OCM,1778299277
+274056,Ampol Foodary Penrith,-33.7430336465433,150.69296375875626,153 Coreen Ave,Penrith,NSW,2750,,,$0.69/kWh for pay-as-you-go charging.,0.69,True,OCM,1778299304
+279179,Ampol Foodary Pheasants Nest Northbound,-34.2829974272134,150.63679286992692,Lots 1 & 2 Hume Hwy,Pheasants Nest,New South Wales,2574,,,$0.69 per kWh,0.69,True,OCM,1778299262
+279180,Ampol Foodary Pheasants Nest Southbound,-34.2834466714301,150.63939668827243,Lot 12 Hume Hwy,Pheasants Nest ,New South Wales,2574,,,AUD 0.69/kWh,0.69,True,OCM,1778299262
+308738,Tesla Supercharger Bankstown,-33.933123083981414,151.0285550577326,Chapel Road,Bankstown,NSW,,,,$0.69/kWh,0.69,True,OCM,1778299292
+171646,Wollongong Supercharger,-34.43797320339262,150.8633622012107,Figtree Grove Shopping Centre,Figtree,New South Wales,2525,,,$0.69/kWh,0.69,True,OCM,1778299263
+191062,Audi Centre Sydney ,-33.906943843362484,151.2131655272031,895 South Dowling Street,Zetland,NSW,2017,,,$0.70/kWh,0.7,True,OCM,1778299294
+474457,The Ponds Shopping Centre,-33.706177569208975,150.91276385955848,The Ponds Boulevard,Sydney,New South Wales,2769,,,0.75,0.75,True,OCM,1778299305
+60564,Mittagong NSW Main Street,-34.4499721,150.451723,62-70 Main Street,Mittagong ,New South Wales,2576,,,if you are not a member of Charge Point ask at the desk of the Visitor Centre 9 am - 5pmfor help. ,9.0,True,OCM,1778299262
+272496,Evie Dapto Mall,-34.49497612676224,150.79547723050382,Moombara Street,Dapto,New South Wales,2530,,,50c per kWh energy consumed.,50.0,True,OCM,1778299263
+235461,Wollongong Central - Regent St Carpark,-34.423975432207065,150.8913817469645,Regent Street,Wollongong,New South Wales,2500,,,50c per kWh energy consumed.,50.0,True,OCM,1778299265
+273428,bp pulse Rosehill,-33.818996055217895,151.02170364175703,Hassall Street,Rosehill,New South Wales,2142,,,55c/kWh,55.0,True,OCM,1778299292
+273870,bp pulse Seven Hills,-33.76725,150.952041,26 Abbott Road,Seven Hills,New South Wales,2147,,,55c/kWh,55.0,True,OCM,1778299305
+273427,bp pulse Sydenham,-33.916260575133784,151.17311326359567,339 Princes Hwy,St Peters,New South Wales,2044,,,55c/kWh,55.0,True,OCM,1778299294
+273425,Fairy Meadow [bp pulse],-34.40299801963799,150.89157957672126,224 Princes Hwy,Fairy Meadow,New South Wales,2519,,,55c/kWh,55.0,True,OCM,1778299265
+273436,Wiley Park [bp pulse],-33.919392020719556,151.06669418522023,24-42 King Georges Road,Wiley Park,New South Wales,2195,,,55c/kWh,55.0,True,OCM,1778299292
+168913,Abbott Road,-33.81195253512282,151.03587917803534,19/287 Victoria Road,Rydalmere,New South Wales,2116,,,,,False,OCM,1778299294
+272637,Allambie Grove Business Park,-33.751303,151.2433284,25 Frenchs Forest Rd E,Frenchs Forest,NSW,2086,,,,,False,OCM,1778299307
+297042,AmpCharge Charging Station,-33.765456662016454,150.62149884005026,78 Great Western Highway,Glenbrook,NSW,2773,,,,,False,OCM,1778299290
+278525,Ampol Waitara,-33.71060645301792,151.1025062095589,"Corner Pacific Highway, Unwin Road",Waitara,New South Wales,2077,,,,,False,OCM,1778299307
+272641,Ashfield Mall,-33.8895642,151.1235986,260A Liverpool Rd,Ashfield,New South Wales,2131,,,,,False,OCM,1778299294
+272633,Belrose Home,-33.703118,151.212917,4-6 Niangala Close,Belrose,NSW,2085,,,,,False,OCM,1778299307
+298208,Blackbutts Road,-33.741938777072164,151.21364536627425,Blackbutts Road,Frenchs Forest,New South Wales,2085,,,,,False,OCM,1778299307
+266538,Blaxland Supercharger,-33.74525300296909,150.61025805036633,126 Hope St,Blaxland, NSW,2774,,,Supercharger rates,,True,OCM,1778299302
+272684,BP Ashfield,-33.87421821418127,151.12682969039508,586A Parramatta Rd,Croydon,New South Wales,2132,,,,,False,OCM,1778299294
+272635,BP Caringbah,-34.03295211277035,151.12520883189632,54-76 Captain Cook Drive,Caringbah,NSW,2229,,,,,False,OCM,1778299281
+272688,Casula Mall,-33.947906375047246,150.90105410921717,1 Ingham Dr,Casula,New South Wales,2170,,,,,False,OCM,1778299292
+273933,Chargefox,-33.770837178135245,150.84515556849738,Level 4,Rooty Hill,NSW,2766,,,,,False,OCM,1778299292
+267345,Chargefox Teachers Mutual Bank,-33.77239824531827,150.84348282464293,Teachers Mutual Bank,Rooty Hill,NSW,2766,,,,,False,OCM,1778299292
+272632,Civic Plaza 88 Christie,-33.823861,151.195326,88 Christie St,St Leonards,NSW,2065,,,,,False,OCM,1778299294
+272689,Dorhauer Lane,-33.88847179022024,151.23760032945688,Dorhauer Lane,Woollahra,NSW,2025,,,,,False,OCM,1778299294
+272634,Eastgate Bondi Junction,-33.892967,151.248028,"91 Spring St , NSW 2022",Bondi Junction,NSW,2022,,,,,False,OCM,1778299294
+272708,ENGIE - Lake Haven Centre,-33.24078932377033,151.50325247968817,Lake Haven Drive,Lake Haven,New South Wales,2263,,,,,False,OCM,1778299341
+190408,Hydro Majestic Hotel,-33.67697329948779,150.281626751796,52-88 Great Western Highway,Medlow Bath,NSW ,2780,,,,,False,OCM,1778299302
+272693,Jamisontown,-33.770379031934034,150.67371849780716,221 Wolseley Street,Jamisontown,New South Wales,2750,,,,,False,OCM,1778299290
+272673,Leichhardt Marketplace,-33.883514,151.150017,128 Flood Street,Leichhardt,New South Wales,2040,,,,,False,OCM,1778299294
+272627,Macquarie Centre,-33.777565954445315,151.12056384466786,Cnr Herring Rd & Waterloo Rd,North Ryde,NSW,2113,,,,,False,OCM,1778299294
+190041,Macquarie University X6A Banksia Cottage,-33.77520838069468,151.1095032126692,Car Park W3 near X6A Banksia Cottage,Macquarie University,New South Wales,2109,,,See App,,True,OCM,1778299294
+193048,Marrickville Metro,-33.90782667980605,151.17114538375472,Smidmore Street,Sydney,New South Wales,2044,,,,,False,OCM,1778299294
+272694,Northbridge Plaza,-33.809374,151.208591,9 Eastern Valley Way,Northbridge,New South Wales,2063,,,,,False,OCM,1778299294
+298207,Opposite Malbara Crescent,-33.741938777072164,151.21364536627425,Blackbutts Road,Frenchs Forest,NSW,2085,,,,,False,OCM,1778299307
+272686,Raglan Street West,-33.83121718107124,151.24368057896396,188 Raglan St,Mosman,New South Wales,2088,,,,,False,OCM,1778299295
+272700,Red Rooster Guildford,-33.85283452159095,150.99575854229482,322 Woodville Road,Guildford,New South Wales,2161,,,,,False,OCM,1778299292
+9892,Round Cnr 494-500 Old Northern Road,-33.693647,151.018619,Round Cnr 494-500 Old Northern Road,Dural,,2158,,,,,False,OCM,1778299305
+272630,Royal Randwick,-33.915187,151.240972,73 Belmore Road,Randwick,NSW,2031,,,,,False,OCM,1778299294
+190407,Scenic World Carpark,-33.728024559118296,150.300728600681,1 Violet Street,Katoomba,New South Wales,2780,,,,,False,OCM,1778299302
+190406,Supercheap auto,-33.76965243504467,150.67186991611658,2227 Wolseley Street,Jamisontown‎ ,NSW‎ ,2750,,,,,False,OCM,1778299290
+130686,Tastebuds Tesla Charger,-33.6893362215631,151.224097191251,Mona Vale Road,Sydney,Northern Beaches Council,2084,,,,,False,OCM,1778299307
+273935,The Mount Druitt Hub,-33.767499717192706,150.82239944831394,Ayres Grove Carpark,Mount Druitt,NSW,2770,,,,,False,OCM,1778299292

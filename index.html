@@ -1,0 +1,879 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Dev: avoid stale HTML when iterating; hard-refresh (Cmd+Shift+R) if UI looks old -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <title>Greater Sydney EV Charging Map</title>
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+
+    <style>
+      :root {
+        color-scheme: light dark;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+      }
+
+      header {
+        flex-shrink: 0;
+        padding: 12px 14px;
+        border-bottom: 1px solid rgba(127, 127, 127, 0.25);
+      }
+
+      header h1 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 650;
+      }
+
+      /* Full-width strip — sorting lives here so it is always visible (not only in the sidebar). */
+      .sort-bar {
+        flex-shrink: 0;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px 14px;
+        padding: 12px 14px;
+        background: linear-gradient(135deg, #1d4ed8, #2563eb);
+        color: #f8fafc;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+
+      .sort-bar strong {
+        font-size: 13px;
+        letter-spacing: 0.02em;
+      }
+
+      .sort-bar select {
+        min-width: min(100%, 280px);
+        max-width: 100%;
+        font: inherit;
+        font-size: 14px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        background: #fff;
+        color: #0f172a;
+        cursor: pointer;
+      }
+
+      .sort-bar button#useMyLocationBtn,
+      .sort-bar button#pickOnMapBtn {
+        font: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        padding: 10px 16px;
+        border-radius: 10px;
+        border: 2px solid rgba(255, 255, 255, 0.85);
+        background: rgba(255, 255, 255, 0.95);
+        color: #1d4ed8;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+
+      .sort-bar button#useMyLocationBtn:hover:not(:disabled),
+      .sort-bar button#pickOnMapBtn:hover:not(:disabled) {
+        background: #fff;
+      }
+
+      .sort-bar button#useMyLocationBtn:disabled,
+      .sort-bar button#pickOnMapBtn:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+      }
+
+      .sort-bar button#clearRoute {
+        font: inherit;
+        font-size: 13px;
+        padding: 8px 14px;
+        border-radius: 10px;
+        border: 2px solid rgba(255, 255, 255, 0.55);
+        background: transparent;
+        color: #fff;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+
+      .sort-bar button#clearRoute:hover:not(:disabled) {
+        background: rgba(255, 255, 255, 0.12);
+      }
+
+      .sort-bar button#clearRoute:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+
+      .sort-bar .sort-bar-hint {
+        font-size: 12px;
+        opacity: 0.92;
+        flex: 1 1 200px;
+        line-height: 1.35;
+      }
+
+      .main {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        width: 100%;
+      }
+
+      /* “Not yet”: hide list panel; map uses full width */
+      .main.layout--map-only #sidebar {
+        display: none;
+      }
+
+      #sidebar {
+        width: min(360px, 42vw);
+        flex-shrink: 0;
+        border-right: 1px solid rgba(127, 127, 127, 0.25);
+        overflow: auto;
+        padding: 10px 12px;
+        box-sizing: border-box;
+        background: rgba(127, 127, 127, 0.06);
+      }
+
+      #sidebar h2 {
+        margin: 0 0 6px 0;
+        font-size: 13px;
+        font-weight: 650;
+      }
+
+      #sidebar .note {
+        font-size: 11px;
+        opacity: 0.8;
+        margin: 0 0 10px 0;
+        line-height: 1.35;
+      }
+
+      #stationList {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      #stationList li {
+        margin: 0 0 6px 0;
+        padding: 8px 10px;
+        border-radius: 8px;
+        border: 1px solid rgba(127, 127, 127, 0.22);
+        background: rgba(127, 127, 127, 0.04);
+        cursor: pointer;
+        font-size: 12px;
+        line-height: 1.35;
+      }
+
+      #stationList li:hover {
+        border-color: rgba(22, 119, 255, 0.45);
+      }
+
+      #stationList li.list-placeholder {
+        cursor: default;
+        border-style: dashed;
+        font-style: italic;
+        opacity: 0.9;
+      }
+
+      #stationList li.list-placeholder:hover {
+        border-color: rgba(127, 127, 127, 0.22);
+      }
+
+      #stationList .rank {
+        opacity: 0.65;
+        font-variant-numeric: tabular-nums;
+        margin-right: 6px;
+      }
+
+      #stationList .title {
+        font-weight: 600;
+      }
+
+      #stationList .price-line {
+        margin-top: 4px;
+        opacity: 0.9;
+        font-size: 11px;
+      }
+
+      #mapWrap {
+        flex: 1;
+        min-width: 0;
+        position: relative;
+      }
+
+      #map {
+        height: 100%;
+        width: 100%;
+      }
+
+      .price-unknown {
+        opacity: 0.75;
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Greater Sydney EV Charging Map</h1>
+    </header>
+    <nav class="sort-bar" id="sortBar" aria-label="Sort charging station list">
+      <strong>Show list</strong>
+      <select id="sortSelect" aria-label="Sort stations">
+        <option value="" selected>— Not yet — (no list, no pins)</option>
+        <option value="price">By price (low → high)</option>
+        <option value="distance">By distance from a reference point</option>
+      </select>
+      <button id="useMyLocationBtn" type="button" style="display: none" title="Uses browser geolocation">
+        Use my device location (GPS)
+      </button>
+      <button id="pickOnMapBtn" type="button" style="display: none" title="Click map once to set reference point">
+        Choose point on map
+      </button>
+      <button id="clearRoute" type="button" title="Clear driving route between two stations" disabled>
+        Clear route
+      </button>
+      <span class="sort-bar-hint">
+        GPS works on <code>http://127.0.0.1</code> or <code>https://</code>; many browsers block it on <code>http://192.168…</code>. Use
+        “Choose point on map” if GPS fails.
+      </span>
+    </nav>
+    <div class="main layout--map-only" id="layoutMain">
+      <aside id="sidebar">
+        <h2 id="listTitle">Charging stations</h2>
+        <p class="note" id="sortNote"></p>
+        <ol id="stationList"></ol>
+      </aside>
+      <div id="mapWrap">
+        <div id="map"></div>
+      </div>
+    </div>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+
+    <script>
+      const map = L.map("map", { preferCanvas: true }).setView(
+        [-33.8688, 151.2093],
+        10
+      );
+
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      }).addTo(map);
+
+      function escapeHtml(str) {
+        return String(str ?? "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      async function loadStations() {
+        const bust = `t=${Date.now()}`;
+        const res = await fetch(`./data/stations.json?${bust}`, { cache: "no-store" });
+        if (!res.ok) throw new Error(`Failed to fetch stations.json: ${res.status}`);
+        return await res.json();
+      }
+
+      async function fetchRouteDriving(a, b) {
+        // Public OSRM endpoint (best-effort; rate-limited). Returns GeoJSON geometry.
+        const url =
+          "https://router.project-osrm.org/route/v1/driving/" +
+          `${a.lon},${a.lat};${b.lon},${b.lat}` +
+          "?overview=full&geometries=geojson&alternatives=false&steps=false";
+        const res = await fetch(url, { cache: "no-store" });
+        if (!res.ok) throw new Error(`Failed to fetch route: ${res.status}`);
+        const data = await res.json();
+        if (!data?.routes?.length) throw new Error("No route found");
+        return data.routes[0];
+      }
+
+      function popupHtml(s) {
+        const title = escapeHtml(s.name || "Unnamed location");
+        const operator = s.operator ? `<div><b>Operator:</b> ${escapeHtml(s.operator)}</div>` : "";
+
+        const addrParts = [s.address_line1, s.town, s.state, s.postcode]
+          .filter(Boolean)
+          .map(escapeHtml);
+        const address = addrParts.length
+          ? `<div><b>Address:</b> ${addrParts.join(", ")}</div>`
+          : "";
+
+        const sortHint =
+          getNumericPrice(s) !== null
+            ? `<div><b>Sort key:</b> ${escapeHtml(getNumericPrice(s))} (parsed for ordering)</div>`
+            : "";
+
+        const price = s.usage_cost_raw
+          ? `<div><b>Price:</b> ${escapeHtml(s.usage_cost_raw)}</div>`
+          : `<div><b>Price:</b> <span class="price-unknown">unknown (not provided)</span></div>`;
+
+        const connCount = Array.isArray(s.connections) ? s.connections.length : 0;
+        const conn = `<div><b>Connections:</b> ${connCount}</div>`;
+
+        const coord = `<div><b>Coords:</b> ${escapeHtml(s.lat)}, ${escapeHtml(s.lon)}</div>`;
+
+        return `<div style="min-width: 220px">
+          <div style="font-weight: 700; margin-bottom: 6px">${title}</div>
+          ${operator}
+          ${address}
+          ${price}
+          ${sortHint}
+          ${conn}
+          ${coord}
+        </div>`;
+      }
+
+      function markerColor(s) {
+        return s.price_available ? "#1677ff" : "#6b7280";
+      }
+
+      function circleMarker(s) {
+        return L.circleMarker([s.lat, s.lon], {
+          radius: 6,
+          color: markerColor(s),
+          weight: 2,
+          fillColor: markerColor(s),
+          fillOpacity: 0.55,
+        });
+      }
+
+      function haversineKm(lat1, lon1, lat2, lon2) {
+        const R = 6371;
+        const toRad = (d) => (d * Math.PI) / 180;
+        const dLat = toRad(lat2 - lat1);
+        const dLon = toRad(lon2 - lon1);
+        const a =
+          Math.sin(dLat / 2) ** 2 +
+          Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c;
+      }
+
+      /** Parsed numeric price for sorting; null if missing or not a usable number. */
+      function getNumericPrice(s) {
+        if (!s) return null;
+        const v = s.price_sort_value;
+        if (typeof v === "number" && Number.isFinite(v)) return v;
+        if (typeof v === "string" && v.trim() !== "") {
+          const n = parseFloat(v);
+          if (Number.isFinite(n)) return n;
+        }
+        return null;
+      }
+
+      /** Ascending by price; unknown price sorts after known (for distance tie-break only). */
+      function comparePriceAscending(a, b) {
+        const pa = getNumericPrice(a);
+        const pb = getNumericPrice(b);
+        if (pa !== null && pb !== null && pa !== pb) return pa - pb;
+        if (pa !== null && pb === null) return -1;
+        if (pa === null && pb !== null) return 1;
+        const na = String(a.name || "").toLowerCase();
+        const nb = String(b.name || "").toLowerCase();
+        if (na < nb) return -1;
+        if (na > nb) return 1;
+        return (a.id || 0) - (b.id || 0);
+      }
+
+      function compareByDistance(a, b, refLat, refLon) {
+        const da = haversineKm(refLat, refLon, a.lat, a.lon);
+        const db = haversineKm(refLat, refLon, b.lat, b.lon);
+        if (da !== db) return da - db;
+        return comparePriceAscending(a, b);
+      }
+
+      const MACOS_GEO_HELP =
+        " Mac: System Settings → Privacy & Security → Location Services → On, then enable your browser (Safari/Chrome). " +
+        "Safari: Safari → Settings → Websites → Location → allow for 127.0.0.1.";
+
+      function geolocationErrorMessage(err) {
+        if (!err) return "Unknown error.";
+        if (typeof err.code === "number") {
+          if (err.code === 1) {
+            return (
+              "Permission denied. Allow location for this site, and turn on Location Services for your browser." +
+              MACOS_GEO_HELP
+            );
+          }
+          if (err.code === 2) {
+            return (
+              "Position unavailable (Wi‑Fi/location services). Turn on Wi‑Fi, disable VPN, or use “Choose point on map”." +
+              MACOS_GEO_HELP
+            );
+          }
+          if (err.code === 3) {
+            return "Timed out. Try again, or use “Choose point on map”.";
+          }
+        }
+        return err.message || String(err);
+      }
+
+      async function geolocationPermissionState() {
+        try {
+          if (!navigator.permissions || !navigator.permissions.query) return null;
+          const r = await navigator.permissions.query({ name: "geolocation" });
+          return r.state;
+        } catch {
+          return null;
+        }
+      }
+
+      /**
+       * Browsers only expose GPS in a “secure context”: https, or http://localhost / http://127.0.0.1.
+       */
+      async function requestUserLocation() {
+        if (!navigator.geolocation) {
+          throw new Error("Your browser does not support geolocation.");
+        }
+        if (window.isSecureContext === false) {
+          throw new Error(
+            "INSECURE_CONTEXT: Open this app as http://127.0.0.1:PORT/ (same computer) or use HTTPS. " +
+              "Geolocation is blocked on plain http:// with a non-localhost address."
+          );
+        }
+
+        const once = (highAccuracy, timeoutMs) =>
+          new Promise((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(resolve, reject, {
+              enableHighAccuracy: highAccuracy,
+              timeout: timeoutMs,
+              maximumAge: 0,
+            });
+          });
+
+        /** Some Mac/desktop setups return a fix faster with watchPosition than getCurrentPosition. */
+        const watchFirstFix = (highAccuracy, maxWaitMs) =>
+          new Promise((resolve, reject) => {
+            let settled = false;
+            let watchId = null;
+            const finish = (fn) => {
+              if (settled) return;
+              settled = true;
+              clearTimeout(timer);
+              if (watchId != null) navigator.geolocation.clearWatch(watchId);
+              fn();
+            };
+            const timer = setTimeout(() => {
+              finish(() => reject(Object.assign(new Error("watch timeout"), { code: 3 })));
+            }, maxWaitMs);
+            watchId = navigator.geolocation.watchPosition(
+              (pos) => finish(() => resolve(pos)),
+              (err) => finish(() => reject(err)),
+              { enableHighAccuracy: highAccuracy, maximumAge: 0 }
+            );
+          });
+
+        const attempts = [
+          () => once(true, 12000),
+          () => once(false, 28000),
+          () => watchFirstFix(false, 22000),
+          () => watchFirstFix(true, 18000),
+        ];
+
+        let lastErr = null;
+        for (const run of attempts) {
+          try {
+            const pos = await run();
+            return { lat: pos.coords.latitude, lon: pos.coords.longitude };
+          } catch (e) {
+            lastErr = e;
+          }
+        }
+        throw lastErr || new Error("Geolocation failed.");
+      }
+
+      (async () => {
+        try {
+          const payload = await loadStations();
+          const stations = payload.stations || [];
+
+          const layoutMain = document.getElementById("layoutMain");
+          const sortNoteEl = document.getElementById("sortNote");
+          const listTitleEl = document.getElementById("listTitle");
+          const sortSelect = document.getElementById("sortSelect");
+          const useMyLocationBtn = document.getElementById("useMyLocationBtn");
+          const pickOnMapBtn = document.getElementById("pickOnMapBtn");
+
+          const dataSortHint = payload.sort
+            ? ` Data file note: ${payload.sort} Re-fetch to refresh raw data.`
+            : "";
+
+          const clearBtn = document.getElementById("clearRoute");
+
+          let selectedA = null;
+          let selectedB = null;
+          let routeLayer = null;
+          let selectLayer = null;
+
+          function clearRoute() {
+            selectedA = null;
+            selectedB = null;
+            clearBtn.disabled = true;
+            if (routeLayer) {
+              map.removeLayer(routeLayer);
+              routeLayer = null;
+            }
+            if (selectLayer) {
+              map.removeLayer(selectLayer);
+              selectLayer = null;
+            }
+          }
+
+          clearBtn.addEventListener("click", clearRoute);
+
+          const markerById = new Map();
+          const listEl = document.getElementById("stationList");
+
+          const mapStations = stations.filter((s) => typeof s.lat === "number" && typeof s.lon === "number");
+
+          const stationLayer = L.layerGroup();
+          let stationsVisible = false;
+
+          let userDot = null;
+          let refLat = null;
+          let refLon = null;
+
+          let mapPickHandler = null;
+
+          function setReferenceOnMap(lat, lon, popupTitle) {
+            if (userDot) map.removeLayer(userDot);
+            userDot = L.circleMarker([lat, lon], {
+              radius: 9,
+              color: "#a21caf",
+              weight: 2,
+              fillColor: "#e879f9",
+              fillOpacity: 0.85,
+            }).addTo(map);
+            userDot.bindPopup(escapeHtml(popupTitle || "Reference point"));
+            refLat = lat;
+            refLon = lon;
+          }
+
+          function clearReferenceDot() {
+            if (userDot) {
+              map.removeLayer(userDot);
+              userDot = null;
+            }
+            refLat = null;
+            refLon = null;
+          }
+
+          function showStationPins() {
+            if (stationsVisible) return;
+            stationLayer.addTo(map);
+            stationsVisible = true;
+          }
+
+          function hideStationPins() {
+            if (!stationsVisible) return;
+            map.removeLayer(stationLayer);
+            stationsVisible = false;
+          }
+
+          function cancelMapPick() {
+            if (mapPickHandler) {
+              map.off("click", mapPickHandler);
+              mapPickHandler = null;
+            }
+            map.getContainer().style.cursor = "";
+          }
+
+          function showListPlaceholder(message) {
+            listEl.innerHTML = "";
+            const li = document.createElement("li");
+            li.className = "list-placeholder";
+            li.textContent = message;
+            listEl.appendChild(li);
+          }
+
+          function priceLineHtml(s) {
+            const num = getNumericPrice(s);
+            if (s.usage_cost_raw) {
+              const raw = escapeHtml(s.usage_cost_raw);
+              if (num !== null) {
+                return `Raw: ${raw} · sort: ${escapeHtml(num)}`;
+              }
+              return `Raw: ${raw}`;
+            }
+            if (num !== null) {
+              return `sort: ${escapeHtml(num)}`;
+            }
+            return '<span class="price-unknown">No price text / not parsed</span>';
+          }
+
+          function distanceLineHtml(s, refLat, refLon) {
+            const km = haversineKm(refLat, refLon, s.lat, s.lon);
+            const txt = km < 1 ? `${Math.round(km * 1000)} m` : `${km.toFixed(1)} km`;
+            return `<b>From reference:</b> ${escapeHtml(txt)} (straight line)`;
+          }
+
+          function renderStationList(sorted, mode, refLat, refLon) {
+            listEl.innerHTML = "";
+            sorted.forEach((s, idx) => {
+              const li = document.createElement("li");
+              const distBlock =
+                mode === "distance" && refLat != null && refLon != null
+                  ? `<div class="price-line">${distanceLineHtml(s, refLat, refLon)}</div>`
+                  : "";
+              li.innerHTML = `<span class="rank">#${idx + 1}</span><span class="title">${escapeHtml(
+                s.name || "Unnamed"
+              )}</span><div class="price-line">${priceLineHtml(s)}</div>${distBlock}`;
+              li.addEventListener("click", () => focusStationOnMap(s));
+              listEl.appendChild(li);
+            });
+          }
+
+          function syncDistanceControls() {
+            const isDist = sortSelect.value === "distance";
+            useMyLocationBtn.style.display = isDist ? "inline-block" : "none";
+            pickOnMapBtn.style.display = isDist ? "inline-block" : "none";
+            if (!isDist) {
+              useMyLocationBtn.disabled = false;
+              pickOnMapBtn.disabled = false;
+            }
+          }
+
+          function setListPanelVisible(show) {
+            layoutMain.classList.toggle("layout--map-only", !show);
+            requestAnimationFrame(() => map.invalidateSize());
+          }
+
+          function applyNoneMode() {
+            cancelMapPick();
+            listTitleEl.textContent = "Charging stations";
+            sortNoteEl.textContent = "";
+            listEl.innerHTML = "";
+            hideStationPins();
+            clearReferenceDot();
+            setListPanelVisible(false);
+            syncDistanceControls();
+          }
+
+          function repopulateStationPins(predicate) {
+            stationLayer.clearLayers();
+            for (const { s, m } of allStationMarkers) {
+              if (predicate(s)) stationLayer.addLayer(m);
+            }
+          }
+
+          function applyPriceMode() {
+            cancelMapPick();
+            clearReferenceDot();
+            setListPanelVisible(true);
+            listTitleEl.textContent = "Charging stations — by price";
+            sortNoteEl.textContent =
+              "Only stations with a parseable price are listed and shown as pins, cheapest first." + dataSortHint;
+
+            const priced = mapStations.filter((s) => getNumericPrice(s) !== null);
+            const sorted = [...priced].sort(comparePriceAscending);
+
+            repopulateStationPins((s) => getNumericPrice(s) !== null);
+            showStationPins();
+
+            if (sorted.length === 0) {
+              showListPlaceholder(
+                "No stations have a price we could parse. Re-run tools/fetch_ocm.py or use “By distance”."
+              );
+            } else {
+              renderStationList(sorted, "price", null, null);
+              const pricedMarkers = sorted.map((s) => markerById.get(s.id)).filter(Boolean);
+              if (pricedMarkers.length) {
+                map.fitBounds(L.featureGroup(pricedMarkers).getBounds().pad(0.08));
+              }
+            }
+            syncDistanceControls();
+          }
+
+          function applyDistanceModeAwaitingOrigin() {
+            cancelMapPick();
+            clearReferenceDot();
+            setListPanelVisible(true);
+            listTitleEl.textContent = "Charging stations — by distance";
+            sortNoteEl.textContent =
+              "Choose GPS or “Choose point on map”. URL must be http://127.0.0.1 (not 192.168…)." +
+              MACOS_GEO_HELP +
+              " Desktop Mac has no GPS; position uses Wi‑Fi/network and may be slow." +
+              dataSortHint;
+            hideStationPins();
+            showListPlaceholder("Set a reference point with GPS or by clicking the map (see blue bar).");
+            syncDistanceControls();
+          }
+
+          function applyDistanceWithOrigin(lat, lon, label) {
+            cancelMapPick();
+            setListPanelVisible(true);
+            setReferenceOnMap(lat, lon, label);
+            listTitleEl.textContent = "Charging stations — by distance";
+            sortNoteEl.textContent =
+              "Sorted by straight-line distance from your reference point. Driving distance can differ." +
+              dataSortHint;
+            repopulateStationPins(() => true);
+            showStationPins();
+            const sorted = [...mapStations].sort((a, b) => compareByDistance(a, b, lat, lon));
+            renderStationList(sorted, "distance", lat, lon);
+            syncDistanceControls();
+          }
+
+          function onSortSelectChange() {
+            const mode = sortSelect.value;
+            if (mode === "") {
+              applyNoneMode();
+            } else if (mode === "price") {
+              applyPriceMode();
+            } else if (mode === "distance") {
+              applyDistanceModeAwaitingOrigin();
+            }
+          }
+
+          sortSelect.addEventListener("change", onSortSelectChange);
+
+          useMyLocationBtn.addEventListener("click", async () => {
+            if (sortSelect.value !== "distance") return;
+
+            const perm = await geolocationPermissionState();
+            if (perm === "denied") {
+              alert(
+                "This site’s location permission is blocked.\n\n" +
+                  "Fix: click the lock/site icon in the address bar → Location → Allow.\n" +
+                  "Also enable Location Services for your browser in Mac System Settings → Privacy & Security → Location Services."
+              );
+              sortNoteEl.textContent =
+                "Browser reports location permission denied." + MACOS_GEO_HELP + dataSortHint;
+              return;
+            }
+
+            useMyLocationBtn.disabled = true;
+            pickOnMapBtn.disabled = true;
+            sortNoteEl.textContent = "Requesting location (may take up to ~30s on Mac)…";
+            try {
+              const loc = await requestUserLocation();
+              applyDistanceWithOrigin(loc.lat, loc.lon, "Device location (approx.)");
+            } catch (e) {
+              console.error(e);
+              let detail = geolocationErrorMessage(e);
+              if (e && typeof e.message === "string" && e.message.startsWith("INSECURE_CONTEXT:")) {
+                detail = e.message.replace(/^INSECURE_CONTEXT:\s*/, "");
+                alert(detail);
+              } else if (e && typeof e.code === "number" && (e.code === 1 || e.code === 2)) {
+                alert(detail);
+              }
+              sortNoteEl.textContent =
+                "Location failed: " + detail + " Or use “Choose point on map”." + dataSortHint;
+              applyDistanceModeAwaitingOrigin();
+            } finally {
+              useMyLocationBtn.disabled = false;
+              pickOnMapBtn.disabled = false;
+            }
+          });
+
+          pickOnMapBtn.addEventListener("click", () => {
+            if (sortSelect.value !== "distance") return;
+            cancelMapPick();
+            clearReferenceDot();
+            hideStationPins();
+            showListPlaceholder("Click the map once to set your reference point…");
+            sortNoteEl.textContent =
+              "Map pins are hidden while you pick a point (avoids tapping a station by mistake). Click empty map once.";
+            map.getContainer().style.cursor = "crosshair";
+
+            mapPickHandler = (e) => {
+              cancelMapPick();
+              applyDistanceWithOrigin(e.latlng.lat, e.latlng.lng, "Point you chose on the map");
+            };
+            map.on("click", mapPickHandler);
+          });
+
+          function focusStationOnMap(s) {
+            const m = markerById.get(s.id);
+            if (!m) return;
+            map.setView(m.getLatLng(), 15);
+            m.openPopup();
+          }
+
+          function onStationClicked(s) {
+            if (!selectedA || (selectedA && selectedB)) {
+              selectedA = s;
+              selectedB = null;
+              clearBtn.disabled = false;
+            } else {
+              selectedB = s;
+            }
+
+            if (selectLayer) map.removeLayer(selectLayer);
+            const pts = [];
+            if (selectedA) pts.push([selectedA.lat, selectedA.lon]);
+            if (selectedB) pts.push([selectedB.lat, selectedB.lon]);
+            selectLayer = L.polyline(pts, { color: "#f97316", weight: 5, opacity: 0.75 }).addTo(map);
+
+            if (selectedA && selectedB) {
+              fetchRouteDriving(selectedA, selectedB)
+                .then((route) => {
+                  if (routeLayer) map.removeLayer(routeLayer);
+                  routeLayer = L.geoJSON(route.geometry, {
+                    style: { color: "#22c55e", weight: 5, opacity: 0.9 },
+                  }).addTo(map);
+                  map.fitBounds(routeLayer.getBounds().pad(0.15));
+                })
+                .catch((err) => {
+                  console.error(err);
+                  alert("Route failed. Try again later.");
+                });
+            }
+          }
+
+          const allStationMarkers = [];
+          const markers = [];
+          for (const s of mapStations) {
+            const m = circleMarker(s)
+              .bindPopup(popupHtml(s))
+              .on("click", () => onStationClicked(s));
+            allStationMarkers.push({ s, m });
+            markers.push(m);
+            if (typeof s.id === "number") markerById.set(s.id, m);
+          }
+
+          repopulateStationPins(() => true);
+
+          sortSelect.value = "";
+          applyNoneMode();
+
+          if (markers.length) {
+            const group = L.featureGroup(markers);
+            map.fitBounds(group.getBounds().pad(0.08));
+          }
+        } catch (e) {
+          console.error(e);
+          alert(
+            "Failed to load stations data. Run tools/fetch_ocm.py first, then serve web/ via a local HTTP server."
+          );
+        }
+      })();
+    </script>
+  </body>
+</html>
+

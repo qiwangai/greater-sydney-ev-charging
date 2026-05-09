@@ -1,0 +1,3957 @@
+{
+  "source": "Open Charge Map (OCM)",
+  "generated_epoch": 1778299345,
+  "region": "Greater Sydney (approx bbox+grid)",
+  "station_count": 113,
+  "sort": "charging_price_ascending (parsed from UsageCost when possible; unknown last)",
+  "stations": [
+    {
+      "id": 157463,
+      "name": "Canterbury Bankstown Council",
+      "lat": -33.90764109899798,
+      "lon": 151.1039129846189,
+      "address_line1": "21 Shakespeare St",
+      "town": "Campsie",
+      "state": "NSW",
+      "postcode": "2194",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "Free",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 7,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 157457,
+      "name": "Charles Street Parking/Charging",
+      "lat": -33.91148886722056,
+      "lon": 151.11746314177572,
+      "address_line1": "10B Charles St",
+      "town": "Canterbury",
+      "state": "NSW",
+      "postcode": null,
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "Free",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 7,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 210904,
+      "name": "Cherrybrook Village",
+      "lat": -33.721132,
+      "lon": 151.04396,
+      "address_line1": "41-47 Shepherds Drive",
+      "town": "CHERRYBROOK",
+      "state": "New South Wales",
+      "postcode": "2126",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "Free",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 22,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299305
+    },
+    {
+      "id": 210903,
+      "name": "Cherrybrook Village - Basement Carpark",
+      "lat": -33.721132,
+      "lon": 151.04396,
+      "address_line1": "41-47 Shepherds Drive",
+      "town": "CHERRYBROOK",
+      "state": "New South Wales",
+      "postcode": "2126",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "Free",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 22,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299305
+    },
+    {
+      "id": 52844,
+      "name": "Crowne Plaza Terrigal",
+      "lat": -33.4484777280442,
+      "lon": 151.445479384747,
+      "address_line1": "Pinetree Lane",
+      "town": "Terrigal",
+      "state": "NSW",
+      "postcode": "2260",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "Free",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 3,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299323
+    },
+    {
+      "id": 212646,
+      "name": "Eastern Creek Quarter",
+      "lat": -33.78477823234724,
+      "lon": 150.8530576715741,
+      "address_line1": "159 Rooty Hill Road South",
+      "town": "Eastern Creek",
+      "state": "New South Wales",
+      "postcode": "2766",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "Free",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 7.3,
+          "quantity": 4,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299292
+    },
+    {
+      "id": 204317,
+      "name": "ECQ XL",
+      "lat": -33.78758418286377,
+      "lon": 150.854268328623,
+      "address_line1": "Easter Creek Quarter XL",
+      "town": "Eastern Creek ",
+      "state": "New South Wales",
+      "postcode": "2766",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "Free",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 11,
+          "quantity": 4,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299292
+    },
+    {
+      "id": 190055,
+      "name": "Eden Gardens",
+      "lat": -33.78064947709375,
+      "lon": 151.13421887082995,
+      "address_line1": "Eden Gardens",
+      "town": "Macquarie Park",
+      "state": "New South Wales",
+      "postcode": "2113",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "Free",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 8,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 131564,
+      "name": "Figtree Grove Shopping Centre ",
+      "lat": -34.43743163189117,
+      "lon": 150.86340370780567,
+      "address_line1": "The Avenue",
+      "town": "Figtree ",
+      "state": "New South Wales",
+      "postcode": "2525",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "Free",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 22,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299263
+    },
+    {
+      "id": 157456,
+      "name": "Georges River Council, Carlton Depot",
+      "lat": -33.96493620946319,
+      "lon": 151,
+      "address_line1": "11 Dora St",
+      "town": "Hurstville",
+      "state": "NSW",
+      "postcode": "2220",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "Free",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 22,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299281
+    },
+    {
+      "id": 190053,
+      "name": "Giffnock Avenue",
+      "lat": -33.78254134090367,
+      "lon": 151.1230831406915,
+      "address_line1": "22 Giffnock Avenue",
+      "town": "Macquarie Park",
+      "state": "NSW",
+      "postcode": "2113",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "Free",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 22,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 190054,
+      "name": "Hillcrest Road",
+      "lat": -33.73724500047699,
+      "lon": 151.07106994908884,
+      "address_line1": "Hillcrest Road",
+      "town": null,
+      "state": "New South Wales",
+      "postcode": "2120",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "Free",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 9,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299305
+    },
+    {
+      "id": 131610,
+      "name": "Innovation Campus - University of Wollongong",
+      "lat": -34.40010718082921,
+      "lon": 150.8996891900606,
+      "address_line1": "Off Innovation Way",
+      "town": "North Wollongong",
+      "state": "New South Wales",
+      "postcode": "2500",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "Free",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 180,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 180,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 3.45,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299265
+    },
+    {
+      "id": 131563,
+      "name": "Jax EV @ Warrawong Plaza",
+      "lat": -34.4868830425302,
+      "lon": 150.890772967401,
+      "address_line1": "Corner King St & Cowper Street",
+      "town": "Warrawong",
+      "state": "New South Wales",
+      "postcode": "2502",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "Free",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 22,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299265
+    },
+    {
+      "id": 190875,
+      "name": "Kensington [Jolt]",
+      "lat": -33.907070570863254,
+      "lon": 151.22409119211284,
+      "address_line1": "110 Anzac Pde",
+      "town": "Kensington",
+      "state": "New South Wales",
+      "postcode": "2033",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "$0.00/kWh up to 7 kWh then $0.40/kWh",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 25,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 25,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 273904,
+      "name": "Leppington Village Shopping Centre",
+      "lat": -33.961508128351525,
+      "lon": 150.80570305129015,
+      "address_line1": "108 Ingleburn Rd",
+      "town": "Leppington",
+      "state": "NSW",
+      "postcode": "2179",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "Free",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 7,
+          "quantity": 6,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299279
+    },
+    {
+      "id": 272614,
+      "name": "Mirvac South Eveleigh",
+      "lat": -33.8955812,
+      "lon": 151.1958121,
+      "address_line1": "2 Central Avenue",
+      "town": "Eveleigh",
+      "state": "New South Wales",
+      "postcode": "2015",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "Free",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 22,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 22,
+          "quantity": 2,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 22,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 161844,
+      "name": "Mittagong NRMA",
+      "lat": -34.450559453605436,
+      "lon": 150.442468762437,
+      "address_line1": "9 Bessemer Street",
+      "town": "Mittagong",
+      "state": "NSW",
+      "postcode": "2575",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "Currently free but will be fee at some point for non NRMA Members.",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 5,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299262
+    },
+    {
+      "id": 190757,
+      "name": "Mona Vale [JOLT]",
+      "lat": -33.67606087720165,
+      "lon": 151.30325795651265,
+      "address_line1": "2 Bungan St",
+      "town": "Mona Vale",
+      "state": "NSW",
+      "postcode": "2103",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "$0.00/kWh up to 7 kWh then $0.46/kWh",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 25,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 25,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299309
+    },
+    {
+      "id": 191394,
+      "name": "NRMA Olympic Park",
+      "lat": -33.84605079570373,
+      "lon": 151.06985459321334,
+      "address_line1": "9 Murray Rose Ave",
+      "town": "Sydney Olympic Park",
+      "state": " NSW",
+      "postcode": "2127",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "Free",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 55007,
+      "name": "Park Hyatt Sydney",
+      "lat": -33.8560032,
+      "lon": 151.2094239,
+      "address_line1": "7 Hickson Road",
+      "town": "The Rocks",
+      "state": "NSW",
+      "postcode": "2000",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "Free",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 7.6,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 128195,
+      "name": "PCYC Car Park",
+      "lat": -33.75028109544636,
+      "lon": 151.28666346345153,
+      "address_line1": "Civic Parade",
+      "town": "Dee Why",
+      "state": "NSW",
+      "postcode": "2099",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "Free",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": null,
+          "quantity": 2,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": null,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 7,
+          "quantity": 3,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299307
+    },
+    {
+      "id": 161843,
+      "name": "Picton [NRMA]",
+      "lat": -34.16820562741403,
+      "lon": 150.61093049806357,
+      "address_line1": "5 Walton Lane",
+      "town": "Picton",
+      "state": "NSW",
+      "postcode": "2571",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "Currently free but will be fee at some point",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299263
+    },
+    {
+      "id": 190417,
+      "name": "Richmond Tavistock No. 3 [Jolt]",
+      "lat": -33.86602668667314,
+      "lon": 151.06443969723887,
+      "address_line1": "19 Richmond Road",
+      "town": "Sydney",
+      "state": "New South Wales",
+      "postcode": "2135",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "Free up to 7kWh, charges thereafter",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 25,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 25,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299292
+    },
+    {
+      "id": 191177,
+      "name": "Stewart Street Carpark [NRMA]",
+      "lat": -34.42839437417402,
+      "lon": 150.9002218527666,
+      "address_line1": "17 Stewart Street",
+      "town": "Wollongong",
+      "state": "NSW",
+      "postcode": "2500",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "FREE",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 150,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 2,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 75,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299265
+    },
+    {
+      "id": 150024,
+      "name": "Supa Centa Moore Park",
+      "lat": -33.902079196334896,
+      "lon": 151.215231409333,
+      "address_line1": "",
+      "town": "Kensington",
+      "state": "NSW",
+      "postcode": "2033",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "Free",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 17,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 311308,
+      "name": "Tesla Destination Charger",
+      "lat": -33.883393295749826,
+      "lon": 151.1945968746586,
+      "address_line1": "1 Bay Street",
+      "town": "Broadway",
+      "state": "NSW",
+      "postcode": "2007",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "0",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 22,
+          "quantity": 3,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 170985,
+      "name": "The Place @ Warrawong Plaza",
+      "lat": -34.486377904198555,
+      "lon": 150.88795170004096,
+      "address_line1": "King Street",
+      "town": "Warrawong",
+      "state": "New South Wales",
+      "postcode": "2502",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "Free",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 22,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299265
+    },
+    {
+      "id": 54547,
+      "name": "Westfield Sydney - Valet Parking",
+      "lat": -33.8694048813709,
+      "lon": 151.208287100525,
+      "address_line1": "135 King Street",
+      "town": "Sydney",
+      "state": "NSW",
+      "postcode": "2000",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "Free",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 7.6,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 131841,
+      "name": "Wollongong Central - P1 Basement Car Park",
+      "lat": -34.4233979669063,
+      "lon": 150.892280394333,
+      "address_line1": "71 Market Street",
+      "town": "Wollongong ",
+      "state": "New South Wales",
+      "postcode": "2500",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "Free",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": null,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299265
+    },
+    {
+      "id": 191052,
+      "name": "Woolworths Kireawee",
+      "lat": -34.03429800987962,
+      "lon": 151.0734299224497,
+      "address_line1": "28-34 Flora Street",
+      "town": "Kirrawee",
+      "state": " NSW ",
+      "postcode": "2232",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "FREE",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 22,
+          "quantity": 2,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 22,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299281
+    },
+    {
+      "id": 133760,
+      "name": "Woolworths Prestons",
+      "lat": -33.9521597232138,
+      "lon": 150.855589807906,
+      "address_line1": "Corfield Road",
+      "town": "Sydney",
+      "state": "Liverpool City Council",
+      "postcode": "2170",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "Free",
+      "price_sort_value": 0.0,
+      "price_value": 0.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 6.6,
+          "quantity": 4,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299290
+    },
+    {
+      "id": 272613,
+      "name": "TLE Electrical Artarmon",
+      "lat": -33.81845312500111,
+      "lon": 151.18932889926964,
+      "address_line1": "65 Reserve Road",
+      "town": "St Leonards",
+      "state": "New South Wales",
+      "postcode": "2065",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "$0.30/kWh",
+      "price_sort_value": 0.3,
+      "price_value": 0.3,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 22,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 22,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 191160,
+      "name": "Bankstown [Evie]",
+      "lat": -33.93201456375411,
+      "lon": 151.03015532131081,
+      "address_line1": "9-49 Chapel Road",
+      "town": "Bankstown",
+      "state": "NSW",
+      "postcode": null,
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "$0.40/kWh",
+      "price_sort_value": 0.4,
+      "price_value": 0.4,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299292
+    },
+    {
+      "id": 191162,
+      "name": "Coles Schofields",
+      "lat": -33.706161447313946,
+      "lon": 150.87557080542024,
+      "address_line1": "227 Railway Rerrace",
+      "town": "Schofields",
+      "state": "NSW",
+      "postcode": null,
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "$0.40/kWh",
+      "price_sort_value": 0.4,
+      "price_value": 0.4,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299304
+    },
+    {
+      "id": 191161,
+      "name": "Evie Cabramatta",
+      "lat": -33.89880022738458,
+      "lon": 150.91994378105392,
+      "address_line1": "Hungry Jacks",
+      "town": "Cabramatta",
+      "state": "NSW",
+      "postcode": null,
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "$0.40/kWh",
+      "price_sort_value": 0.4,
+      "price_value": 0.4,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299292
+    },
+    {
+      "id": 191163,
+      "name": "Evie Caddens Corner, Kingswood. ",
+      "lat": -33.76884540471722,
+      "lon": 150.73565759781445,
+      "address_line1": "82a O’Connell Street",
+      "town": "Kinswoid",
+      "state": "NSW",
+      "postcode": null,
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "DC $0.40/kWh AC $0.35/kWh",
+      "price_sort_value": 0.4,
+      "price_value": 0.4,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 22,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299290
+    },
+    {
+      "id": 191165,
+      "name": "Evie Lane Cove",
+      "lat": -33.81396420883535,
+      "lon": 151.16927647670855,
+      "address_line1": "2 Rosenthal Ave",
+      "town": "Lane Cove",
+      "state": "NSW",
+      "postcode": null,
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "$0.40/kWh",
+      "price_sort_value": 0.4,
+      "price_value": 0.4,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 191164,
+      "name": "Evie Mosman",
+      "lat": -33.82544433087931,
+      "lon": 151.24146564876457,
+      "address_line1": "6 Myahgah Road",
+      "town": "Mosman",
+      "state": "NSW",
+      "postcode": null,
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "$0.40/kWh",
+      "price_sort_value": 0.4,
+      "price_value": 0.4,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299295
+    },
+    {
+      "id": 192687,
+      "name": "Stanley St Peakhurst NSW",
+      "lat": -33.961219,
+      "lon": 151.065897,
+      "address_line1": "17-25 Stanley St",
+      "town": " Peakhurst ",
+      "state": "Nsw",
+      "postcode": "2210",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "0.40",
+      "price_sort_value": 0.4,
+      "price_value": 0.4,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 25,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 25,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299281
+    },
+    {
+      "id": 100404,
+      "name": "Broadway Supercharger",
+      "lat": -33.882995,
+      "lon": 151.194332,
+      "address_line1": "1 Bay Street",
+      "town": "Broadway",
+      "state": null,
+      "postcode": "2007",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "AUD 0.42/kWh;other tariffs for older cars",
+      "price_sort_value": 0.42,
+      "price_value": 0.42,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 120,
+          "quantity": 8,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 150032,
+      "name": "Macquarie Supercharger",
+      "lat": -33.777782,
+      "lon": 151.12275,
+      "address_line1": "Macquarie Supercharger",
+      "town": null,
+      "state": null,
+      "postcode": "2113",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "AUD 0.42/kWh;other tariffs for older cars",
+      "price_sort_value": 0.42,
+      "price_value": 0.42,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 150,
+          "quantity": 10,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 272619,
+      "name": "The Heffron Centre",
+      "lat": -33.97374,
+      "lon": 151.236646,
+      "address_line1": "439 Bunnerong Road",
+      "town": "Chifley",
+      "state": "New South Wales",
+      "postcode": "2036",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "Free - $0.42/kWh",
+      "price_sort_value": 0.42,
+      "price_value": 0.42,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 25,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 25,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 25,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 25,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 25,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 25,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 25,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 25,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299282
+    },
+    {
+      "id": 266872,
+      "name": "Chatswood Chase Chargefox",
+      "lat": -33.79511781061279,
+      "lon": 151.18644036778977,
+      "address_line1": "345 Victoria Avenue",
+      "town": "Chatswood",
+      "state": "NSW",
+      "postcode": "2067",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "$0.45/kWh",
+      "price_sort_value": 0.45,
+      "price_value": 0.45,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 120,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 272618,
+      "name": "ENGIE - DFO Homebush",
+      "lat": -33.855576,
+      "lon": 151.076681,
+      "address_line1": "3 -5 Underwood Road",
+      "town": "Homebush",
+      "state": "New South Wales",
+      "postcode": "2140",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "$0.45/kWh",
+      "price_sort_value": 0.45,
+      "price_value": 0.45,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 120,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 272617,
+      "name": "ENGIE - Roselands Shopping Centre",
+      "lat": -33.935,
+      "lon": 151.069205,
+      "address_line1": "24 Roselands Drive",
+      "town": "Roselands",
+      "state": "New South Wales",
+      "postcode": "2196",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "$0.45/kWh",
+      "price_sort_value": 0.45,
+      "price_value": 0.45,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 120,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299292
+    },
+    {
+      "id": 272615,
+      "name": "ENGIE - Warriewood Square",
+      "lat": -33.695602,
+      "lon": 151.2962878,
+      "address_line1": "12 Jacksons Road",
+      "town": "Warriewood",
+      "state": "New South Wales",
+      "postcode": "2101",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "$0.45/kWh",
+      "price_sort_value": 0.45,
+      "price_value": 0.45,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 120,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299309
+    },
+    {
+      "id": 266540,
+      "name": "Evie Lawson",
+      "lat": -33.72070368975226,
+      "lon": 150.4297109802278,
+      "address_line1": "4-6 New Street",
+      "town": "Lawson",
+      "state": "New South Wales",
+      "postcode": "2783",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "$0.45 per kWh. ",
+      "price_sort_value": 0.45,
+      "price_value": 0.45,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299302
+    },
+    {
+      "id": 265390,
+      "name": "HomeCo Castle Hill",
+      "lat": -33.72778176586396,
+      "lon": 150.976245622693,
+      "address_line1": "18 Victoria Avenue",
+      "town": "Castle Hill",
+      "state": "NSW",
+      "postcode": "2154",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "$0.45 per kWh. Parking overstay charges may apply",
+      "price_sort_value": 0.45,
+      "price_value": 0.45,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299305
+    },
+    {
+      "id": 192929,
+      "name": "Mona Vale library carpark [JOLT]",
+      "lat": -33.67610252225354,
+      "lon": 151.3038961163004,
+      "address_line1": "1 Park St",
+      "town": "Mona Vale",
+      "state": "NSW",
+      "postcode": "2103",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "First 7kWh free, then $0.46 per kWh thereafter. $5/hr idle time",
+      "price_sort_value": 0.46,
+      "price_value": 0.46,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 25,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 25,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299309
+    },
+    {
+      "id": 295979,
+      "name": "Barrenjoey Road",
+      "lat": -33.597285174014345,
+      "lon": 151.31997898476163,
+      "address_line1": "Barrenjoey Road",
+      "town": null,
+      "state": "New South Wales",
+      "postcode": "2108",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "First 7kWh free, then $0.49 per kWh thereafter. $5/hr idle time",
+      "price_sort_value": 0.49,
+      "price_value": 0.49,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 25,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 25,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299309
+    },
+    {
+      "id": 460472,
+      "name": "Railway Parade Thirroul",
+      "lat": -34.3177075435834,
+      "lon": 150.91844342618032,
+      "address_line1": "Railway Parade",
+      "town": "Thirroul",
+      "state": "NSW",
+      "postcode": "2515",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "0.5",
+      "price_sort_value": 0.5,
+      "price_value": 0.5,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 22,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299265
+    },
+    {
+      "id": 128371,
+      "name": "Central Coast Supercharger [Tesla]",
+      "lat": -33.309014,
+      "lon": 151.421114,
+      "address_line1": "Bryant Drive & Wyong Road",
+      "town": "Tuggerah",
+      "state": null,
+      "postcode": null,
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "$0.52/kWh",
+      "price_sort_value": 0.52,
+      "price_value": 0.52,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 120,
+          "quantity": 6,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299340
+    },
+    {
+      "id": 191280,
+      "name": "Tesla Supercharger South Village",
+      "lat": -34.033063649505685,
+      "lon": 151.07388271966875,
+      "address_line1": "Princes Highway",
+      "town": "Kirrawee",
+      "state": "NSW",
+      "postcode": "2232",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "$0.52/kWh",
+      "price_sort_value": 0.52,
+      "price_value": 0.52,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 250,
+          "quantity": 0,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299281
+    },
+    {
+      "id": 266767,
+      "name": "BP Pulse",
+      "lat": -33.36290641211102,
+      "lon": 151.44446174596283,
+      "address_line1": "Cnr Mingara Dr & Wyong Rd",
+      "town": "Tumbi Umbi",
+      "state": "NSW",
+      "postcode": "2261",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "$0.55/kwh",
+      "price_sort_value": 0.55,
+      "price_value": 0.55,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 75,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 75,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299324
+    },
+    {
+      "id": 272521,
+      "name": "BP Pulse Eastern Creek",
+      "lat": -33.811041669720204,
+      "lon": 150.85030018744214,
+      "address_line1": "BP Truckstop",
+      "town": "Eastern Creek",
+      "state": "New South Wales",
+      "postcode": "2766",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "$0.55/kWh",
+      "price_sort_value": 0.55,
+      "price_value": 0.55,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 75,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299292
+    },
+    {
+      "id": 272624,
+      "name": "ENGIE - Greenway Wetherill Park",
+      "lat": -33.850403,
+      "lon": 150.89840155,
+      "address_line1": "1183-1187 The Horsley Drive",
+      "town": "Wetherill Park",
+      "state": "New South Wales",
+      "postcode": "2164",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "$0.55/kWh",
+      "price_sort_value": 0.55,
+      "price_value": 0.55,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 120,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299292
+    },
+    {
+      "id": 460473,
+      "name": "EVX Austinmer",
+      "lat": -34.30096753205442,
+      "lon": 150.93993271999892,
+      "address_line1": "Headland Avenue",
+      "town": "Austinmer",
+      "state": "NSW",
+      "postcode": "2516",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "0.55",
+      "price_sort_value": 0.55,
+      "price_value": 0.55,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 22,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299265
+    },
+    {
+      "id": 460474,
+      "name": "Georges Place",
+      "lat": -34.41859867256016,
+      "lon": 150.90226317639872,
+      "address_line1": "Georges Place",
+      "town": "Wollongong",
+      "state": "NSW",
+      "postcode": "2500",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "0.55",
+      "price_sort_value": 0.55,
+      "price_value": 0.55,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 22,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299265
+    },
+    {
+      "id": 170607,
+      "name": "Ampol Woolworths MetroGo Seven Hills",
+      "lat": -33.767099,
+      "lon": 150.954883,
+      "address_line1": "38 Abbott Rd",
+      "town": "Seven Hills",
+      "state": "New South Wales",
+      "postcode": "2147",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "$0.60 per kWh",
+      "price_sort_value": 0.6,
+      "price_value": 0.6,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 350,
+          "quantity": 2,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 350,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299305
+    },
+    {
+      "id": 272620,
+      "name": "Berowra Tennis Centre",
+      "lat": -33.621379,
+      "lon": 151.1494478,
+      "address_line1": "6 Boundary Street",
+      "town": "Berowra",
+      "state": "New South Wales",
+      "postcode": "2081",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "$0.60/kWh",
+      "price_sort_value": 0.6,
+      "price_value": 0.6,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 75,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299307
+    },
+    {
+      "id": 299879,
+      "name": "Chargefox Charging Station",
+      "lat": -34.07085887727317,
+      "lon": 150.80665583075495,
+      "address_line1": "38 Camden Rd",
+      "town": "Campbelltown",
+      "state": "NSW",
+      "postcode": "2560",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "$0.60/kWh",
+      "price_sort_value": 0.6,
+      "price_value": 0.6,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 75,
+          "quantity": 3,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 65,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299277
+    },
+    {
+      "id": 272616,
+      "name": "NRMA - Sydney",
+      "lat": -33.9055215,
+      "lon": 151.2128,
+      "address_line1": "4 Defries Avenue",
+      "town": "Zetland",
+      "state": "New South Wales",
+      "postcode": "2017",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "$0.45 - $0.60/kWh",
+      "price_sort_value": 0.6,
+      "price_value": 0.6,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 350,
+          "quantity": 2,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 272622,
+      "name": "Pennant Hills Toyota",
+      "lat": -33.7366211,
+      "lon": 151.0743388,
+      "address_line1": "330 Pennant Hills Road",
+      "town": "Pennant Hills",
+      "state": "New South Wales",
+      "postcode": "2120",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "$0.60/kWh",
+      "price_sort_value": 0.6,
+      "price_value": 0.6,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299305
+    },
+    {
+      "id": 266501,
+      "name": "Campbelltown Supercharger",
+      "lat": -34.07151792013103,
+      "lon": 150.80730085250025,
+      "address_line1": "20-22 Camden Road",
+      "town": "Campbelltown",
+      "state": "New South Wales",
+      "postcode": "2560",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "$0.66/kWh",
+      "price_sort_value": 0.66,
+      "price_value": 0.66,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 250,
+          "quantity": 12,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299277
+    },
+    {
+      "id": 274056,
+      "name": "Ampol Foodary Penrith",
+      "lat": -33.7430336465433,
+      "lon": 150.69296375875626,
+      "address_line1": "153 Coreen Ave",
+      "town": "Penrith",
+      "state": "NSW",
+      "postcode": "2750",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "$0.69/kWh for pay-as-you-go charging.",
+      "price_sort_value": 0.69,
+      "price_value": 0.69,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 180,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 100,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299304
+    },
+    {
+      "id": 279179,
+      "name": "Ampol Foodary Pheasants Nest Northbound",
+      "lat": -34.2829974272134,
+      "lon": 150.63679286992692,
+      "address_line1": "Lots 1 & 2 Hume Hwy",
+      "town": "Pheasants Nest",
+      "state": "New South Wales",
+      "postcode": "2574",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "$0.69 per kWh",
+      "price_sort_value": 0.69,
+      "price_value": 0.69,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 150,
+          "quantity": 6,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 100,
+          "quantity": 3,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299262
+    },
+    {
+      "id": 279180,
+      "name": "Ampol Foodary Pheasants Nest Southbound",
+      "lat": -34.2834466714301,
+      "lon": 150.63939668827243,
+      "address_line1": "Lot 12 Hume Hwy",
+      "town": "Pheasants Nest ",
+      "state": "New South Wales",
+      "postcode": "2574",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "AUD 0.69/kWh",
+      "price_sort_value": 0.69,
+      "price_value": 0.69,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 150,
+          "quantity": 6,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 3,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299262
+    },
+    {
+      "id": 308738,
+      "name": "Tesla Supercharger Bankstown",
+      "lat": -33.933123083981414,
+      "lon": 151.0285550577326,
+      "address_line1": "Chapel Road",
+      "town": "Bankstown",
+      "state": "NSW",
+      "postcode": null,
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "$0.69/kWh",
+      "price_sort_value": 0.69,
+      "price_value": 0.69,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 250,
+          "quantity": 6,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299292
+    },
+    {
+      "id": 171646,
+      "name": "Wollongong Supercharger",
+      "lat": -34.43797320339262,
+      "lon": 150.8633622012107,
+      "address_line1": "Figtree Grove Shopping Centre",
+      "town": "Figtree",
+      "state": "New South Wales",
+      "postcode": "2525",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "$0.69/kWh",
+      "price_sort_value": 0.69,
+      "price_value": 0.69,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 250,
+          "quantity": 6,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299263
+    },
+    {
+      "id": 191062,
+      "name": "Audi Centre Sydney ",
+      "lat": -33.906943843362484,
+      "lon": 151.2131655272031,
+      "address_line1": "895 South Dowling Street",
+      "town": "Zetland",
+      "state": "NSW",
+      "postcode": "2017",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "$0.70/kWh",
+      "price_sort_value": 0.7,
+      "price_value": 0.7,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 165,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 474457,
+      "name": "The Ponds Shopping Centre",
+      "lat": -33.706177569208975,
+      "lon": 150.91276385955848,
+      "address_line1": "The Ponds Boulevard",
+      "town": "Sydney",
+      "state": "New South Wales",
+      "postcode": "2769",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "0.75",
+      "price_sort_value": 0.75,
+      "price_value": 0.75,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 150,
+          "quantity": null,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299305
+    },
+    {
+      "id": 60564,
+      "name": "Mittagong NSW Main Street",
+      "lat": -34.4499721,
+      "lon": 150.451723,
+      "address_line1": "62-70 Main Street",
+      "town": "Mittagong ",
+      "state": "New South Wales",
+      "postcode": "2576",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "if you are not a member of Charge Point ask at the desk of the Visitor Centre 9 am - 5pmfor help. ",
+      "price_sort_value": 9.0,
+      "price_value": 9.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 7.2,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299262
+    },
+    {
+      "id": 272496,
+      "name": "Evie Dapto Mall",
+      "lat": -34.49497612676224,
+      "lon": 150.79547723050382,
+      "address_line1": "Moombara Street",
+      "town": "Dapto",
+      "state": "New South Wales",
+      "postcode": "2530",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "50c per kWh energy consumed.",
+      "price_sort_value": 50.0,
+      "price_value": 50.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299263
+    },
+    {
+      "id": 235461,
+      "name": "Wollongong Central - Regent St Carpark",
+      "lat": -34.423975432207065,
+      "lon": 150.8913817469645,
+      "address_line1": "Regent Street",
+      "town": "Wollongong",
+      "state": "New South Wales",
+      "postcode": "2500",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "50c per kWh energy consumed.",
+      "price_sort_value": 50.0,
+      "price_value": 50.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": null,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299265
+    },
+    {
+      "id": 273428,
+      "name": "bp pulse Rosehill",
+      "lat": -33.818996055217895,
+      "lon": 151.02170364175703,
+      "address_line1": "Hassall Street",
+      "town": "Rosehill",
+      "state": "New South Wales",
+      "postcode": "2142",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "55c/kWh",
+      "price_sort_value": 55.0,
+      "price_value": 55.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 75,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299292
+    },
+    {
+      "id": 273870,
+      "name": "bp pulse Seven Hills",
+      "lat": -33.76725,
+      "lon": 150.952041,
+      "address_line1": "26 Abbott Road",
+      "town": "Seven Hills",
+      "state": "New South Wales",
+      "postcode": "2147",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "55c/kWh",
+      "price_sort_value": 55.0,
+      "price_value": 55.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 75,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299305
+    },
+    {
+      "id": 273427,
+      "name": "bp pulse Sydenham",
+      "lat": -33.916260575133784,
+      "lon": 151.17311326359567,
+      "address_line1": "339 Princes Hwy",
+      "town": "St Peters",
+      "state": "New South Wales",
+      "postcode": "2044",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "55c/kWh",
+      "price_sort_value": 55.0,
+      "price_value": 55.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 75,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 273425,
+      "name": "Fairy Meadow [bp pulse]",
+      "lat": -34.40299801963799,
+      "lon": 150.89157957672126,
+      "address_line1": "224 Princes Hwy",
+      "town": "Fairy Meadow",
+      "state": "New South Wales",
+      "postcode": "2519",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "55c/kWh",
+      "price_sort_value": 55.0,
+      "price_value": 55.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 75,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299265
+    },
+    {
+      "id": 273436,
+      "name": "Wiley Park [bp pulse]",
+      "lat": -33.919392020719556,
+      "lon": 151.06669418522023,
+      "address_line1": "24-42 King Georges Road",
+      "town": "Wiley Park",
+      "state": "New South Wales",
+      "postcode": "2195",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "55c/kWh",
+      "price_sort_value": 55.0,
+      "price_value": 55.0,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 75,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 75,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299292
+    },
+    {
+      "id": 168913,
+      "name": "Abbott Road",
+      "lat": -33.81195253512282,
+      "lon": 151.03587917803534,
+      "address_line1": "19/287 Victoria Road",
+      "town": "Rydalmere",
+      "state": "New South Wales",
+      "postcode": "2116",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": null,
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": null,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 272637,
+      "name": "Allambie Grove Business Park",
+      "lat": -33.751303,
+      "lon": 151.2433284,
+      "address_line1": "25 Frenchs Forest Rd E",
+      "town": "Frenchs Forest",
+      "state": "NSW",
+      "postcode": "2086",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": null,
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 150,
+          "quantity": 2,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 150,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299307
+    },
+    {
+      "id": 297042,
+      "name": "AmpCharge Charging Station",
+      "lat": -33.765456662016454,
+      "lon": 150.62149884005026,
+      "address_line1": "78 Great Western Highway",
+      "town": "Glenbrook",
+      "state": "NSW",
+      "postcode": "2773",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": null,
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 150,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 150,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299290
+    },
+    {
+      "id": 278525,
+      "name": "Ampol Waitara",
+      "lat": -33.71060645301792,
+      "lon": 151.1025062095589,
+      "address_line1": "Corner Pacific Highway, Unwin Road",
+      "town": "Waitara",
+      "state": "New South Wales",
+      "postcode": "2077",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": null,
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": null,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299307
+    },
+    {
+      "id": 272641,
+      "name": "Ashfield Mall",
+      "lat": -33.8895642,
+      "lon": 151.1235986,
+      "address_line1": "260A Liverpool Rd",
+      "town": "Ashfield",
+      "state": "New South Wales",
+      "postcode": "2131",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": null,
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 272633,
+      "name": "Belrose Home",
+      "lat": -33.703118,
+      "lon": 151.212917,
+      "address_line1": "4-6 Niangala Close",
+      "town": "Belrose",
+      "state": "NSW",
+      "postcode": "2085",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": null,
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299307
+    },
+    {
+      "id": 298208,
+      "name": "Blackbutts Road",
+      "lat": -33.741938777072164,
+      "lon": 151.21364536627425,
+      "address_line1": "Blackbutts Road",
+      "town": "Frenchs Forest",
+      "state": "New South Wales",
+      "postcode": "2085",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": null,
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": null,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299307
+    },
+    {
+      "id": 266538,
+      "name": "Blaxland Supercharger",
+      "lat": -33.74525300296909,
+      "lon": 150.61025805036633,
+      "address_line1": "126 Hope St",
+      "town": "Blaxland",
+      "state": " NSW",
+      "postcode": "2774",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "Supercharger rates",
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 250,
+          "quantity": 6,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299302
+    },
+    {
+      "id": 272684,
+      "name": "BP Ashfield",
+      "lat": -33.87421821418127,
+      "lon": 151.12682969039508,
+      "address_line1": "586A Parramatta Rd",
+      "town": "Croydon",
+      "state": "New South Wales",
+      "postcode": "2132",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": null,
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 272635,
+      "name": "BP Caringbah",
+      "lat": -34.03295211277035,
+      "lon": 151.12520883189632,
+      "address_line1": "54-76 Captain Cook Drive",
+      "town": "Caringbah",
+      "state": "NSW",
+      "postcode": "2229",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": null,
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299281
+    },
+    {
+      "id": 272688,
+      "name": "Casula Mall",
+      "lat": -33.947906375047246,
+      "lon": 150.90105410921717,
+      "address_line1": "1 Ingham Dr",
+      "town": "Casula",
+      "state": "New South Wales",
+      "postcode": "2170",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": null,
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299292
+    },
+    {
+      "id": 273933,
+      "name": "Chargefox",
+      "lat": -33.770837178135245,
+      "lon": 150.84515556849738,
+      "address_line1": "Level 4",
+      "town": "Rooty Hill",
+      "state": "NSW",
+      "postcode": "2766",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": null,
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 7.4,
+          "quantity": 10,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299292
+    },
+    {
+      "id": 267345,
+      "name": "Chargefox Teachers Mutual Bank",
+      "lat": -33.77239824531827,
+      "lon": 150.84348282464293,
+      "address_line1": "Teachers Mutual Bank",
+      "town": "Rooty Hill",
+      "state": "NSW",
+      "postcode": "2766",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": null,
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": null,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299292
+    },
+    {
+      "id": 272632,
+      "name": "Civic Plaza 88 Christie",
+      "lat": -33.823861,
+      "lon": 151.195326,
+      "address_line1": "88 Christie St",
+      "town": "St Leonards",
+      "state": "NSW",
+      "postcode": "2065",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": null,
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 272689,
+      "name": "Dorhauer Lane",
+      "lat": -33.88847179022024,
+      "lon": 151.23760032945688,
+      "address_line1": "Dorhauer Lane",
+      "town": "Woollahra",
+      "state": "NSW",
+      "postcode": "2025",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": null,
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 272634,
+      "name": "Eastgate Bondi Junction",
+      "lat": -33.892967,
+      "lon": 151.248028,
+      "address_line1": "91 Spring St , NSW 2022",
+      "town": "Bondi Junction",
+      "state": "NSW",
+      "postcode": "2022",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": null,
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 272708,
+      "name": "ENGIE - Lake Haven Centre",
+      "lat": -33.24078932377033,
+      "lon": 151.50325247968817,
+      "address_line1": "Lake Haven Drive",
+      "town": "Lake Haven",
+      "state": "New South Wales",
+      "postcode": "2263",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": null,
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 120,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299341
+    },
+    {
+      "id": 190408,
+      "name": "Hydro Majestic Hotel",
+      "lat": -33.67697329948779,
+      "lon": 150.281626751796,
+      "address_line1": "52-88 Great Western Highway",
+      "town": "Medlow Bath",
+      "state": "NSW ",
+      "postcode": "2780",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": null,
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 22,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 3.6,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299302
+    },
+    {
+      "id": 272693,
+      "name": "Jamisontown",
+      "lat": -33.770379031934034,
+      "lon": 150.67371849780716,
+      "address_line1": "221 Wolseley Street",
+      "town": "Jamisontown",
+      "state": "New South Wales",
+      "postcode": "2750",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": null,
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 350,
+          "quantity": 2,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299290
+    },
+    {
+      "id": 272673,
+      "name": "Leichhardt Marketplace",
+      "lat": -33.883514,
+      "lon": 151.150017,
+      "address_line1": "128 Flood Street",
+      "town": "Leichhardt",
+      "state": "New South Wales",
+      "postcode": "2040",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": null,
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 272627,
+      "name": "Macquarie Centre",
+      "lat": -33.777565954445315,
+      "lon": 151.12056384466786,
+      "address_line1": "Cnr Herring Rd & Waterloo Rd",
+      "town": "North Ryde",
+      "state": "NSW",
+      "postcode": "2113",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": null,
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 190041,
+      "name": "Macquarie University X6A Banksia Cottage",
+      "lat": -33.77520838069468,
+      "lon": 151.1095032126692,
+      "address_line1": "Car Park W3 near X6A Banksia Cottage",
+      "town": "Macquarie University",
+      "state": "New South Wales",
+      "postcode": "2109",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "See App",
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": true,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 12,
+          "quantity": 6,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 193048,
+      "name": "Marrickville Metro",
+      "lat": -33.90782667980605,
+      "lon": 151.17114538375472,
+      "address_line1": "Smidmore Street",
+      "town": "Sydney",
+      "state": "New South Wales",
+      "postcode": "2044",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": "",
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 272694,
+      "name": "Northbridge Plaza",
+      "lat": -33.809374,
+      "lon": 151.208591,
+      "address_line1": "9 Eastern Valley Way",
+      "town": "Northbridge",
+      "state": "New South Wales",
+      "postcode": "2063",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": null,
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 298207,
+      "name": "Opposite Malbara Crescent",
+      "lat": -33.741938777072164,
+      "lon": 151.21364536627425,
+      "address_line1": "Blackbutts Road",
+      "town": "Frenchs Forest",
+      "state": "NSW",
+      "postcode": "2085",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": null,
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": null,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299307
+    },
+    {
+      "id": 272686,
+      "name": "Raglan Street West",
+      "lat": -33.83121718107124,
+      "lon": 151.24368057896396,
+      "address_line1": "188 Raglan St",
+      "town": "Mosman",
+      "state": "New South Wales",
+      "postcode": "2088",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": null,
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299295
+    },
+    {
+      "id": 272700,
+      "name": "Red Rooster Guildford",
+      "lat": -33.85283452159095,
+      "lon": 150.99575854229482,
+      "address_line1": "322 Woodville Road",
+      "town": "Guildford",
+      "state": "New South Wales",
+      "postcode": "2161",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": null,
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299292
+    },
+    {
+      "id": 9892,
+      "name": "Round Cnr 494-500 Old Northern Road",
+      "lat": -33.693647,
+      "lon": 151.018619,
+      "address_line1": "Round Cnr 494-500 Old Northern Road",
+      "town": "Dural",
+      "state": "",
+      "postcode": "2158",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": null,
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": null,
+          "quantity": null,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299305
+    },
+    {
+      "id": 272630,
+      "name": "Royal Randwick",
+      "lat": -33.915187,
+      "lon": 151.240972,
+      "address_line1": "73 Belmore Road",
+      "town": "Randwick",
+      "state": "NSW",
+      "postcode": "2031",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": null,
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        },
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 50,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299294
+    },
+    {
+      "id": 190407,
+      "name": "Scenic World Carpark",
+      "lat": -33.728024559118296,
+      "lon": 150.300728600681,
+      "address_line1": "1 Violet Street",
+      "town": "Katoomba",
+      "state": "New South Wales",
+      "postcode": "2780",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": null,
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 22,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299302
+    },
+    {
+      "id": 190406,
+      "name": "Supercheap auto",
+      "lat": -33.76965243504467,
+      "lon": 150.67186991611658,
+      "address_line1": "2227 Wolseley Street",
+      "town": "Jamisontown‎ ",
+      "state": "NSW‎ ",
+      "postcode": "2750",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": null,
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 22,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299290
+    },
+    {
+      "id": 130686,
+      "name": "Tastebuds Tesla Charger",
+      "lat": -33.6893362215631,
+      "lon": 151.224097191251,
+      "address_line1": "Mona Vale Road",
+      "town": "Sydney",
+      "state": "Northern Beaches Council",
+      "postcode": "2084",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": null,
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 22,
+          "quantity": 2,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299307
+    },
+    {
+      "id": 273935,
+      "name": "The Mount Druitt Hub",
+      "lat": -33.767499717192706,
+      "lon": 150.82239944831394,
+      "address_line1": "Ayres Grove Carpark",
+      "town": "Mount Druitt",
+      "state": "NSW",
+      "postcode": "2770",
+      "country": null,
+      "operator": null,
+      "usage_cost_raw": null,
+      "price_sort_value": null,
+      "price_value": null,
+      "price_unit": null,
+      "price_available": false,
+      "price_source": "OCM",
+      "connections": [
+        {
+          "connection_type": null,
+          "level": null,
+          "power_kw": 7.4,
+          "quantity": 1,
+          "current_type": null
+        }
+      ],
+      "last_seen_epoch": 1778299292
+    }
+  ]
+}
