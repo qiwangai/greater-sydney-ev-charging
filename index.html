@@ -217,6 +217,10 @@
         cursor: not-allowed;
       }
 
+      .toolbar__btn--ghost {
+        color: var(--muted);
+      }
+
       .main {
         flex: 1;
         min-height: 0;
@@ -284,16 +288,45 @@
 
         .main:not(.layout--map-only) {
           flex-direction: column;
+          --mobile-map-pct: 52;
         }
 
         .main:not(.layout--map-only) #mapWrap {
           order: -1;
-          flex: 1 1 52%;
+          flex: 0 0 calc(var(--mobile-map-pct) * 1%);
           min-height: 200px;
           min-height: 32vh;
         }
 
+        .split-handle {
+          order: 0;
+          height: 18px;
+          flex: 0 0 18px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: var(--bg);
+          border-top: 1px solid var(--border);
+          border-bottom: 1px solid var(--border);
+          cursor: row-resize;
+          touch-action: none;
+          user-select: none;
+        }
+
+        .split-handle[hidden] {
+          display: none !important;
+        }
+
+        .split-handle::before {
+          content: "";
+          width: 44px;
+          height: 4px;
+          border-radius: 999px;
+          background: rgba(100, 116, 139, 0.55);
+        }
+
         .main:not(.layout--map-only) #sidebar {
+          order: 1;
           width: 100%;
           flex: 1 1 48%;
           min-height: 0;
@@ -347,6 +380,15 @@
           min-height: 44px;
           padding: 10px 14px;
         }
+      }
+
+      /* Collapsible controls (keeps map larger when needed) */
+      body.controls--collapsed #valueModeBar {
+        display: none !important;
+      }
+
+      body.controls--collapsed .app-header p {
+        display: none;
       }
 
       #sidebar h2 {
@@ -874,6 +916,15 @@
         <option value="distance">Nearest to a point</option>
         <option value="value">Best balance (nearby + cheap)</option>
       </select>
+      <button
+        id="toggleControlsBtn"
+        type="button"
+        class="toolbar__btn toolbar__btn--ghost"
+        title="Collapse/expand controls"
+        aria-pressed="false"
+      >
+        Collapse
+      </button>
       <button id="useMyLocationBtn" type="button" class="toolbar__btn" style="display: none" title="Use your location">
         My location
       </button>
@@ -919,6 +970,15 @@
       <div id="mapWrap">
         <div id="map"></div>
       </div>
+      <div
+        id="splitHandle"
+        class="split-handle"
+        hidden
+        role="separator"
+        aria-orientation="horizontal"
+        aria-label="Resize map and list"
+        tabindex="0"
+      ></div>
     </div>
 
     <div id="stationDetail" class="station-detail" hidden aria-hidden="true">
@@ -1290,8 +1350,10 @@
         const appBannerDismiss = document.getElementById("appBannerDismiss");
         const layoutMain = document.getElementById("layoutMain");
         const sortSelect = document.getElementById("sortSelect");
+        const toggleControlsBtn = document.getElementById("toggleControlsBtn");
         const useMyLocationBtn = document.getElementById("useMyLocationBtn");
         const pickOnMapBtn = document.getElementById("pickOnMapBtn");
+        const splitHandle = document.getElementById("splitHandle");
 
         function showAppBanner(kind, message, dismissable) {
           appBanner.hidden = false;
@@ -1536,7 +1598,95 @@
 
           function setListPanelVisible(show) {
             layoutMain.classList.toggle("layout--map-only", !show);
+            if (splitHandle) {
+              const isMobile = window.matchMedia && window.matchMedia("(max-width: 719px)").matches;
+              splitHandle.hidden = !(isMobile && show);
+            }
             requestAnimationFrame(() => map.invalidateSize());
+          }
+
+          // Controls collapse/expand (persisted)
+          const applyControlsCollapsed = (collapsed) => {
+            document.body.classList.toggle("controls--collapsed", collapsed);
+            if (toggleControlsBtn) {
+              toggleControlsBtn.setAttribute("aria-pressed", collapsed ? "true" : "false");
+              toggleControlsBtn.textContent = collapsed ? "Expand" : "Collapse";
+            }
+            try {
+              localStorage.setItem("controlsCollapsed", collapsed ? "1" : "0");
+            } catch {
+              /* ignore */
+            }
+            requestAnimationFrame(() => map.invalidateSize());
+          };
+
+          let initialCollapsed = false;
+          try {
+            initialCollapsed = localStorage.getItem("controlsCollapsed") === "1";
+          } catch {
+            initialCollapsed = false;
+          }
+          applyControlsCollapsed(initialCollapsed);
+          if (toggleControlsBtn) {
+            toggleControlsBtn.addEventListener("click", () => {
+              applyControlsCollapsed(!document.body.classList.contains("controls--collapsed"));
+            });
+          }
+
+          // Drag handle to resize map/list split on mobile
+          const clamp = (n, lo, hi) => Math.max(lo, Math.min(hi, n));
+          const setMobileMapPct = (pct) => {
+            const p = clamp(Math.round(pct), 25, 75);
+            layoutMain.style.setProperty("--mobile-map-pct", String(p));
+            try {
+              localStorage.setItem("mobileMapPct", String(p));
+            } catch {
+              /* ignore */
+            }
+            requestAnimationFrame(() => map.invalidateSize());
+          };
+
+          try {
+            const saved = Number(localStorage.getItem("mobileMapPct"));
+            if (Number.isFinite(saved)) setMobileMapPct(saved);
+          } catch {
+            /* ignore */
+          }
+
+          if (splitHandle) {
+            const startDrag = (clientY) => {
+              const rect = layoutMain.getBoundingClientRect();
+              const y = clamp(clientY - rect.top, 120, rect.height - 160);
+              const pct = (y / rect.height) * 100;
+              setMobileMapPct(pct);
+            };
+
+            splitHandle.addEventListener("pointerdown", (e) => {
+              if (splitHandle.hidden) return;
+              try {
+                splitHandle.setPointerCapture(e.pointerId);
+              } catch {
+                /* ignore */
+              }
+              startDrag(e.clientY);
+            });
+            splitHandle.addEventListener("pointermove", (e) => {
+              if (splitHandle.hidden) return;
+              if ((e.buttons & 1) !== 1) return;
+              startDrag(e.clientY);
+            });
+
+            // Keyboard (accessibility): up/down adjusts 5%
+            splitHandle.addEventListener("keydown", (e) => {
+              if (splitHandle.hidden) return;
+              if (e.key !== "ArrowUp" && e.key !== "ArrowDown") return;
+              e.preventDefault();
+              const current = Number(
+                getComputedStyle(layoutMain).getPropertyValue("--mobile-map-pct").trim() || "52"
+              );
+              const next = current + (e.key === "ArrowUp" ? -5 : 5);
+              setMobileMapPct(next);
+            });
           }
 
           function applyNoneMode() {
