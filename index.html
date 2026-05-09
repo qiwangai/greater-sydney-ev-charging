@@ -746,14 +746,17 @@
       function formatConnectorLine(c, idx) {
         const parts = [];
         if (typeof c.power_kw === "number") parts.push(`${escapeHtml(c.power_kw)} kW`);
-        if (typeof c.quantity === "number") parts.push(`${escapeHtml(c.quantity)}×`);
         const type =
           c.connection_type != null && String(c.connection_type).trim() !== ""
             ? escapeHtml(c.connection_type)
             : null;
         if (type) parts.push(type);
+        if (typeof c.quantity === "number") {
+          const q = c.quantity;
+          parts.push(q === 1 ? "1 plug" : `${escapeHtml(q)} plugs of this kind`);
+        }
         const line = parts.length ? parts.join(" · ") : "Details not listed";
-        return `<li><strong>Plug ${idx + 1}</strong> — ${line}</li>`;
+        return `<li><strong>Connector ${idx + 1}</strong> — ${line}</li>`;
       }
 
       function buildQueueRoadmapHtml() {
@@ -770,7 +773,7 @@
             <p class="detail-callout">Check plug type and availability on site or in your charging app.</p>`;
         }
         const items = conns.map((c, i) => formatConnectorLine(c, i)).join("");
-        return `<h3>Equipment</h3><ul class="conn-list">${items}</ul>
+        return `<h3>Equipment</h3><p class="muted" style="font-size:0.8125rem;margin:-4px 0 12px;line-height:1.45">Each line is one entry from the data feed. <strong>“N plugs of this kind”</strong> means N charging sockets with about the same power (and plug type, if shown)—not “plug 1 and plug 2” as two different things.</p><ul class="conn-list">${items}</ul>
           <p class="detail-callout">Listing may be incomplete—verify on site or in your charging app.</p>`;
       }
 
