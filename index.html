@@ -1679,11 +1679,15 @@
           } catch {
             /* ignore */
           }
+          // Default: always show all controls (no internal scrolling).
+          // Older versions stored a small height which could hide text; clear it on load.
           try {
-            const savedTop = Number(localStorage.getItem("topPanelHeightPx"));
-            const userResized = localStorage.getItem("topPanelUserResized") === "1";
-            // Default: show everything first. Only reapply if the user previously dragged.
-            if (userResized && Number.isFinite(savedTop) && topPanelEl) setTopPanelHeightPx(savedTop);
+            if (topPanelEl) {
+              topPanelEl.style.maxHeight = "";
+              topPanelEl.style.overflow = "";
+            }
+            localStorage.removeItem("topPanelHeightPx");
+            localStorage.removeItem("topPanelUserResized");
           } catch {
             /* ignore */
           }
