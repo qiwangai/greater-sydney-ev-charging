@@ -1,5 +1,5 @@
 /* Sydney EV — minimal offline shell; map tiles always load from network. */
-const CACHE = "sydney-ev-pwa-v10";
+const CACHE = "sydney-ev-pwa-v11";
 
 function scopeUrls() {
   const scope = self.registration.scope;

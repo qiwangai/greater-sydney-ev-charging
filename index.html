@@ -217,10 +217,6 @@
         cursor: not-allowed;
       }
 
-      .toolbar__btn--ghost {
-        color: var(--muted);
-      }
-
       .main {
         flex: 1;
         min-height: 0;
@@ -299,30 +295,14 @@
         }
 
         .split-handle {
-          order: 0;
           height: 18px;
           flex: 0 0 18px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: var(--bg);
-          border-top: 1px solid var(--border);
-          border-bottom: 1px solid var(--border);
           cursor: row-resize;
-          touch-action: none;
-          user-select: none;
-        }
-
-        .split-handle[hidden] {
-          display: none !important;
         }
 
         .split-handle::before {
-          content: "";
           width: 44px;
           height: 4px;
-          border-radius: 999px;
-          background: rgba(100, 116, 139, 0.55);
         }
 
         .main:not(.layout--map-only) #sidebar {
@@ -382,13 +362,42 @@
         }
       }
 
-      /* Collapsible controls (keeps map larger when needed) */
-      body.controls--collapsed #valueModeBar {
+      /* Split handle (desktop + mobile) */
+      .split-handle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg);
+        border-left: 1px solid var(--border);
+        border-right: 1px solid var(--border);
+        cursor: col-resize;
+        touch-action: none;
+        user-select: none;
+        width: 10px;
+        flex: 0 0 10px;
+      }
+
+      .split-handle[hidden] {
         display: none !important;
       }
 
-      body.controls--collapsed .app-header p {
-        display: none;
+      .split-handle::before {
+        content: "";
+        width: 4px;
+        height: 44px;
+        border-radius: 999px;
+        background: rgba(100, 116, 139, 0.55);
+      }
+
+      @media (max-width: 719px) {
+        .split-handle {
+          width: auto;
+          flex: 0 0 18px;
+          border-left: none;
+          border-right: none;
+          border-top: 1px solid var(--border);
+          border-bottom: 1px solid var(--border);
+        }
       }
 
       #sidebar h2 {
@@ -916,15 +925,6 @@
         <option value="distance">Nearest to a point</option>
         <option value="value">Best balance (nearby + cheap)</option>
       </select>
-      <button
-        id="toggleControlsBtn"
-        type="button"
-        class="toolbar__btn toolbar__btn--ghost"
-        title="Collapse/expand controls"
-        aria-pressed="false"
-      >
-        Collapse
-      </button>
       <button id="useMyLocationBtn" type="button" class="toolbar__btn" style="display: none" title="Use your location">
         My location
       </button>
@@ -967,18 +967,10 @@
         <p id="sidebarHint" class="sidebar-hint" hidden></p>
         <ol id="stationList" role="list"></ol>
       </aside>
+      <div id="splitHandle" class="split-handle" hidden aria-hidden="true"></div>
       <div id="mapWrap">
         <div id="map"></div>
       </div>
-      <div
-        id="splitHandle"
-        class="split-handle"
-        hidden
-        role="separator"
-        aria-orientation="horizontal"
-        aria-label="Resize map and list"
-        tabindex="0"
-      ></div>
     </div>
 
     <div id="stationDetail" class="station-detail" hidden aria-hidden="true">
@@ -1350,7 +1342,6 @@
         const appBannerDismiss = document.getElementById("appBannerDismiss");
         const layoutMain = document.getElementById("layoutMain");
         const sortSelect = document.getElementById("sortSelect");
-        const toggleControlsBtn = document.getElementById("toggleControlsBtn");
         const useMyLocationBtn = document.getElementById("useMyLocationBtn");
         const pickOnMapBtn = document.getElementById("pickOnMapBtn");
         const splitHandle = document.getElementById("splitHandle");
@@ -1398,6 +1389,7 @@
           }
 
           const markerById = new Map();
+          const sidebarEl = document.getElementById("sidebar");
           const listEl = document.getElementById("stationList");
           const stationDetailEl = document.getElementById("stationDetail");
           const detailBodyEl = document.getElementById("detailBody");
@@ -1599,42 +1591,23 @@
           function setListPanelVisible(show) {
             layoutMain.classList.toggle("layout--map-only", !show);
             if (splitHandle) {
-              const isMobile = window.matchMedia && window.matchMedia("(max-width: 719px)").matches;
-              splitHandle.hidden = !(isMobile && show);
+              splitHandle.hidden = !show;
             }
             requestAnimationFrame(() => map.invalidateSize());
           }
 
-          // Controls collapse/expand (persisted)
-          const applyControlsCollapsed = (collapsed) => {
-            document.body.classList.toggle("controls--collapsed", collapsed);
-            if (toggleControlsBtn) {
-              toggleControlsBtn.setAttribute("aria-pressed", collapsed ? "true" : "false");
-              toggleControlsBtn.textContent = collapsed ? "Expand" : "Collapse";
-            }
+          // Drag the divider to resize panels (desktop: left/right, mobile: up/down)
+          const clamp = (n, lo, hi) => Math.max(lo, Math.min(hi, n));
+          const setSidebarPx = (px) => {
+            const p = clamp(Math.round(px), 240, 520);
+            sidebarEl.style.width = `${p}px`;
             try {
-              localStorage.setItem("controlsCollapsed", collapsed ? "1" : "0");
+              localStorage.setItem("sidebarWidthPx", String(p));
             } catch {
               /* ignore */
             }
             requestAnimationFrame(() => map.invalidateSize());
           };
-
-          let initialCollapsed = false;
-          try {
-            initialCollapsed = localStorage.getItem("controlsCollapsed") === "1";
-          } catch {
-            initialCollapsed = false;
-          }
-          applyControlsCollapsed(initialCollapsed);
-          if (toggleControlsBtn) {
-            toggleControlsBtn.addEventListener("click", () => {
-              applyControlsCollapsed(!document.body.classList.contains("controls--collapsed"));
-            });
-          }
-
-          // Drag handle to resize map/list split on mobile
-          const clamp = (n, lo, hi) => Math.max(lo, Math.min(hi, n));
           const setMobileMapPct = (pct) => {
             const p = clamp(Math.round(pct), 25, 75);
             layoutMain.style.setProperty("--mobile-map-pct", String(p));
@@ -1647,18 +1620,31 @@
           };
 
           try {
-            const saved = Number(localStorage.getItem("mobileMapPct"));
-            if (Number.isFinite(saved)) setMobileMapPct(saved);
+            const savedW = Number(localStorage.getItem("sidebarWidthPx"));
+            if (Number.isFinite(savedW)) setSidebarPx(savedW);
+          } catch {
+            /* ignore */
+          }
+          try {
+            const savedPct = Number(localStorage.getItem("mobileMapPct"));
+            if (Number.isFinite(savedPct)) setMobileMapPct(savedPct);
           } catch {
             /* ignore */
           }
 
           if (splitHandle) {
-            const startDrag = (clientY) => {
+            const isMobile = () => window.matchMedia && window.matchMedia("(max-width: 719px)").matches;
+
+            const dragDesktop = (clientX) => {
+              const rect = layoutMain.getBoundingClientRect();
+              const x = clamp(clientX - rect.left, 240, rect.width - 240);
+              setSidebarPx(x);
+            };
+
+            const dragMobile = (clientY) => {
               const rect = layoutMain.getBoundingClientRect();
               const y = clamp(clientY - rect.top, 120, rect.height - 160);
-              const pct = (y / rect.height) * 100;
-              setMobileMapPct(pct);
+              setMobileMapPct((y / rect.height) * 100);
             };
 
             splitHandle.addEventListener("pointerdown", (e) => {
@@ -1668,24 +1654,15 @@
               } catch {
                 /* ignore */
               }
-              startDrag(e.clientY);
+              if (isMobile()) dragMobile(e.clientY);
+              else dragDesktop(e.clientX);
             });
+
             splitHandle.addEventListener("pointermove", (e) => {
               if (splitHandle.hidden) return;
               if ((e.buttons & 1) !== 1) return;
-              startDrag(e.clientY);
-            });
-
-            // Keyboard (accessibility): up/down adjusts 5%
-            splitHandle.addEventListener("keydown", (e) => {
-              if (splitHandle.hidden) return;
-              if (e.key !== "ArrowUp" && e.key !== "ArrowDown") return;
-              e.preventDefault();
-              const current = Number(
-                getComputedStyle(layoutMain).getPropertyValue("--mobile-map-pct").trim() || "52"
-              );
-              const next = current + (e.key === "ArrowUp" ? -5 : 5);
-              setMobileMapPct(next);
+              if (isMobile()) dragMobile(e.clientY);
+              else dragDesktop(e.clientX);
             });
           }
 
