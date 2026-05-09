@@ -1854,6 +1854,14 @@
             renderStationList(sorted, "distance", lat, lon);
             const z = Math.max(map.getZoom(), 13);
             map.setView([lat, lon], z);
+            // Mobile: the list is below the map. Scroll it into view so it doesn't look "missing".
+            try {
+              if (window.matchMedia && window.matchMedia("(max-width: 719px)").matches) {
+                sidebarEl.scrollIntoView({ behavior: "smooth", block: "start" });
+              }
+            } catch {
+              /* ignore */
+            }
             syncRefModeControls();
           }
 
@@ -1917,6 +1925,14 @@
             showStationPins();
             renderStationList(sorted, "value", lat0, lon0);
             map.setView([lat0, lon0], zoomFromSearchRadiusKm(rangeKm));
+            // Mobile: bring the "matching chargers" list into view.
+            try {
+              if (window.matchMedia && window.matchMedia("(max-width: 719px)").matches) {
+                sidebarEl.scrollIntoView({ behavior: "smooth", block: "start" });
+              }
+            } catch {
+              /* ignore */
+            }
             syncRefModeControls();
           }
 
