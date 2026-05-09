@@ -123,13 +123,6 @@
         cursor: not-allowed;
       }
 
-      .sort-bar .sort-bar-hint {
-        font-size: 12px;
-        opacity: 0.92;
-        flex: 1 1 200px;
-        line-height: 1.35;
-      }
-
       .main {
         flex: 1;
         min-height: 0;
@@ -186,17 +179,6 @@
         border-color: rgba(22, 119, 255, 0.45);
       }
 
-      #stationList li.list-placeholder {
-        cursor: default;
-        border-style: dashed;
-        font-style: italic;
-        opacity: 0.9;
-      }
-
-      #stationList li.list-placeholder:hover {
-        border-color: rgba(127, 127, 127, 0.22);
-      }
-
       #stationList .rank {
         opacity: 0.65;
         font-variant-numeric: tabular-nums;
@@ -250,10 +232,6 @@
       <button id="clearRoute" type="button" title="Clear driving route between two stations" disabled>
         Clear route
       </button>
-      <span class="sort-bar-hint">
-        GPS works on <code>http://127.0.0.1</code> or <code>https://</code>; many browsers block it on <code>http://192.168…</code>. Use
-        “Choose point on map” if GPS fails.
-      </span>
     </nav>
     <div class="main layout--map-only" id="layoutMain">
       <aside id="sidebar">
@@ -519,10 +497,6 @@
           const useMyLocationBtn = document.getElementById("useMyLocationBtn");
           const pickOnMapBtn = document.getElementById("pickOnMapBtn");
 
-          const dataSortHint = payload.sort
-            ? ` Data file note: ${payload.sort} Re-fetch to refresh raw data.`
-            : "";
-
           const clearBtn = document.getElementById("clearRoute");
 
           let selectedA = null;
@@ -603,12 +577,8 @@
             map.getContainer().style.cursor = "";
           }
 
-          function showListPlaceholder(message) {
+          function clearStationList() {
             listEl.innerHTML = "";
-            const li = document.createElement("li");
-            li.className = "list-placeholder";
-            li.textContent = message;
-            listEl.appendChild(li);
           }
 
           function priceLineHtml(s) {
@@ -686,8 +656,7 @@
             clearReferenceDot();
             setListPanelVisible(true);
             listTitleEl.textContent = "Charging stations — by price";
-            sortNoteEl.textContent =
-              "Only stations with a parseable price are listed and shown as pins, cheapest first." + dataSortHint;
+            sortNoteEl.textContent = "";
 
             const priced = mapStations.filter((s) => getNumericPrice(s) !== null);
             const sorted = [...priced].sort(comparePriceAscending);
@@ -696,9 +665,7 @@
             showStationPins();
 
             if (sorted.length === 0) {
-              showListPlaceholder(
-                "No stations have a price we could parse. Re-run tools/fetch_ocm.py or use “By distance”."
-              );
+              clearStationList();
             } else {
               renderStationList(sorted, "price", null, null);
               const pricedMarkers = sorted.map((s) => markerById.get(s.id)).filter(Boolean);
@@ -714,13 +681,9 @@
             clearReferenceDot();
             setListPanelVisible(true);
             listTitleEl.textContent = "Charging stations — by distance";
-            sortNoteEl.textContent =
-              "Choose GPS or “Choose point on map”. URL must be http://127.0.0.1 (not 192.168…)." +
-              MACOS_GEO_HELP +
-              " Desktop Mac has no GPS; position uses Wi‑Fi/network and may be slow." +
-              dataSortHint;
+            sortNoteEl.textContent = "";
             hideStationPins();
-            showListPlaceholder("Set a reference point with GPS or by clicking the map (see blue bar).");
+            clearStationList();
             syncDistanceControls();
           }
 
@@ -729,9 +692,7 @@
             setListPanelVisible(true);
             setReferenceOnMap(lat, lon, label);
             listTitleEl.textContent = "Charging stations — by distance";
-            sortNoteEl.textContent =
-              "Sorted by straight-line distance from your reference point. Driving distance can differ." +
-              dataSortHint;
+            sortNoteEl.textContent = "";
             repopulateStationPins(() => true);
             showStationPins();
             const sorted = [...mapStations].sort((a, b) => compareByDistance(a, b, lat, lon));
@@ -762,14 +723,13 @@
                   "Fix: click the lock/site icon in the address bar → Location → Allow.\n" +
                   "Also enable Location Services for your browser in Mac System Settings → Privacy & Security → Location Services."
               );
-              sortNoteEl.textContent =
-                "Browser reports location permission denied." + MACOS_GEO_HELP + dataSortHint;
+              sortNoteEl.textContent = "";
               return;
             }
 
             useMyLocationBtn.disabled = true;
             pickOnMapBtn.disabled = true;
-            sortNoteEl.textContent = "Requesting location (may take up to ~30s on Mac)…";
+            sortNoteEl.textContent = "";
             try {
               const loc = await requestUserLocation();
               applyDistanceWithOrigin(loc.lat, loc.lon, "Device location (approx.)");
@@ -782,8 +742,7 @@
               } else if (e && typeof e.code === "number" && (e.code === 1 || e.code === 2)) {
                 alert(detail);
               }
-              sortNoteEl.textContent =
-                "Location failed: " + detail + " Or use “Choose point on map”." + dataSortHint;
+              sortNoteEl.textContent = "";
               applyDistanceModeAwaitingOrigin();
             } finally {
               useMyLocationBtn.disabled = false;
@@ -796,9 +755,8 @@
             cancelMapPick();
             clearReferenceDot();
             hideStationPins();
-            showListPlaceholder("Click the map once to set your reference point…");
-            sortNoteEl.textContent =
-              "Map pins are hidden while you pick a point (avoids tapping a station by mistake). Click empty map once.";
+            clearStationList();
+            sortNoteEl.textContent = "";
             map.getContainer().style.cursor = "crosshair";
 
             mapPickHandler = (e) => {
