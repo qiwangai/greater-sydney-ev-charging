@@ -1651,13 +1651,12 @@
           };
           const setTopPanelHeightPx = (px) => {
             if (!topPanelEl) return;
-            // Guardrail: never shrink so much that the toolbar/controls disappear.
-            // Use current content height as minimum (with a little padding).
-            const contentMin = Math.max(120, topPanelEl.scrollHeight);
-            const minH = contentMin;
-            const maxH = Math.max(contentMin, window.innerHeight - 140);
+            // Use max-height so we can only shrink the top area (never create blank space by growing it).
+            const natural = Math.max(140, topPanelEl.scrollHeight);
+            const minH = 120;
+            const maxH = natural;
             const p = clamp(Math.round(px), minH, maxH);
-            topPanelEl.style.height = `${p}px`;
+            topPanelEl.style.maxHeight = `${p}px`;
             topPanelEl.style.overflow = "auto";
             try {
               localStorage.setItem("topPanelHeightPx", String(p));
@@ -1682,16 +1681,7 @@
           try {
             const savedTop = Number(localStorage.getItem("topPanelHeightPx"));
             if (Number.isFinite(savedTop) && topPanelEl) {
-              // If an old saved value is too small for current UI, ignore it.
-              const contentMin = Math.max(120, topPanelEl.scrollHeight);
-              if (savedTop >= contentMin - 4) setTopPanelHeightPx(savedTop);
-              else {
-                try {
-                  localStorage.removeItem("topPanelHeightPx");
-                } catch {
-                  /* ignore */
-                }
-              }
+              setTopPanelHeightPx(savedTop);
             }
           } catch {
             /* ignore */
@@ -1741,36 +1731,41 @@
 
           if (topHeightHandle && topPanelEl) {
             let draggingTop = false;
+            let activePointerId = null;
+
             const dragTop = (clientY) => {
               const rect = topPanelEl.getBoundingClientRect();
-              const newH = clamp(clientY - rect.top, 72, window.innerHeight - 180);
+              const newH = clamp(clientY - rect.top, 120, window.innerHeight - 140);
               setTopPanelHeightPx(newH);
+            };
+
+            const onMove = (e) => {
+              if (!draggingTop) return;
+              if (activePointerId != null && e.pointerId !== activePointerId) return;
+              dragTop(e.clientY);
+            };
+
+            const onUp = (e) => {
+              if (activePointerId != null && e.pointerId !== activePointerId) return;
+              draggingTop = false;
+              activePointerId = null;
+              window.removeEventListener("pointermove", onMove, true);
+              window.removeEventListener("pointerup", onUp, true);
+              window.removeEventListener("pointercancel", onUp, true);
             };
 
             topHeightHandle.addEventListener("pointerdown", (e) => {
               draggingTop = true;
-              try {
-                topHeightHandle.setPointerCapture(e.pointerId);
-              } catch {
-                /* ignore */
-              }
+              activePointerId = e.pointerId;
+              window.addEventListener("pointermove", onMove, true);
+              window.addEventListener("pointerup", onUp, true);
+              window.addEventListener("pointercancel", onUp, true);
               dragTop(e.clientY);
             });
-
-            topHeightHandle.addEventListener("pointermove", (e) => {
-              if (!draggingTop) return;
-              dragTop(e.clientY);
-            });
-
-            const stop = () => {
-              draggingTop = false;
-            };
-            topHeightHandle.addEventListener("pointerup", stop);
-            topHeightHandle.addEventListener("pointercancel", stop);
 
             // Double click/tap to reset
             topHeightHandle.addEventListener("dblclick", () => {
-              topPanelEl.style.height = "";
+              topPanelEl.style.maxHeight = "";
               topPanelEl.style.overflow = "";
               try {
                 localStorage.removeItem("topPanelHeightPx");
