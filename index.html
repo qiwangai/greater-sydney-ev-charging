@@ -283,7 +283,7 @@
           padding-right: 10px;
         }
 
-        /* Mobile: map-first with a bottom sheet (list overlays map). */
+        /* Mobile: keep the list on the LEFT (like desktop), as an overlay drawer. */
         .main {
           position: relative;
         }
@@ -308,55 +308,62 @@
         .main:not(.layout--map-only) #sidebar {
           position: absolute;
           left: 0;
-          right: 0;
+          top: 0;
           bottom: 0;
-          top: auto;
-          width: auto;
-          height: auto;
-          max-height: min(70vh, 560px);
-          border-right: none;
-          border-top: 1px solid var(--border);
-          border-radius: 16px 16px 0 0;
+          right: auto;
+          width: min(86vw, 360px);
+          max-height: none;
+          border-right: 1px solid var(--border);
+          border-top: none;
+          border-radius: 0 14px 14px 0;
           background: var(--surface);
-          box-shadow: 0 -14px 36px rgba(15, 23, 42, 0.12);
-          padding: 10px max(14px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom))
-            max(14px, env(safe-area-inset-left));
+          box-shadow: 14px 0 36px rgba(15, 23, 42, 0.12);
+          padding: 10px 14px max(12px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left));
           overflow: auto;
           -webkit-overflow-scrolling: touch;
-          /* Ensure sheet is always above the Leaflet map panes/controls. */
+          /* Ensure drawer is always above the Leaflet map panes/controls. */
           z-index: 2000;
-          transform: translateY(calc(100% - var(--sheet-peek, 260px)));
+          transform: translateX(calc(-100% + var(--drawer-peek, 54px)));
           transition: transform 0.18s ease;
         }
 
-        body.sheet--open .main:not(.layout--map-only) #sidebar {
-          transform: translateY(0);
+        body.drawer--open .main:not(.layout--map-only) #sidebar {
+          transform: translateX(0);
         }
 
         .sheet-handle {
           position: sticky;
-          top: -10px;
-          margin: -10px 0 10px 0;
-          padding: 10px 0 6px 0;
+          top: 0;
+          margin: -10px -14px 10px -14px;
+          padding: 10px 10px 10px 10px;
           background: var(--surface);
-          z-index: 2;
+          z-index: 3;
+          cursor: pointer;
         }
 
         .sheet-handle__bar {
-          width: 44px;
-          height: 4px;
+          width: 4px;
+          height: 44px;
           border-radius: 999px;
           background: rgba(100, 116, 139, 0.55);
-          margin: 0 auto;
+          margin: 0;
         }
 
         .sheet-handle__label {
-          margin-top: 6px;
-          text-align: center;
+          margin-top: 0;
+          margin-left: 10px;
+          text-align: left;
           font-size: 0.6875rem;
           color: var(--muted);
           font-weight: 600;
           letter-spacing: 0.02em;
+        }
+
+        .sheet-handle {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          border-bottom: 1px solid var(--border);
         }
 
         #stationList li {
@@ -1670,7 +1677,7 @@
               splitHandle.hidden = !show;
             }
             if (!show) {
-              document.body.classList.remove("sheet--open");
+              document.body.classList.remove("drawer--open");
             }
             requestAnimationFrame(() => map.invalidateSize());
           }
@@ -1681,12 +1688,12 @@
 
           function openMobileSheet() {
             if (!isMobileUi()) return;
-            document.body.classList.add("sheet--open");
+            document.body.classList.add("drawer--open");
           }
 
           function toggleMobileSheet() {
             if (!isMobileUi()) return;
-            document.body.classList.toggle("sheet--open");
+            document.body.classList.toggle("drawer--open");
           }
 
           if (sheetHandle) {
@@ -1702,8 +1709,8 @@
               if (startY == null) return;
               const endY = e.changedTouches && e.changedTouches[0] ? e.changedTouches[0].clientY : startY;
               const dy = endY - startY;
-              if (dy < -18) document.body.classList.add("sheet--open");
-              else if (dy > 18) document.body.classList.remove("sheet--open");
+              if (dy < -18) document.body.classList.add("drawer--open");
+              else if (dy > 18) document.body.classList.remove("drawer--open");
               startY = null;
             });
           }
