@@ -297,6 +297,7 @@
           flex: 1 1 auto;
           min-height: 320px;
           min-height: 52vh;
+          z-index: 0;
         }
 
         /* Hide the desktop split divider on mobile. */
@@ -322,7 +323,9 @@
             max(14px, env(safe-area-inset-left));
           overflow: auto;
           -webkit-overflow-scrolling: touch;
-          transform: translateY(calc(100% - var(--sheet-peek, 160px)));
+          /* Ensure sheet is always above the Leaflet map panes/controls. */
+          z-index: 2000;
+          transform: translateY(calc(100% - var(--sheet-peek, 260px)));
           transition: transform 0.18s ease;
         }
 
@@ -1913,6 +1916,7 @@
             setListPanelVisible(true);
             listTitleEl.textContent = sortSelect.value === "value" ? "Best balance" : "Nearest first";
             sortNoteEl.textContent = "";
+            openMobileSheet();
             hideStationPins();
             clearStationList();
             setSidebarHint(
