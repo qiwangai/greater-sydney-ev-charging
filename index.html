@@ -235,6 +235,7 @@
         overflow: auto;
         padding: 16px;
         background: var(--bg);
+        position: relative;
       }
 
       @media (min-width: 720px) {
@@ -397,6 +398,38 @@
           border-right: none;
           border-top: 1px solid var(--border);
           border-bottom: 1px solid var(--border);
+        }
+      }
+
+      /* Sidebar height resizer (desktop) */
+      .sidebar-height-handle {
+        display: none;
+        position: sticky;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 12px;
+        margin: 10px -16px -16px -16px;
+        background: linear-gradient(to top, rgba(100, 116, 139, 0.12), rgba(100, 116, 139, 0));
+        border-top: 1px solid var(--border);
+        cursor: row-resize;
+        touch-action: none;
+        user-select: none;
+      }
+
+      .sidebar-height-handle::before {
+        content: "";
+        display: block;
+        width: 44px;
+        height: 4px;
+        border-radius: 999px;
+        background: rgba(100, 116, 139, 0.55);
+        margin: 4px auto 0;
+      }
+
+      @media (min-width: 720px) {
+        .sidebar-height-handle {
+          display: block;
         }
       }
 
@@ -966,6 +999,7 @@
         <p class="note" id="sortNote" aria-hidden="true"></p>
         <p id="sidebarHint" class="sidebar-hint" hidden></p>
         <ol id="stationList" role="list"></ol>
+        <div id="sidebarHeightHandle" class="sidebar-height-handle" aria-hidden="true"></div>
       </aside>
       <div id="splitHandle" class="split-handle" hidden aria-hidden="true"></div>
       <div id="mapWrap">
@@ -1345,6 +1379,7 @@
         const useMyLocationBtn = document.getElementById("useMyLocationBtn");
         const pickOnMapBtn = document.getElementById("pickOnMapBtn");
         const splitHandle = document.getElementById("splitHandle");
+        const sidebarHeightHandle = document.getElementById("sidebarHeightHandle");
 
         function showAppBanner(kind, message, dismissable) {
           appBanner.hidden = false;
@@ -1619,6 +1654,20 @@
             requestAnimationFrame(() => map.invalidateSize());
           };
 
+          const setSidebarHeightPx = (px) => {
+            const rect = layoutMain.getBoundingClientRect();
+            const maxH = Math.max(240, rect.height - 160);
+            const p = clamp(Math.round(px), 220, maxH);
+            sidebarEl.style.height = `${p}px`;
+            sidebarEl.style.alignSelf = "flex-start";
+            try {
+              localStorage.setItem("sidebarHeightPx", String(p));
+            } catch {
+              /* ignore */
+            }
+            requestAnimationFrame(() => map.invalidateSize());
+          };
+
           try {
             const savedW = Number(localStorage.getItem("sidebarWidthPx"));
             if (Number.isFinite(savedW)) setSidebarPx(savedW);
@@ -1628,6 +1677,13 @@
           try {
             const savedPct = Number(localStorage.getItem("mobileMapPct"));
             if (Number.isFinite(savedPct)) setMobileMapPct(savedPct);
+          } catch {
+            /* ignore */
+          }
+
+          try {
+            const savedH = Number(localStorage.getItem("sidebarHeightPx"));
+            if (Number.isFinite(savedH)) setSidebarHeightPx(savedH);
           } catch {
             /* ignore */
           }
@@ -1663,6 +1719,31 @@
               if ((e.buttons & 1) !== 1) return;
               if (isMobile()) dragMobile(e.clientY);
               else dragDesktop(e.clientX);
+            });
+          }
+
+          if (sidebarHeightHandle) {
+            const isDesktop = () => !(window.matchMedia && window.matchMedia("(max-width: 719px)").matches);
+            const dragHeight = (clientY) => {
+              const rect = layoutMain.getBoundingClientRect();
+              const y = clamp(clientY - rect.top, 220, rect.height - 160);
+              setSidebarHeightPx(y);
+            };
+
+            sidebarHeightHandle.addEventListener("pointerdown", (e) => {
+              if (!isDesktop()) return;
+              try {
+                sidebarHeightHandle.setPointerCapture(e.pointerId);
+              } catch {
+                /* ignore */
+              }
+              dragHeight(e.clientY);
+            });
+
+            sidebarHeightHandle.addEventListener("pointermove", (e) => {
+              if (!isDesktop()) return;
+              if ((e.buttons & 1) !== 1) return;
+              dragHeight(e.clientY);
             });
           }
 
