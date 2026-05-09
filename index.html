@@ -646,6 +646,51 @@
         overflow: hidden;
         text-overflow: ellipsis;
       }
+
+      .value-mode-bar {
+        flex-basis: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        gap: 12px 16px;
+        padding: 10px 0 2px;
+        border-top: 1px dashed var(--border);
+        margin-top: 4px;
+      }
+
+      .value-mode-bar[hidden] {
+        display: none !important;
+      }
+
+      .value-mode-bar__field {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--muted);
+      }
+
+      .value-mode-bar__field input {
+        font: inherit;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--text);
+        width: 5.5rem;
+        padding: 8px 10px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+      }
+
+      .value-mode-bar__hint {
+        flex-basis: 100%;
+        margin: 0;
+        font-size: 0.6875rem;
+        line-height: 1.4;
+        color: var(--muted);
+        font-weight: 400;
+      }
     </style>
   </head>
   <body>
@@ -679,6 +724,7 @@
         <option value="" selected>Map only (no list)</option>
         <option value="price">Lowest price first</option>
         <option value="distance">Nearest to a point</option>
+        <option value="value">Best balance (range + weights)</option>
       </select>
       <button id="useMyLocationBtn" type="button" class="toolbar__btn" style="display: none" title="Use your location">
         My location
@@ -686,6 +732,23 @@
       <button id="pickOnMapBtn" type="button" class="toolbar__btn" style="display: none" title="Tap map to set point">
         Tap map
       </button>
+      <div id="valueModeBar" class="value-mode-bar" hidden>
+        <label class="value-mode-bar__field">
+          Range left (km)
+          <input type="number" id="maxRangeKm" min="1" step="1" value="80" title="How far you can still drive (straight-line budget uses ~88%)" />
+        </label>
+        <label class="value-mode-bar__field">
+          Weight · distance
+          <input type="number" id="weightDistance" min="0" step="0.1" value="1" title="How much to penalise extra km (ratio vs price weight)" />
+        </label>
+        <label class="value-mode-bar__field">
+          Weight · price
+          <input type="number" id="weightPrice" min="0" step="0.1" value="1" title="How much to penalise higher listed price" />
+        </label>
+        <p class="value-mode-bar__hint">
+          Set your position first (My location or Tap map). Only stations with a known price and within ~88% of this range (straight-line km) are ranked. Score = normalised distance × distance-weight + normalised price × price-weight (lower is better). Not driving directions.
+        </p>
+      </div>
     </nav>
     <div id="appBanner" class="app-banner app-banner--loading" role="status" aria-live="polite">
       <span id="appBannerText">Loading stations…</span>
@@ -1075,6 +1138,11 @@
           const sortNoteEl = document.getElementById("sortNote");
           const listTitleEl = document.getElementById("listTitle");
           const sidebarHint = document.getElementById("sidebarHint");
+          const valueModeBar = document.getElementById("valueModeBar");
+          const maxRangeKmEl = document.getElementById("maxRangeKm");
+          const weightDistanceEl = document.getElementById("weightDistance");
+          const weightPriceEl = document.getElementById("weightPrice");
+          const VALUE_RANGE_MARGIN = 0.88;
 
           const markerById = new Map();
           const listEl = document.getElementById("stationList");
@@ -1225,7 +1293,7 @@
             let price = s.usage_cost_raw || "";
             if (!price && getNumericPrice(s) !== null) price = String(getNumericPrice(s));
             if (!price) price = "price unknown";
-            if (mode === "distance" && refLat != null && refLon != null) {
+            if ((mode === "distance" || mode === "value") && refLat != null && refLon != null) {
               const km = haversineKm(refLat, refLon, s.lat, s.lon);
               const d = km < 1 ? `${Math.round(km * 1000)} metres` : `${km.toFixed(1)} kilometres`;
               return `${name}, ${price}, about ${d} away`;
@@ -1239,7 +1307,7 @@
             sorted.forEach((s, idx) => {
               const li = document.createElement("li");
               const distPart =
-                mode === "distance" && refLat != null && refLon != null
+                (mode === "distance" || mode === "value") && refLat != null && refLon != null
                   ? ` · ${distanceLineHtml(s, refLat, refLon)}`
                   : "";
               li.innerHTML = `<div><span class="rank">${idx + 1}</span><span class="title">${escapeHtml(
@@ -1260,11 +1328,12 @@
             });
           }
 
-          function syncDistanceControls() {
-            const isDist = sortSelect.value === "distance";
-            useMyLocationBtn.style.display = isDist ? "inline-block" : "none";
-            pickOnMapBtn.style.display = isDist ? "inline-block" : "none";
-            if (!isDist) {
+          function syncRefModeControls() {
+            const refMode = sortSelect.value === "distance" || sortSelect.value === "value";
+            useMyLocationBtn.style.display = refMode ? "inline-block" : "none";
+            pickOnMapBtn.style.display = refMode ? "inline-block" : "none";
+            valueModeBar.hidden = sortSelect.value !== "value";
+            if (!refMode) {
               useMyLocationBtn.disabled = false;
               pickOnMapBtn.disabled = false;
             }
@@ -1285,7 +1354,7 @@
             showStationPins();
             clearReferenceDot();
             setListPanelVisible(false);
-            syncDistanceControls();
+            syncRefModeControls();
           }
 
           function repopulateStationPins(predicate) {
@@ -1318,14 +1387,14 @@
                 map.fitBounds(L.featureGroup(pricedMarkers).getBounds().pad(0.08));
               }
             }
-            syncDistanceControls();
+            syncRefModeControls();
           }
 
-          function applyDistanceModeAwaitingOrigin() {
+          function applyRefModeAwaitingOrigin() {
             cancelMapPick();
             clearReferenceDot();
             setListPanelVisible(true);
-            listTitleEl.textContent = "Nearest first";
+            listTitleEl.textContent = sortSelect.value === "value" ? "Best balance" : "Nearest first";
             sortNoteEl.textContent = "";
             hideStationPins();
             clearStationList();
@@ -1333,7 +1402,7 @@
               true,
               "Choose My location, or Tap map and click the map once to set where distances are measured from."
             );
-            syncDistanceControls();
+            syncRefModeControls();
           }
 
           function applyDistanceWithOrigin(lat, lon, label) {
@@ -1347,7 +1416,88 @@
             showStationPins();
             const sorted = [...mapStations].sort((a, b) => compareByDistance(a, b, lat, lon));
             renderStationList(sorted, "distance", lat, lon);
-            syncDistanceControls();
+            syncRefModeControls();
+          }
+
+          function applyValueWithOrigin(lat, lon, label, options = {}) {
+            const { skipSetRef = false } = options;
+            cancelMapPick();
+            setListPanelVisible(true);
+            if (!skipSetRef) {
+              setReferenceOnMap(lat, lon, label || "Reference");
+            }
+            setSidebarHint(false, "");
+            listTitleEl.textContent = "Best balance";
+            sortNoteEl.textContent = "";
+
+            const lat0 = refLat;
+            const lon0 = refLon;
+            const rangeKm = Math.max(1, parseFloat(maxRangeKmEl.value, 10) || 80);
+            let wD = parseFloat(weightDistanceEl.value, 10);
+            let wP = parseFloat(weightPriceEl.value, 10);
+            if (!Number.isFinite(wD) || wD < 0) wD = 1;
+            if (!Number.isFinite(wP) || wP < 0) wP = 1;
+            if (wD === 0 && wP === 0) {
+              wD = 1;
+              wP = 1;
+            }
+
+            const maxD = rangeKm * VALUE_RANGE_MARGIN;
+            const candidates = mapStations.filter(
+              (s) => getNumericPrice(s) !== null && haversineKm(lat0, lon0, s.lat, s.lon) <= maxD
+            );
+
+            if (!candidates.length) {
+              listEl.innerHTML = "";
+              const li = document.createElement("li");
+              li.style.cursor = "default";
+              li.innerHTML = `<div class="meta">No priced stations within ~${maxD.toFixed(
+                0
+              )} km (straight-line). Try a larger “Range left”, or move your reference point.</div>`;
+              listEl.appendChild(li);
+              repopulateStationPins(() => false);
+              hideStationPins();
+              syncRefModeControls();
+              return;
+            }
+
+            const dists = candidates.map((s) => haversineKm(lat0, lon0, s.lat, s.lon));
+            const prices = candidates.map((s) => getNumericPrice(s));
+            const dMin = Math.min(...dists);
+            const dMax = Math.max(...dists);
+            const pMin = Math.min(...prices);
+            const pMax = Math.max(...prices);
+            const sumW = wD + wP;
+            const wd = wD / sumW;
+            const wp = wP / sumW;
+
+            const scored = candidates.map((s, i) => {
+              const d = dists[i];
+              const p = prices[i];
+              const dN = dMax > dMin + 1e-9 ? (d - dMin) / (dMax - dMin) : 0;
+              const pN = pMax > pMin + 1e-9 ? (p - pMin) / (pMax - pMin) : 0;
+              const score = wd * dN + wp * pN;
+              return { s, score, d };
+            });
+            scored.sort((a, b) => a.score - b.score || a.d - b.d);
+            const sorted = scored.map((x) => x.s);
+
+            repopulateStationPins((s) => candidates.some((c) => c.id === s.id));
+            showStationPins();
+            renderStationList(sorted, "value", lat0, lon0);
+            const ms = sorted.map((s) => markerById.get(s.id)).filter(Boolean);
+            if (ms.length) {
+              map.fitBounds(L.featureGroup(ms).getBounds().pad(0.08));
+            }
+            syncRefModeControls();
+          }
+
+          function dispatchRefOrigin(lat, lon, label) {
+            if (sortSelect.value === "value") {
+              applyValueWithOrigin(lat, lon, label);
+            } else {
+              applyDistanceWithOrigin(lat, lon, label);
+            }
           }
 
           function onSortSelectChange() {
@@ -1356,15 +1506,15 @@
               applyNoneMode();
             } else if (mode === "price") {
               applyPriceMode();
-            } else if (mode === "distance") {
-              applyDistanceModeAwaitingOrigin();
+            } else if (mode === "distance" || mode === "value") {
+              applyRefModeAwaitingOrigin();
             }
           }
 
           sortSelect.addEventListener("change", onSortSelectChange);
 
           useMyLocationBtn.addEventListener("click", async () => {
-            if (sortSelect.value !== "distance") return;
+            if (sortSelect.value !== "distance" && sortSelect.value !== "value") return;
 
             const perm = await geolocationPermissionState();
             if (perm === "denied") {
@@ -1382,7 +1532,7 @@
             sortNoteEl.textContent = "";
             try {
               const loc = await requestUserLocation();
-              applyDistanceWithOrigin(loc.lat, loc.lon, "Device location (approx.)");
+              dispatchRefOrigin(loc.lat, loc.lon, "Device location (approx.)");
             } catch (e) {
               console.error(e);
               let detail = geolocationErrorMessage(e);
@@ -1393,7 +1543,7 @@
                 alert(detail);
               }
               sortNoteEl.textContent = "";
-              applyDistanceModeAwaitingOrigin();
+              applyRefModeAwaitingOrigin();
             } finally {
               useMyLocationBtn.disabled = false;
               pickOnMapBtn.disabled = false;
@@ -1401,7 +1551,7 @@
           });
 
           pickOnMapBtn.addEventListener("click", () => {
-            if (sortSelect.value !== "distance") return;
+            if (sortSelect.value !== "distance" && sortSelect.value !== "value") return;
             cancelMapPick();
             clearReferenceDot();
             hideStationPins();
@@ -1411,10 +1561,19 @@
 
             mapPickHandler = (e) => {
               cancelMapPick();
-              applyDistanceWithOrigin(e.latlng.lat, e.latlng.lng, "Point you chose on the map");
+              dispatchRefOrigin(e.latlng.lat, e.latlng.lng, "Point you chose on the map");
             };
             map.on("click", mapPickHandler);
           });
+
+          function reapplyValueModeFromInputs() {
+            if (sortSelect.value === "value" && refLat != null && refLon != null) {
+              applyValueWithOrigin(refLat, refLon, null, { skipSetRef: true });
+            }
+          }
+          maxRangeKmEl.addEventListener("input", reapplyValueModeFromInputs);
+          weightDistanceEl.addEventListener("input", reapplyValueModeFromInputs);
+          weightPriceEl.addEventListener("input", reapplyValueModeFromInputs);
 
           function attachStationTooltip(s, m) {
             const compact = map.getZoom() >= 14;
