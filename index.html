@@ -942,10 +942,11 @@
     ></script>
 
     <script>
-      const map = L.map("map", { preferCanvas: true }).setView(
-        [-33.8688, 151.2093],
-        10
-      );
+      const map = L.map("map", {
+        preferCanvas: true,
+        /* Faster, more reliable single-tap on phones (double-tap zoom still via pinch / +/-). */
+        tap: false,
+      }).setView([-33.8688, 151.2093], 10);
 
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
@@ -1166,26 +1167,44 @@
       }
 
       const MACOS_GEO_HELP =
-        " Mac: System Settings → Privacy & Security → Location Services → On, then enable your browser (Safari/Chrome). " +
-        "Safari: Safari → Settings → Websites → Location → allow for 127.0.0.1.";
+        " Mac: System Settings → Privacy & Security → Location Services → On, then enable your browser (Safari/Chrome).";
+
+      function geoHelpFooter() {
+        const ua = navigator.userAgent || "";
+        if (/iPhone|iPad|iPod/i.test(ua)) {
+          return (
+            " iPhone/iPad: Settings → Privacy & Security → Location Services (on). Then Settings → Safari → Location, or allow when Safari prompts. " +
+            "If blocked: Safari address bar → “aA” → Website Settings → Location → Allow."
+          );
+        }
+        if (/Android/i.test(ua)) {
+          return " Android: tap the lock or (i) in the address bar → Site settings / Permissions → Location → Allow.";
+        }
+        return MACOS_GEO_HELP;
+      }
+
+      /** Zoom so the map shows roughly the search-radius scale (not all of Sydney). */
+      function zoomFromSearchRadiusKm(km) {
+        const r = Math.max(1, Number(km) || 80);
+        const z = 15.2 - Math.log2(r / 6.5);
+        return Math.max(9, Math.min(16, Math.round(z * 4) / 4));
+      }
 
       function geolocationErrorMessage(err) {
         if (!err) return "Unknown error.";
         if (typeof err.code === "number") {
           if (err.code === 1) {
             return (
-              "Permission denied. Allow location for this site, and turn on Location Services for your browser." +
-              MACOS_GEO_HELP
+              "Permission denied. Allow location for this site, and turn on location for your browser." + geoHelpFooter()
             );
           }
           if (err.code === 2) {
             return (
-              "Position unavailable (Wi‑Fi/location services). Turn on Wi‑Fi, disable VPN, or use “Choose point on map”." +
-              MACOS_GEO_HELP
+              "Position unavailable (Wi‑Fi / GPS). Turn on Wi‑Fi, try outdoors, disable VPN, or use Tap map." + geoHelpFooter()
             );
           }
           if (err.code === 3) {
-            return "Timed out. Try again, or use “Choose point on map”.";
+            return "Timed out. Try again, or use Tap map.";
           }
         }
         return err.message || String(err);
@@ -1348,6 +1367,7 @@
           let refLon = null;
 
           let mapPickHandler = null;
+          let lastMapPickAt = 0;
 
           function setReferenceOnMap(lat, lon, popupTitle) {
             if (userDot) map.removeLayer(userDot);
@@ -1593,6 +1613,8 @@
             showStationPins();
             const sorted = [...mapStations].sort((a, b) => compareByDistance(a, b, lat, lon));
             renderStationList(sorted, "distance", lat, lon);
+            const z = Math.max(map.getZoom(), 13);
+            map.setView([lat, lon], z);
             syncRefModeControls();
           }
 
@@ -1627,8 +1649,9 @@
                 0
               )} km (straight-line). Try a larger <strong>search radius</strong>, or tap another point on the map.</div>`;
               listEl.appendChild(li);
-              repopulateStationPins(() => false);
-              hideStationPins();
+              repopulateStationPins((s) => getNumericPrice(s) !== null);
+              showStationPins();
+              map.setView([lat0, lon0], zoomFromSearchRadiusKm(rangeKm));
               syncRefModeControls();
               return;
             }
@@ -1654,10 +1677,7 @@
             repopulateStationPins((s) => candidates.some((c) => c.id === s.id));
             showStationPins();
             renderStationList(sorted, "value", lat0, lon0);
-            const ms = sorted.map((s) => markerById.get(s.id)).filter(Boolean);
-            if (ms.length) {
-              map.fitBounds(L.featureGroup(ms).getBounds().pad(0.08));
-            }
+            map.setView([lat0, lon0], zoomFromSearchRadiusKm(rangeKm));
             syncRefModeControls();
           }
 
@@ -1687,11 +1707,7 @@
 
             const perm = await geolocationPermissionState();
             if (perm === "denied") {
-              alert(
-                "This site’s location permission is blocked.\n\n" +
-                  "Fix: click the lock/site icon in the address bar → Location → Allow.\n" +
-                  "Also enable Location Services for your browser in Mac System Settings → Privacy & Security → Location Services."
-              );
+              alert("This site’s location permission is blocked.\n\n" + geoHelpFooter().trim());
               sortNoteEl.textContent = "";
               return;
             }
@@ -1726,9 +1742,16 @@
             hideStationPins();
             clearStationList();
             sortNoteEl.textContent = "";
+            setSidebarHint(
+              true,
+              "Tap the map once to set your point. Pinch or use +/− to zoom first if you need a closer area."
+            );
             map.getContainer().style.cursor = "crosshair";
 
             mapPickHandler = (e) => {
+              const now = Date.now();
+              if (now - lastMapPickAt < 400) return;
+              lastMapPickAt = now;
               cancelMapPick();
               dispatchRefOrigin(e.latlng.lat, e.latlng.lng, "Point you chose on the map");
             };
