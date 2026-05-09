@@ -769,11 +769,11 @@
       function buildConnectionsDetailHtml(s) {
         const conns = Array.isArray(s.connections) ? s.connections : [];
         if (!conns.length) {
-          return `<h3>Equipment</h3><p class="muted">No connector rows for this site in the feed.</p>
+          return `<p class="muted">No connector rows for this site in the feed.</p>
             <p class="detail-callout">Check plug type and availability on site or in your charging app.</p>`;
         }
         const items = conns.map((c, i) => formatConnectorLine(c, i)).join("");
-        return `<h3>Equipment</h3><ul class="conn-list">${items}</ul>
+        return `<ul class="conn-list">${items}</ul>
           <p class="detail-callout">Listing may be incomplete—verify on site or in your charging app.</p>`;
       }
 
