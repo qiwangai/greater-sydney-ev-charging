@@ -1699,6 +1699,7 @@
 
           if (splitHandle) {
             const isMobile = () => window.matchMedia && window.matchMedia("(max-width: 719px)").matches;
+            let draggingSplit = false;
 
             const dragDesktop = (clientX) => {
               const rect = layoutMain.getBoundingClientRect();
@@ -1714,6 +1715,7 @@
 
             splitHandle.addEventListener("pointerdown", (e) => {
               if (splitHandle.hidden) return;
+              draggingSplit = true;
               try {
                 splitHandle.setPointerCapture(e.pointerId);
               } catch {
@@ -1725,13 +1727,20 @@
 
             splitHandle.addEventListener("pointermove", (e) => {
               if (splitHandle.hidden) return;
-              if ((e.buttons & 1) !== 1) return;
+              if (!draggingSplit) return;
               if (isMobile()) dragMobile(e.clientY);
               else dragDesktop(e.clientX);
             });
+
+            const stop = () => {
+              draggingSplit = false;
+            };
+            splitHandle.addEventListener("pointerup", stop);
+            splitHandle.addEventListener("pointercancel", stop);
           }
 
           if (topHeightHandle && topPanelEl) {
+            let draggingTop = false;
             const dragTop = (clientY) => {
               const rect = topPanelEl.getBoundingClientRect();
               const newH = clamp(clientY - rect.top, 72, window.innerHeight - 180);
@@ -1739,6 +1748,7 @@
             };
 
             topHeightHandle.addEventListener("pointerdown", (e) => {
+              draggingTop = true;
               try {
                 topHeightHandle.setPointerCapture(e.pointerId);
               } catch {
@@ -1748,9 +1758,15 @@
             });
 
             topHeightHandle.addEventListener("pointermove", (e) => {
-              if ((e.buttons & 1) !== 1) return;
+              if (!draggingTop) return;
               dragTop(e.clientY);
             });
+
+            const stop = () => {
+              draggingTop = false;
+            };
+            topHeightHandle.addEventListener("pointerup", stop);
+            topHeightHandle.addEventListener("pointercancel", stop);
 
             // Double click/tap to reset
             topHeightHandle.addEventListener("dblclick", () => {
