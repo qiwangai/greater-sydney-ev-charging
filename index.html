@@ -1660,6 +1660,7 @@
             topPanelEl.style.overflow = "auto";
             try {
               localStorage.setItem("topPanelHeightPx", String(p));
+              localStorage.setItem("topPanelUserResized", "1");
             } catch {
               /* ignore */
             }
@@ -1680,9 +1681,9 @@
           }
           try {
             const savedTop = Number(localStorage.getItem("topPanelHeightPx"));
-            if (Number.isFinite(savedTop) && topPanelEl) {
-              setTopPanelHeightPx(savedTop);
-            }
+            const userResized = localStorage.getItem("topPanelUserResized") === "1";
+            // Default: show everything first. Only reapply if the user previously dragged.
+            if (userResized && Number.isFinite(savedTop) && topPanelEl) setTopPanelHeightPx(savedTop);
           } catch {
             /* ignore */
           }
@@ -1769,6 +1770,7 @@
               topPanelEl.style.overflow = "";
               try {
                 localStorage.removeItem("topPanelHeightPx");
+                localStorage.removeItem("topPanelUserResized");
               } catch {
                 /* ignore */
               }
