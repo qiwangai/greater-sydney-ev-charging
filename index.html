@@ -1651,8 +1651,11 @@
           };
           const setTopPanelHeightPx = (px) => {
             if (!topPanelEl) return;
-            const minH = 72;
-            const maxH = Math.max(140, window.innerHeight - 180);
+            // Guardrail: never shrink so much that the toolbar/controls disappear.
+            // Use current content height as minimum (with a little padding).
+            const contentMin = Math.max(120, topPanelEl.scrollHeight);
+            const minH = contentMin;
+            const maxH = Math.max(contentMin, window.innerHeight - 140);
             const p = clamp(Math.round(px), minH, maxH);
             topPanelEl.style.height = `${p}px`;
             topPanelEl.style.overflow = "auto";
@@ -1678,7 +1681,18 @@
           }
           try {
             const savedTop = Number(localStorage.getItem("topPanelHeightPx"));
-            if (Number.isFinite(savedTop)) setTopPanelHeightPx(savedTop);
+            if (Number.isFinite(savedTop) && topPanelEl) {
+              // If an old saved value is too small for current UI, ignore it.
+              const contentMin = Math.max(120, topPanelEl.scrollHeight);
+              if (savedTop >= contentMin - 4) setTopPanelHeightPx(savedTop);
+              else {
+                try {
+                  localStorage.removeItem("topPanelHeightPx");
+                } catch {
+                  /* ignore */
+                }
+              }
+            }
           } catch {
             /* ignore */
           }
