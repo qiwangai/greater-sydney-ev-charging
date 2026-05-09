@@ -3,10 +3,21 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Dev: avoid stale HTML when iterating; hard-refresh (Cmd+Shift+R) if UI looks old -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <title>Greater Sydney EV Charging Map</title>
+    <meta name="description" content="Find public EV chargers around Greater Sydney, sorted by price or distance." />
+    <meta name="theme-color" content="#0f766e" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#132820" media="(prefers-color-scheme: dark)" />
+    <title>Sydney EV — charging map</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='11' fill='%230f766e'/%3E%3Cpath fill='%23fff' d='M21.2 7.5L11.5 21.2h6.1l-2.4 11.8 13.3-15.6h-6.8l2.5-9.9z'/%3E%3C/svg%3E"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
     <link
       rel="stylesheet"
@@ -18,6 +29,41 @@
     <style>
       :root {
         color-scheme: light dark;
+        --bg: #e8f2ef;
+        --bg-soft: linear-gradient(165deg, #e8f2ef 0%, #e0ebe8 38%, #dce8f0 100%);
+        --surface: #ffffff;
+        --text: #0f172a;
+        --muted: #64748b;
+        --border: #c8d9d4;
+        --accent: #0f766e;
+        --accent-hover: #0d9488;
+        --accent-soft: rgba(15, 118, 110, 0.12);
+        --header-tint: linear-gradient(135deg, #d8f4ef 0%, #e8faf6 45%, #dbeafe 100%);
+        --toolbar-tint: linear-gradient(180deg, #ecfdf8 0%, #f8fcfb 100%);
+        --shadow: 0 1px 3px rgba(15, 23, 42, 0.07);
+        --radius: 12px;
+        --font: "Inter", system-ui, -apple-system, sans-serif;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0f1614;
+          --bg-soft: linear-gradient(165deg, #0f1614 0%, #0c1916 50%, #0d1520 100%);
+          --surface: #141c19;
+          --text: #ecfdf5;
+          --muted: #94a3b8;
+          --border: #2a3f38;
+          --accent-soft: rgba(45, 212, 191, 0.15);
+          --header-tint: linear-gradient(135deg, #0d2824 0%, #132820 50%, #15222e 100%);
+          --toolbar-tint: linear-gradient(180deg, #132922 0%, #141c19 100%);
+          --shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+        }
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
       }
 
       html,
@@ -27,99 +73,137 @@
 
       body {
         margin: 0;
-        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        font-family: var(--font);
+        font-size: 15px;
+        line-height: 1.5;
+        color: var(--text);
+        background: var(--bg-soft);
+        background-color: var(--bg);
         display: flex;
         flex-direction: column;
         min-height: 100%;
+        -webkit-font-smoothing: antialiased;
       }
 
-      header {
+      .app-header {
         flex-shrink: 0;
-        padding: 12px 14px;
-        border-bottom: 1px solid rgba(127, 127, 127, 0.25);
+        padding: 18px 20px 14px;
+        background: var(--header-tint);
+        border-bottom: 1px solid var(--border);
+        box-shadow: var(--shadow);
       }
 
-      header h1 {
+      .app-header__inner {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        max-width: 1200px;
+      }
+
+      .app-logo {
+        flex-shrink: 0;
+        width: 44px;
+        height: 44px;
+        filter: drop-shadow(0 2px 6px rgba(15, 118, 110, 0.25));
+      }
+
+      .app-logo svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      .app-header__text {
+        min-width: 0;
+      }
+
+      .app-header h1 {
         margin: 0;
-        font-size: 16px;
-        font-weight: 650;
+        font-size: 1.2rem;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        color: var(--text);
       }
 
-      /* Full-width strip — sorting lives here so it is always visible (not only in the sidebar). */
-      .sort-bar {
+      @media (prefers-color-scheme: dark) {
+        .app-header h1 {
+          color: #f0fdfa;
+        }
+      }
+
+      .app-header p {
+        margin: 3px 0 0 0;
+        font-size: 0.8125rem;
+        color: var(--muted);
+        font-weight: 500;
+      }
+
+      .toolbar {
         flex-shrink: 0;
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         gap: 10px 14px;
-        padding: 12px 14px;
-        background: linear-gradient(135deg, #1d4ed8, #2563eb);
-        color: #f8fafc;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        padding: 12px 20px;
+        background: var(--toolbar-tint);
+        border-bottom: 1px solid var(--border);
       }
 
-      .sort-bar strong {
-        font-size: 13px;
-        letter-spacing: 0.02em;
-      }
-
-      .sort-bar select {
-        min-width: min(100%, 280px);
-        max-width: 100%;
-        font: inherit;
-        font-size: 14px;
-        padding: 10px 12px;
-        border-radius: 10px;
-        border: 2px solid rgba(255, 255, 255, 0.5);
-        background: #fff;
-        color: #0f172a;
-        cursor: pointer;
-      }
-
-      .sort-bar button#useMyLocationBtn,
-      .sort-bar button#pickOnMapBtn {
-        font: inherit;
-        font-size: 14px;
+      .toolbar__label {
+        font-size: 0.8125rem;
         font-weight: 600;
-        padding: 10px 16px;
-        border-radius: 10px;
-        border: 2px solid rgba(255, 255, 255, 0.85);
-        background: rgba(255, 255, 255, 0.95);
-        color: #1d4ed8;
-        cursor: pointer;
-        white-space: nowrap;
+        color: var(--muted);
       }
 
-      .sort-bar button#useMyLocationBtn:hover:not(:disabled),
-      .sort-bar button#pickOnMapBtn:hover:not(:disabled) {
-        background: #fff;
-      }
-
-      .sort-bar button#useMyLocationBtn:disabled,
-      .sort-bar button#pickOnMapBtn:disabled {
-        opacity: 0.55;
-        cursor: not-allowed;
-      }
-
-      .sort-bar button#clearRoute {
+      .toolbar__select {
+        flex: 1;
+        min-width: min(200px, 100%);
+        max-width: 320px;
         font: inherit;
-        font-size: 13px;
-        padding: 8px 14px;
-        border-radius: 10px;
-        border: 2px solid rgba(255, 255, 255, 0.55);
-        background: transparent;
-        color: #fff;
+        font-size: 0.9375rem;
+        font-weight: 500;
+        padding: 10px 14px;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--text);
+        cursor: pointer;
+        accent-color: var(--accent);
+        outline: none;
+        box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.04);
+      }
+
+      .toolbar__select:hover {
+        border-color: var(--accent);
+      }
+
+      .toolbar__select:focus {
+        border-color: var(--accent);
+        box-shadow:
+          inset 0 1px 2px rgba(15, 23, 42, 0.04),
+          0 0 0 3px var(--accent-soft);
+      }
+
+      .toolbar__btn {
+        font: inherit;
+        font-size: 0.875rem;
+        font-weight: 600;
+        padding: 9px 14px;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--accent);
         cursor: pointer;
         white-space: nowrap;
       }
 
-      .sort-bar button#clearRoute:hover:not(:disabled) {
-        background: rgba(255, 255, 255, 0.12);
+      .toolbar__btn:hover:not(:disabled) {
+        border-color: var(--accent);
+        color: var(--accent);
       }
 
-      .sort-bar button#clearRoute:disabled {
-        opacity: 0.4;
+      .toolbar__btn:disabled {
+        opacity: 0.45;
         cursor: not-allowed;
       }
 
@@ -130,32 +214,36 @@
         width: 100%;
       }
 
-      /* “Not yet”: hide list panel; map uses full width */
       .main.layout--map-only #sidebar {
         display: none;
       }
 
       #sidebar {
-        width: min(360px, 42vw);
+        width: min(340px, 100%);
         flex-shrink: 0;
-        border-right: 1px solid rgba(127, 127, 127, 0.25);
+        border-right: 1px solid var(--border);
         overflow: auto;
-        padding: 10px 12px;
-        box-sizing: border-box;
-        background: rgba(127, 127, 127, 0.06);
+        padding: 16px;
+        background: var(--bg);
+      }
+
+      @media (min-width: 720px) {
+        #sidebar {
+          width: min(340px, 38vw);
+        }
       }
 
       #sidebar h2 {
-        margin: 0 0 6px 0;
-        font-size: 13px;
-        font-weight: 650;
+        margin: 0 0 12px 0;
+        font-size: 0.6875rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--muted);
       }
 
       #sidebar .note {
-        font-size: 11px;
-        opacity: 0.8;
-        margin: 0 0 10px 0;
-        line-height: 1.35;
+        display: none;
       }
 
       #stationList {
@@ -165,40 +253,49 @@
       }
 
       #stationList li {
-        margin: 0 0 6px 0;
-        padding: 8px 10px;
-        border-radius: 8px;
-        border: 1px solid rgba(127, 127, 127, 0.22);
-        background: rgba(127, 127, 127, 0.04);
+        margin: 0 0 8px 0;
+        padding: 14px 16px;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        background: var(--surface);
+        box-shadow: var(--shadow);
         cursor: pointer;
-        font-size: 12px;
-        line-height: 1.35;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease;
       }
 
       #stationList li:hover {
-        border-color: rgba(22, 119, 255, 0.45);
+        border-color: var(--accent);
+        box-shadow: 0 4px 12px rgba(15, 118, 110, 0.12);
       }
 
       #stationList .rank {
-        opacity: 0.65;
+        display: inline-block;
+        min-width: 1.75rem;
+        font-size: 0.75rem;
+        font-weight: 700;
         font-variant-numeric: tabular-nums;
-        margin-right: 6px;
+        color: var(--muted);
+        margin-right: 4px;
       }
 
       #stationList .title {
         font-weight: 600;
+        font-size: 0.9375rem;
+        letter-spacing: -0.01em;
       }
 
-      #stationList .price-line {
-        margin-top: 4px;
-        opacity: 0.9;
-        font-size: 11px;
+      #stationList .meta {
+        margin-top: 6px;
+        font-size: 0.8125rem;
+        color: var(--muted);
+        line-height: 1.4;
       }
 
       #mapWrap {
         flex: 1;
         min-width: 0;
         position: relative;
+        background: var(--border);
       }
 
       #map {
@@ -206,41 +303,399 @@
         width: 100%;
       }
 
+      .leaflet-control-attribution {
+        font-size: 10px;
+      }
+
+      .muted,
       .price-unknown {
-        opacity: 0.75;
-        font-style: italic;
+        color: var(--muted);
+        font-style: normal;
+      }
+
+      /* Detail panel */
+      .station-detail {
+        position: fixed;
+        inset: 0;
+        z-index: 5000;
+        pointer-events: none;
+      }
+
+      .station-detail:not([hidden]) {
+        pointer-events: auto;
+      }
+
+      .station-detail[hidden] {
+        display: none !important;
+      }
+
+      .station-detail__backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.45);
+        border: 0;
+        padding: 0;
+        cursor: pointer;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .station-detail__backdrop {
+          background: rgba(0, 0, 0, 0.55);
+        }
+      }
+
+      .station-detail__sheet {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: min(400px, 100%);
+        box-sizing: border-box;
+        background: var(--surface);
+        color: var(--text);
+        border-left: 1px solid var(--border);
+        box-shadow: -12px 0 40px rgba(15, 23, 42, 0.12);
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+      }
+
+      .station-detail__top {
+        flex-shrink: 0;
+        padding: 16px 16px 14px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .station-detail__top h2 {
+        margin: 0;
+        font-size: 1.0625rem;
+        font-weight: 700;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        flex: 1;
+      }
+
+      .station-detail__back {
+        font: inherit;
+        font-size: 0.875rem;
+        font-weight: 600;
+        padding: 8px 12px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: var(--bg);
+        color: var(--text);
+        cursor: pointer;
+      }
+
+      .station-detail__back:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      .station-detail__body {
+        flex: 1;
+        min-height: 0;
+        overflow: auto;
+        padding: 20px 18px 24px;
+        font-size: 0.9375rem;
+      }
+
+      .detail-price {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--accent);
+        margin: 0 0 16px 0;
+        letter-spacing: -0.02em;
+      }
+
+      .detail-address {
+        margin: 0 0 16px 0;
+        color: var(--muted);
+        font-size: 0.875rem;
+        line-height: 1.5;
+      }
+
+      .detail-callout {
+        margin: 0 0 20px 0;
+        padding: 12px 14px;
+        font-size: 0.8125rem;
+        line-height: 1.45;
+        color: var(--muted);
+        background: var(--bg);
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+      }
+
+      .station-detail__body h3 {
+        margin: 22px 0 10px 0;
+        font-size: 0.6875rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: var(--muted);
+      }
+
+      .station-detail__body h3:first-of-type {
+        margin-top: 0;
+      }
+
+      .conn-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .conn-list li {
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border);
+        font-size: 0.875rem;
+      }
+
+      .conn-list li:last-child {
+        border-bottom: none;
+      }
+
+      .conn-list strong {
+        font-weight: 600;
+        color: var(--text);
+      }
+
+      .station-detail__footer {
+        flex-shrink: 0;
+        padding: 16px 18px 20px;
+        padding-bottom: max(20px, env(safe-area-inset-bottom));
+        border-top: 1px solid var(--border);
+        background: var(--surface);
+      }
+
+      .station-detail__footer .btn-directions {
+        width: 100%;
+        font: inherit;
+        font-size: 0.9375rem;
+        font-weight: 600;
+        padding: 14px 18px;
+        border-radius: var(--radius);
+        border: none;
+        background: var(--accent);
+        color: #fff;
+        cursor: pointer;
+      }
+
+      .station-detail__footer .btn-directions:hover {
+        background: var(--accent-hover);
+      }
+
+      .detail-meta {
+        margin-top: 20px;
+        font-size: 0.75rem;
+        color: var(--muted);
+      }
+
+      .detail-queue-placeholder {
+        margin: 0 0 22px 0;
+        padding: 14px 16px;
+        border-radius: var(--radius);
+        border: 1px dashed var(--border);
+        background: rgba(15, 118, 110, 0.06);
+      }
+
+      .detail-queue-placeholder__label {
+        margin: 0 0 6px 0;
+        font-size: 0.6875rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--accent);
+      }
+
+      .detail-queue-placeholder p {
+        margin: 0;
+        font-size: 0.8125rem;
+        line-height: 1.5;
+        color: var(--muted);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        #stationList li {
+          transition: none;
+        }
+      }
+
+      .app-banner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 10px 20px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .app-banner--loading {
+        background: var(--accent-soft);
+        color: var(--text);
+      }
+
+      .app-banner--error {
+        background: rgba(220, 38, 38, 0.1);
+        color: #b91c1c;
+        border-color: rgba(220, 38, 38, 0.25);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .app-banner--error {
+          background: rgba(248, 113, 113, 0.12);
+          color: #fca5a5;
+          border-color: rgba(248, 113, 113, 0.2);
+        }
+      }
+
+      .app-banner__dismiss {
+        font: inherit;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        padding: 6px 12px;
+        border-radius: 8px;
+        border: 1px solid currentColor;
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+        flex-shrink: 0;
+      }
+
+      .sidebar-hint {
+        margin: 0 0 14px 0;
+        padding: 12px 14px;
+        font-size: 0.8125rem;
+        line-height: 1.45;
+        color: var(--muted);
+        background: var(--surface);
+        border: 1px dashed var(--border);
+        border-radius: var(--radius);
+      }
+
+      .sidebar-hint[hidden] {
+        display: none !important;
+      }
+
+      /* Map marker tooltips (Leaflet adds .leaflet-tooltip) */
+      .leaflet-tooltip.station-map-tip {
+        padding: 0;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .station-map-tip__inner {
+        max-width: 220px;
+        padding: 8px 10px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--text);
+        box-shadow: var(--shadow);
+        line-height: 1.35;
+      }
+
+      .station-map-tip__name {
+        font-weight: 600;
+        font-size: 0.8125rem;
+        margin-bottom: 2px;
+      }
+
+      .station-map-tip__price {
+        font-size: 0.75rem;
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      .station-map-tip__compact {
+        display: inline-block;
+        padding: 3px 7px;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--accent);
+        font-size: 0.6875rem;
+        font-weight: 700;
+        box-shadow: var(--shadow);
+        white-space: nowrap;
+        max-width: 120px;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     </style>
   </head>
   <body>
-    <header>
-      <h1>Greater Sydney EV Charging Map</h1>
+    <header class="app-header">
+      <div class="app-header__inner">
+        <div class="app-logo" title="Sydney EV">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect width="40" height="40" rx="11" fill="url(#sydneyEvLogoGrad)" />
+            <path
+              d="M21.2 7.5L11.5 21.2h6.1l-2.4 11.8 13.3-15.6h-6.8l2.5-9.9z"
+              fill="#fff"
+              fill-opacity="0.96"
+            />
+            <defs>
+              <linearGradient id="sydneyEvLogoGrad" x1="6" y1="6" x2="36" y2="34" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#14b8a6" />
+                <stop offset="1" stop-color="#0f766e" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="app-header__text">
+          <h1>Sydney EV</h1>
+          <p>Greater Sydney · map &amp; list</p>
+        </div>
+      </div>
     </header>
-    <nav class="sort-bar" id="sortBar" aria-label="Sort charging station list">
-      <strong>Show list</strong>
-      <select id="sortSelect" aria-label="Sort stations">
-        <option value="" selected>— Not yet — (no list, no pins)</option>
-        <option value="price">By price (low → high)</option>
-        <option value="distance">By distance from a reference point</option>
+    <nav class="toolbar" id="sortBar" aria-label="Map view">
+      <span class="toolbar__label" id="toolbarLabel">View</span>
+      <select id="sortSelect" class="toolbar__select" aria-label="How to show stations">
+        <option value="" selected>Map only (no list)</option>
+        <option value="price">Lowest price first</option>
+        <option value="distance">Nearest to a point</option>
       </select>
-      <button id="useMyLocationBtn" type="button" style="display: none" title="Uses browser geolocation">
-        Use my device location (GPS)
+      <button id="useMyLocationBtn" type="button" class="toolbar__btn" style="display: none" title="Use your location">
+        My location
       </button>
-      <button id="pickOnMapBtn" type="button" style="display: none" title="Click map once to set reference point">
-        Choose point on map
-      </button>
-      <button id="clearRoute" type="button" title="Clear driving route between two stations" disabled>
-        Clear route
+      <button id="pickOnMapBtn" type="button" class="toolbar__btn" style="display: none" title="Tap map to set point">
+        Tap map
       </button>
     </nav>
-    <div class="main layout--map-only" id="layoutMain">
+    <div id="appBanner" class="app-banner app-banner--loading" role="status" aria-live="polite">
+      <span id="appBannerText">Loading stations…</span>
+      <button type="button" id="appBannerDismiss" class="app-banner__dismiss" hidden>Dismiss</button>
+    </div>
+    <div class="main layout--map-only" id="layoutMain" aria-busy="true">
       <aside id="sidebar">
-        <h2 id="listTitle">Charging stations</h2>
-        <p class="note" id="sortNote"></p>
-        <ol id="stationList"></ol>
+        <h2 id="listTitle">Stations</h2>
+        <p class="note" id="sortNote" aria-hidden="true"></p>
+        <p id="sidebarHint" class="sidebar-hint" hidden></p>
+        <ol id="stationList" role="list"></ol>
       </aside>
       <div id="mapWrap">
         <div id="map"></div>
+      </div>
+    </div>
+
+    <div id="stationDetail" class="station-detail" hidden aria-hidden="true">
+      <button type="button" class="station-detail__backdrop" id="detailBackdrop" aria-label="Close station details"></button>
+      <div class="station-detail__sheet" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+        <div class="station-detail__top">
+          <button type="button" class="station-detail__back" id="detailBackBtn">Close</button>
+          <h2 id="detailTitle">Station</h2>
+        </div>
+        <div class="station-detail__body" id="detailBody"></div>
+        <div class="station-detail__footer">
+          <button type="button" class="btn-directions" id="detailNavigateBtn">Directions</button>
+        </div>
       </div>
     </div>
 
@@ -270,64 +725,100 @@
           .replaceAll("'", "&#039;");
       }
 
+      function formatConnectorLine(c, idx) {
+        const parts = [];
+        if (typeof c.power_kw === "number") parts.push(`${escapeHtml(c.power_kw)} kW`);
+        if (typeof c.quantity === "number") parts.push(`${escapeHtml(c.quantity)}×`);
+        const type =
+          c.connection_type != null && String(c.connection_type).trim() !== ""
+            ? escapeHtml(c.connection_type)
+            : null;
+        if (type) parts.push(type);
+        const line = parts.length ? parts.join(" · ") : "Details not listed";
+        return `<li><strong>Plug ${idx + 1}</strong> — ${line}</li>`;
+      }
+
+      function buildQueueRoadmapHtml() {
+        return `<h3>Queue</h3><div class="detail-queue-placeholder" role="status">
+          <p class="detail-queue-placeholder__label">Coming later</p>
+          <p>No live data yet. In a future version we plan to show <strong>vehicles waiting</strong> or an estimated wait when real-time feeds (e.g. from networks) are available—so you can judge congestion before heading here.</p>
+        </div>`;
+      }
+
+      function buildConnectionsDetailHtml(s) {
+        const conns = Array.isArray(s.connections) ? s.connections : [];
+        if (!conns.length) {
+          return `<h3>Equipment</h3><p class="muted">No connector rows for this site in the feed.</p>
+            <p class="detail-callout">Check plug type and availability on site or in your charging app.</p>`;
+        }
+        const items = conns.map((c, i) => formatConnectorLine(c, i)).join("");
+        return `<h3>Equipment</h3><ul class="conn-list">${items}</ul>
+          <p class="detail-callout">Listing may be incomplete—verify on site or in your charging app.</p>`;
+      }
+
+      function buildStationDetailHtml(s, refLat, refLon) {
+        let priceHtml;
+        if (s.usage_cost_raw) {
+          priceHtml = escapeHtml(s.usage_cost_raw);
+        } else if (getNumericPrice(s) !== null) {
+          priceHtml = escapeHtml(String(getNumericPrice(s)));
+        } else {
+          priceHtml = `<span class="muted">Unknown</span>`;
+        }
+
+        const addr = [s.address_line1, s.town, s.state, s.postcode].filter(Boolean).map(escapeHtml).join(", ");
+        const addressBlock = addr ? `<p class="detail-address">${addr}</p>` : "";
+
+        const operator = s.operator
+          ? `<p class="detail-address" style="margin-top:-8px">${escapeHtml(s.operator)}</p>`
+          : "";
+
+        let distHtml = "";
+        if (
+          refLat != null &&
+          refLon != null &&
+          typeof s.lat === "number" &&
+          typeof s.lon === "number"
+        ) {
+          const km = haversineKm(refLat, refLon, s.lat, s.lon);
+          const txt = km < 1 ? `${Math.round(km * 1000)} m` : `${km.toFixed(1)} km`;
+          distHtml = `<p class="detail-address"><span class="muted">About ${escapeHtml(txt)} from your point (straight line)</span></p>`;
+        }
+
+        let meta = "";
+        if (typeof s.last_seen_epoch === "number" && s.last_seen_epoch > 0) {
+          try {
+            const d = new Date(s.last_seen_epoch * 1000);
+            meta = `<p class="detail-meta">Listing updated ${escapeHtml(d.toLocaleDateString())}</p>`;
+          } catch {
+            /* ignore */
+          }
+        }
+
+        return (
+          `<p class="detail-price">${priceHtml}</p>` +
+          operator +
+          addressBlock +
+          distHtml +
+          buildQueueRoadmapHtml() +
+          buildConnectionsDetailHtml(s) +
+          meta
+        );
+      }
+
+      function mapsDirectionsUrl(lat, lon) {
+        const a = encodeURIComponent(`${lat},${lon}`);
+        return `https://www.google.com/maps/dir/?api=1&destination=${a}`;
+      }
+
       async function loadStations() {
-        const bust = `t=${Date.now()}`;
-        const res = await fetch(`./data/stations.json?${bust}`, { cache: "no-store" });
+        const res = await fetch("./data/stations.json", { cache: "no-cache" });
         if (!res.ok) throw new Error(`Failed to fetch stations.json: ${res.status}`);
         return await res.json();
       }
 
-      async function fetchRouteDriving(a, b) {
-        // Public OSRM endpoint (best-effort; rate-limited). Returns GeoJSON geometry.
-        const url =
-          "https://router.project-osrm.org/route/v1/driving/" +
-          `${a.lon},${a.lat};${b.lon},${b.lat}` +
-          "?overview=full&geometries=geojson&alternatives=false&steps=false";
-        const res = await fetch(url, { cache: "no-store" });
-        if (!res.ok) throw new Error(`Failed to fetch route: ${res.status}`);
-        const data = await res.json();
-        if (!data?.routes?.length) throw new Error("No route found");
-        return data.routes[0];
-      }
-
-      function popupHtml(s) {
-        const title = escapeHtml(s.name || "Unnamed location");
-        const operator = s.operator ? `<div><b>Operator:</b> ${escapeHtml(s.operator)}</div>` : "";
-
-        const addrParts = [s.address_line1, s.town, s.state, s.postcode]
-          .filter(Boolean)
-          .map(escapeHtml);
-        const address = addrParts.length
-          ? `<div><b>Address:</b> ${addrParts.join(", ")}</div>`
-          : "";
-
-        const sortHint =
-          getNumericPrice(s) !== null
-            ? `<div><b>Sort key:</b> ${escapeHtml(getNumericPrice(s))} (parsed for ordering)</div>`
-            : "";
-
-        const price = s.usage_cost_raw
-          ? `<div><b>Price:</b> ${escapeHtml(s.usage_cost_raw)}</div>`
-          : `<div><b>Price:</b> <span class="price-unknown">unknown (not provided)</span></div>`;
-
-        const connCount = Array.isArray(s.connections) ? s.connections.length : 0;
-        const conn = `<div><b>Connections:</b> ${connCount}</div>`;
-
-        const coord = `<div><b>Coords:</b> ${escapeHtml(s.lat)}, ${escapeHtml(s.lon)}</div>`;
-
-        return `<div style="min-width: 220px">
-          <div style="font-weight: 700; margin-bottom: 6px">${title}</div>
-          ${operator}
-          ${address}
-          ${price}
-          ${sortHint}
-          ${conn}
-          ${coord}
-        </div>`;
-      }
-
       function markerColor(s) {
-        return s.price_available ? "#1677ff" : "#6b7280";
+        return s.price_available ? "#0f766e" : "#94a3b8";
       }
 
       function circleMarker(s) {
@@ -383,6 +874,24 @@
         const db = haversineKm(refLat, refLon, b.lat, b.lon);
         if (da !== db) return da - db;
         return comparePriceAscending(a, b);
+      }
+
+      /** Plain-language price for map labels / tooltips. */
+      function stationPriceLabel(s) {
+        if (!s) return "—";
+        if (s.usage_cost_raw) return String(s.usage_cost_raw);
+        const n = getNumericPrice(s);
+        if (n !== null) return String(n);
+        return "Unknown";
+      }
+
+      function stationTooltipHtml(s, compact) {
+        const price = escapeHtml(stationPriceLabel(s));
+        if (compact) {
+          return `<span class="station-map-tip__compact" title="${escapeHtml(s.name || "Station")}">${price}</span>`;
+        }
+        const name = escapeHtml(s.name || "Station");
+        return `<div class="station-map-tip__inner"><div class="station-map-tip__name">${name}</div><div class="station-map-tip__price">${price}</div></div>`;
       }
 
       const MACOS_GEO_HELP =
@@ -486,42 +995,65 @@
       }
 
       (async () => {
+        const appBanner = document.getElementById("appBanner");
+        const appBannerText = document.getElementById("appBannerText");
+        const appBannerDismiss = document.getElementById("appBannerDismiss");
+        const layoutMain = document.getElementById("layoutMain");
+        const sortSelect = document.getElementById("sortSelect");
+        const useMyLocationBtn = document.getElementById("useMyLocationBtn");
+        const pickOnMapBtn = document.getElementById("pickOnMapBtn");
+
+        function showAppBanner(kind, message, dismissable) {
+          appBanner.hidden = false;
+          appBanner.className = `app-banner app-banner--${kind}`;
+          appBannerText.textContent = message;
+          appBannerDismiss.hidden = !dismissable;
+        }
+
+        function hideAppBanner() {
+          appBanner.hidden = true;
+        }
+
+        sortSelect.disabled = true;
+        useMyLocationBtn.disabled = true;
+        pickOnMapBtn.disabled = true;
+        showAppBanner("loading", "Loading stations…", false);
+
         try {
           const payload = await loadStations();
           const stations = payload.stations || [];
 
-          const layoutMain = document.getElementById("layoutMain");
+          hideAppBanner();
+          layoutMain.setAttribute("aria-busy", "false");
+          sortSelect.disabled = false;
+          useMyLocationBtn.disabled = false;
+          pickOnMapBtn.disabled = false;
+
           const sortNoteEl = document.getElementById("sortNote");
           const listTitleEl = document.getElementById("listTitle");
-          const sortSelect = document.getElementById("sortSelect");
-          const useMyLocationBtn = document.getElementById("useMyLocationBtn");
-          const pickOnMapBtn = document.getElementById("pickOnMapBtn");
-
-          const clearBtn = document.getElementById("clearRoute");
-
-          let selectedA = null;
-          let selectedB = null;
-          let routeLayer = null;
-          let selectLayer = null;
-
-          function clearRoute() {
-            selectedA = null;
-            selectedB = null;
-            clearBtn.disabled = true;
-            if (routeLayer) {
-              map.removeLayer(routeLayer);
-              routeLayer = null;
-            }
-            if (selectLayer) {
-              map.removeLayer(selectLayer);
-              selectLayer = null;
-            }
-          }
-
-          clearBtn.addEventListener("click", clearRoute);
+          const sidebarHint = document.getElementById("sidebarHint");
 
           const markerById = new Map();
           const listEl = document.getElementById("stationList");
+          const stationDetailEl = document.getElementById("stationDetail");
+          const detailBodyEl = document.getElementById("detailBody");
+          const detailTitleEl = document.getElementById("detailTitle");
+          const detailBackdrop = document.getElementById("detailBackdrop");
+          const detailBackBtn = document.getElementById("detailBackBtn");
+          const detailNavigateBtn = document.getElementById("detailNavigateBtn");
+
+          let detailOpenStation = null;
+          let detailFocusBeforeOpen = null;
+
+          function setSidebarHint(show, message) {
+            if (show) {
+              sidebarHint.hidden = false;
+              sidebarHint.textContent = message;
+            } else {
+              sidebarHint.hidden = true;
+              sidebarHint.textContent = "";
+            }
+          }
 
           const mapStations = stations.filter((s) => typeof s.lat === "number" && typeof s.lon === "number");
 
@@ -537,11 +1069,11 @@
           function setReferenceOnMap(lat, lon, popupTitle) {
             if (userDot) map.removeLayer(userDot);
             userDot = L.circleMarker([lat, lon], {
-              radius: 9,
-              color: "#a21caf",
+              radius: 8,
+              color: "#0f766e",
               weight: 2,
-              fillColor: "#e879f9",
-              fillOpacity: 0.85,
+              fillColor: "#14b8a6",
+              fillOpacity: 0.9,
             }).addTo(map);
             userDot.bindPopup(escapeHtml(popupTitle || "Reference point"));
             refLat = lat;
@@ -582,38 +1114,105 @@
           }
 
           function priceLineHtml(s) {
+            if (s.usage_cost_raw) return escapeHtml(s.usage_cost_raw);
             const num = getNumericPrice(s);
-            if (s.usage_cost_raw) {
-              const raw = escapeHtml(s.usage_cost_raw);
-              if (num !== null) {
-                return `Raw: ${raw} · sort: ${escapeHtml(num)}`;
-              }
-              return `Raw: ${raw}`;
-            }
-            if (num !== null) {
-              return `sort: ${escapeHtml(num)}`;
-            }
-            return '<span class="price-unknown">No price text / not parsed</span>';
+            if (num !== null) return escapeHtml(String(num));
+            return '<span class="price-unknown">Price unknown</span>';
           }
 
           function distanceLineHtml(s, refLat, refLon) {
             const km = haversineKm(refLat, refLon, s.lat, s.lon);
             const txt = km < 1 ? `${Math.round(km * 1000)} m` : `${km.toFixed(1)} km`;
-            return `<b>From reference:</b> ${escapeHtml(txt)} (straight line)`;
+            return `${escapeHtml(txt)} away`;
+          }
+
+          function closeStationDetail() {
+            stationDetailEl.hidden = true;
+            stationDetailEl.setAttribute("aria-hidden", "true");
+            detailOpenStation = null;
+            if (detailFocusBeforeOpen && typeof detailFocusBeforeOpen.focus === "function") {
+              try {
+                detailFocusBeforeOpen.focus();
+              } catch {
+                /* ignore */
+              }
+            }
+            detailFocusBeforeOpen = null;
+          }
+
+          function openStationDetail(s) {
+            detailFocusBeforeOpen = document.activeElement;
+            detailOpenStation = s;
+            detailTitleEl.textContent = s.name || "Unnamed station";
+            detailBodyEl.innerHTML = buildStationDetailHtml(s, refLat, refLon);
+            stationDetailEl.hidden = false;
+            stationDetailEl.setAttribute("aria-hidden", "false");
+            const mk = markerById.get(s.id);
+            if (mk) {
+              map.setView(mk.getLatLng(), Math.max(map.getZoom(), 15));
+            } else if (typeof s.lat === "number" && typeof s.lon === "number") {
+              map.setView([s.lat, s.lon], Math.max(map.getZoom(), 15));
+            }
+            requestAnimationFrame(() => detailBackBtn.focus());
+          }
+
+          detailBackdrop.addEventListener("click", closeStationDetail);
+          detailBackBtn.addEventListener("click", closeStationDetail);
+          detailNavigateBtn.addEventListener("click", () => {
+            if (!detailOpenStation || typeof detailOpenStation.lat !== "number" || typeof detailOpenStation.lon !== "number") {
+              return;
+            }
+            window.open(
+              mapsDirectionsUrl(detailOpenStation.lat, detailOpenStation.lon),
+              "_blank",
+              "noopener,noreferrer"
+            );
+          });
+
+          document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && detailOpenStation && !stationDetailEl.hidden) {
+              closeStationDetail();
+            }
+          });
+
+          appBannerDismiss.addEventListener("click", hideAppBanner);
+
+          function stationAriaLabel(s, mode, refLat, refLon) {
+            const name = s.name || "Station";
+            let price = s.usage_cost_raw || "";
+            if (!price && getNumericPrice(s) !== null) price = String(getNumericPrice(s));
+            if (!price) price = "price unknown";
+            if (mode === "distance" && refLat != null && refLon != null) {
+              const km = haversineKm(refLat, refLon, s.lat, s.lon);
+              const d = km < 1 ? `${Math.round(km * 1000)} metres` : `${km.toFixed(1)} kilometres`;
+              return `${name}, ${price}, about ${d} away`;
+            }
+            return `${name}, ${price}`;
           }
 
           function renderStationList(sorted, mode, refLat, refLon) {
+            setSidebarHint(false, "");
             listEl.innerHTML = "";
             sorted.forEach((s, idx) => {
               const li = document.createElement("li");
-              const distBlock =
+              const distPart =
                 mode === "distance" && refLat != null && refLon != null
-                  ? `<div class="price-line">${distanceLineHtml(s, refLat, refLon)}</div>`
+                  ? ` · ${distanceLineHtml(s, refLat, refLon)}`
                   : "";
-              li.innerHTML = `<span class="rank">#${idx + 1}</span><span class="title">${escapeHtml(
+              li.innerHTML = `<div><span class="rank">${idx + 1}</span><span class="title">${escapeHtml(
                 s.name || "Unnamed"
-              )}</span><div class="price-line">${priceLineHtml(s)}</div>${distBlock}`;
-              li.addEventListener("click", () => focusStationOnMap(s));
+              )}</span></div><div class="meta">${priceLineHtml(s)}${distPart}</div>`;
+              li.setAttribute("role", "button");
+              li.tabIndex = 0;
+              li.setAttribute("aria-label", stationAriaLabel(s, mode, refLat, refLon));
+              const open = () => openStationDetail(s);
+              li.addEventListener("click", open);
+              li.addEventListener("keydown", (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  open();
+                }
+              });
               listEl.appendChild(li);
             });
           }
@@ -635,10 +1234,12 @@
 
           function applyNoneMode() {
             cancelMapPick();
-            listTitleEl.textContent = "Charging stations";
+            listTitleEl.textContent = "Stations";
             sortNoteEl.textContent = "";
+            setSidebarHint(false, "");
             listEl.innerHTML = "";
-            hideStationPins();
+            repopulateStationPins(() => true);
+            showStationPins();
             clearReferenceDot();
             setListPanelVisible(false);
             syncDistanceControls();
@@ -654,8 +1255,9 @@
           function applyPriceMode() {
             cancelMapPick();
             clearReferenceDot();
+            setSidebarHint(false, "");
             setListPanelVisible(true);
-            listTitleEl.textContent = "Charging stations — by price";
+            listTitleEl.textContent = "Lowest price";
             sortNoteEl.textContent = "";
 
             const priced = mapStations.filter((s) => getNumericPrice(s) !== null);
@@ -680,10 +1282,14 @@
             cancelMapPick();
             clearReferenceDot();
             setListPanelVisible(true);
-            listTitleEl.textContent = "Charging stations — by distance";
+            listTitleEl.textContent = "Nearest first";
             sortNoteEl.textContent = "";
             hideStationPins();
             clearStationList();
+            setSidebarHint(
+              true,
+              "Choose My location, or Tap map and click the map once to set where distances are measured from."
+            );
             syncDistanceControls();
           }
 
@@ -691,7 +1297,8 @@
             cancelMapPick();
             setListPanelVisible(true);
             setReferenceOnMap(lat, lon, label);
-            listTitleEl.textContent = "Charging stations — by distance";
+            setSidebarHint(false, "");
+            listTitleEl.textContent = "Nearest first";
             sortNoteEl.textContent = "";
             repopulateStationPins(() => true);
             showStationPins();
@@ -766,54 +1373,36 @@
             map.on("click", mapPickHandler);
           });
 
-          function focusStationOnMap(s) {
-            const m = markerById.get(s.id);
-            if (!m) return;
-            map.setView(m.getLatLng(), 15);
-            m.openPopup();
-          }
-
-          function onStationClicked(s) {
-            if (!selectedA || (selectedA && selectedB)) {
-              selectedA = s;
-              selectedB = null;
-              clearBtn.disabled = false;
-            } else {
-              selectedB = s;
-            }
-
-            if (selectLayer) map.removeLayer(selectLayer);
-            const pts = [];
-            if (selectedA) pts.push([selectedA.lat, selectedA.lon]);
-            if (selectedB) pts.push([selectedB.lat, selectedB.lon]);
-            selectLayer = L.polyline(pts, { color: "#f97316", weight: 5, opacity: 0.75 }).addTo(map);
-
-            if (selectedA && selectedB) {
-              fetchRouteDriving(selectedA, selectedB)
-                .then((route) => {
-                  if (routeLayer) map.removeLayer(routeLayer);
-                  routeLayer = L.geoJSON(route.geometry, {
-                    style: { color: "#22c55e", weight: 5, opacity: 0.9 },
-                  }).addTo(map);
-                  map.fitBounds(routeLayer.getBounds().pad(0.15));
-                })
-                .catch((err) => {
-                  console.error(err);
-                  alert("Route failed. Try again later.");
-                });
-            }
+          function attachStationTooltip(s, m) {
+            const compact = map.getZoom() >= 14;
+            m.bindTooltip(stationTooltipHtml(s, compact), {
+              direction: "top",
+              sticky: true,
+              opacity: 1,
+              className: "station-map-tip" + (compact ? " station-map-tip--permanent" : ""),
+              permanent: compact,
+            });
           }
 
           const allStationMarkers = [];
           const markers = [];
           for (const s of mapStations) {
-            const m = circleMarker(s)
-              .bindPopup(popupHtml(s))
-              .on("click", () => onStationClicked(s));
+            const m = circleMarker(s).on("click", (evt) => {
+              if (evt.originalEvent) L.DomEvent.stopPropagation(evt.originalEvent);
+              openStationDetail(s);
+            });
+            attachStationTooltip(s, m);
             allStationMarkers.push({ s, m });
             markers.push(m);
             if (typeof s.id === "number") markerById.set(s.id, m);
           }
+
+          map.on("zoomend", () => {
+            for (const { s, m } of allStationMarkers) {
+              m.unbindTooltip();
+              attachStationTooltip(s, m);
+            }
+          });
 
           repopulateStationPins(() => true);
 
@@ -826,8 +1415,14 @@
           }
         } catch (e) {
           console.error(e);
-          alert(
-            "Failed to load stations data. Run tools/fetch_ocm.py first, then serve web/ via a local HTTP server."
+          layoutMain.setAttribute("aria-busy", "false");
+          sortSelect.disabled = true;
+          useMyLocationBtn.disabled = true;
+          pickOnMapBtn.disabled = true;
+          showAppBanner(
+            "error",
+            "Could not load stations. Check that web/data/stations.json exists and you are using a local web server (not opening the file directly).",
+            true
           );
         }
       })();
