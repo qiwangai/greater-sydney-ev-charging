@@ -691,6 +691,42 @@
         color: var(--muted);
         font-weight: 400;
       }
+
+      .value-mode-bar__steps {
+        flex-basis: 100%;
+        margin: 0 0 8px 0;
+        padding: 10px 12px;
+        font-size: 0.8125rem;
+        line-height: 1.45;
+        font-weight: 600;
+        color: var(--text);
+        background: var(--accent-soft);
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+      }
+
+      .value-mode-bar__slider-row {
+        flex-basis: 100%;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.75rem;
+        color: var(--muted);
+        font-weight: 600;
+      }
+
+      .value-mode-bar__slider-row input[type="range"] {
+        flex: 1;
+        min-width: 0;
+        accent-color: var(--accent);
+      }
+
+      .value-mode-bar__readout {
+        flex-basis: 100%;
+        margin: -4px 0 0 0;
+        font-size: 0.75rem;
+        color: var(--muted);
+      }
     </style>
   </head>
   <body>
@@ -724,7 +760,7 @@
         <option value="" selected>Map only (no list)</option>
         <option value="price">Lowest price first</option>
         <option value="distance">Nearest to a point</option>
-        <option value="value">Best balance (range + weights)</option>
+        <option value="value">Best balance (nearby + cheap)</option>
       </select>
       <button id="useMyLocationBtn" type="button" class="toolbar__btn" style="display: none" title="Use your location">
         My location
@@ -733,20 +769,29 @@
         Tap map
       </button>
       <div id="valueModeBar" class="value-mode-bar" hidden>
+        <p class="value-mode-bar__steps" id="valueModeSteps">
+          <strong>Step 1 —</strong> Tap <strong>My location</strong> or <strong>Tap map</strong> (then click the map).<br />
+          <strong>Step 2 —</strong> The charger list appears in the left panel; adjust distance and balance below to re-rank.
+        </p>
         <label class="value-mode-bar__field">
-          Range left (km)
-          <input type="number" id="maxRangeKm" min="1" step="1" value="80" title="How far you can still drive (straight-line budget uses ~88%)" />
+          Max distance from you (km)
+          <input
+            type="number"
+            id="maxRangeKm"
+            min="1"
+            step="1"
+            value="80"
+            title="Search bubble: only chargers within this straight-line distance (we use ~88% as a safety margin)"
+          />
         </label>
-        <label class="value-mode-bar__field">
-          Weight · distance
-          <input type="number" id="weightDistance" min="0" step="0.1" value="1" title="How much to penalise extra km (ratio vs price weight)" />
-        </label>
-        <label class="value-mode-bar__field">
-          Weight · price
-          <input type="number" id="weightPrice" min="0" step="0.1" value="1" title="How much to penalise higher listed price" />
-        </label>
+        <div class="value-mode-bar__slider-row">
+          <span>Closer</span>
+          <input type="range" id="balanceSlider" min="0" max="100" value="50" aria-valuemin="0" aria-valuemax="100" aria-label="Balance closer versus cheaper" />
+          <span>Cheaper</span>
+        </div>
+        <p class="value-mode-bar__readout" id="balanceReadout" aria-live="polite"></p>
         <p class="value-mode-bar__hint">
-          Set your position first (My location or Tap map). Only stations with a known price and within ~88% of this range (straight-line km) are ranked. Score = normalised distance × distance-weight + normalised price × price-weight (lower is better). Not driving directions.
+          “Max distance” is how far you’re willing to look around your point (guess from your fuel light or map — not your car’s exact range). The slider splits <strong>100%</strong> between distance and price (e.g. 30% closer / 70% cheaper). Only chargers with a known listed price are included. Straight-line km only, not driving time.
         </p>
       </div>
     </nav>
@@ -1140,9 +1185,16 @@
           const sidebarHint = document.getElementById("sidebarHint");
           const valueModeBar = document.getElementById("valueModeBar");
           const maxRangeKmEl = document.getElementById("maxRangeKm");
-          const weightDistanceEl = document.getElementById("weightDistance");
-          const weightPriceEl = document.getElementById("weightPrice");
+          const balanceSliderEl = document.getElementById("balanceSlider");
+          const balanceReadoutEl = document.getElementById("balanceReadout");
           const VALUE_RANGE_MARGIN = 0.88;
+
+          function updateBalanceReadout() {
+            const v = Math.min(100, Math.max(0, Number(balanceSliderEl.value) || 0));
+            const wPrice = v;
+            const wDist = 100 - v;
+            balanceReadoutEl.textContent = `Ranking mix: ${wDist}% distance · ${wPrice}% price (one slider splits 100%).`;
+          }
 
           const markerById = new Map();
           const listEl = document.getElementById("stationList");
@@ -1333,6 +1385,9 @@
             useMyLocationBtn.style.display = refMode ? "inline-block" : "none";
             pickOnMapBtn.style.display = refMode ? "inline-block" : "none";
             valueModeBar.hidden = sortSelect.value !== "value";
+            if (sortSelect.value === "value") {
+              updateBalanceReadout();
+            }
             if (!refMode) {
               useMyLocationBtn.disabled = false;
               pickOnMapBtn.disabled = false;
@@ -1400,7 +1455,9 @@
             clearStationList();
             setSidebarHint(
               true,
-              "Choose My location, or Tap map and click the map once to set where distances are measured from."
+              sortSelect.value === "value"
+                ? "Your list is empty until you set a position. Tap My location or Tap map (see the blue Step 1 box above)."
+                : "Choose My location, or Tap map and click the map once to set where distances are measured from."
             );
             syncRefModeControls();
           }
@@ -1433,14 +1490,9 @@
             const lat0 = refLat;
             const lon0 = refLon;
             const rangeKm = Math.max(1, parseFloat(maxRangeKmEl.value, 10) || 80);
-            let wD = parseFloat(weightDistanceEl.value, 10);
-            let wP = parseFloat(weightPriceEl.value, 10);
-            if (!Number.isFinite(wD) || wD < 0) wD = 1;
-            if (!Number.isFinite(wP) || wP < 0) wP = 1;
-            if (wD === 0 && wP === 0) {
-              wD = 1;
-              wP = 1;
-            }
+            const bal = Math.min(100, Math.max(0, Number(balanceSliderEl.value) || 50));
+            const wp = bal / 100;
+            const wd = (100 - bal) / 100;
 
             const maxD = rangeKm * VALUE_RANGE_MARGIN;
             const candidates = mapStations.filter(
@@ -1453,7 +1505,7 @@
               li.style.cursor = "default";
               li.innerHTML = `<div class="meta">No priced stations within ~${maxD.toFixed(
                 0
-              )} km (straight-line). Try a larger “Range left”, or move your reference point.</div>`;
+              )} km (straight-line). Try a larger <strong>Max distance</strong>, or tap another point on the map.</div>`;
               listEl.appendChild(li);
               repopulateStationPins(() => false);
               hideStationPins();
@@ -1467,9 +1519,6 @@
             const dMax = Math.max(...dists);
             const pMin = Math.min(...prices);
             const pMax = Math.max(...prices);
-            const sumW = wD + wP;
-            const wd = wD / sumW;
-            const wp = wP / sumW;
 
             const scored = candidates.map((s, i) => {
               const d = dists[i];
@@ -1567,13 +1616,20 @@
           });
 
           function reapplyValueModeFromInputs() {
-            if (sortSelect.value === "value" && refLat != null && refLon != null) {
-              applyValueWithOrigin(refLat, refLon, null, { skipSetRef: true });
+            updateBalanceReadout();
+            if (sortSelect.value !== "value") return;
+            if (refLat == null || refLon == null) {
+              setSidebarHint(
+                true,
+                "Position not set yet. Use My location or Tap map (Step 1 above) — the charger list will show here after that."
+              );
+              return;
             }
+            applyValueWithOrigin(refLat, refLon, null, { skipSetRef: true });
           }
           maxRangeKmEl.addEventListener("input", reapplyValueModeFromInputs);
-          weightDistanceEl.addEventListener("input", reapplyValueModeFromInputs);
-          weightPriceEl.addEventListener("input", reapplyValueModeFromInputs);
+          balanceSliderEl.addEventListener("input", reapplyValueModeFromInputs);
+          updateBalanceReadout();
 
           function attachStationTooltip(s, m) {
             const compact = map.getZoom() >= 14;
