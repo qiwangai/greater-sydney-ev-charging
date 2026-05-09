@@ -283,40 +283,77 @@
           padding-right: 10px;
         }
 
+        /* Mobile: map-first with a bottom sheet (list overlays map). */
+        .main {
+          position: relative;
+        }
+
         .main:not(.layout--map-only) {
           flex-direction: column;
-          --mobile-map-pct: 52;
         }
 
         .main:not(.layout--map-only) #mapWrap {
-          order: -1;
-          flex: 0 0 calc(var(--mobile-map-pct) * 1%);
-          min-height: 200px;
-          min-height: 32vh;
+          order: 0;
+          flex: 1 1 auto;
+          min-height: 320px;
+          min-height: 52vh;
         }
 
-        .split-handle {
-          height: 18px;
-          flex: 0 0 18px;
-          cursor: row-resize;
-        }
-
-        .split-handle::before {
-          width: 44px;
-          height: 4px;
+        /* Hide the desktop split divider on mobile. */
+        #splitHandle {
+          display: none !important;
         }
 
         .main:not(.layout--map-only) #sidebar {
-          order: 1;
-          width: 100%;
-          flex: 1 1 48%;
-          min-height: 0;
-          max-height: none;
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          top: auto;
+          width: auto;
+          height: auto;
+          max-height: min(70vh, 560px);
           border-right: none;
           border-top: 1px solid var(--border);
-          padding: 12px max(14px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom))
+          border-radius: 16px 16px 0 0;
+          background: var(--surface);
+          box-shadow: 0 -14px 36px rgba(15, 23, 42, 0.12);
+          padding: 10px max(14px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom))
             max(14px, env(safe-area-inset-left));
+          overflow: auto;
           -webkit-overflow-scrolling: touch;
+          transform: translateY(calc(100% - var(--sheet-peek, 160px)));
+          transition: transform 0.18s ease;
+        }
+
+        body.sheet--open .main:not(.layout--map-only) #sidebar {
+          transform: translateY(0);
+        }
+
+        .sheet-handle {
+          position: sticky;
+          top: -10px;
+          margin: -10px 0 10px 0;
+          padding: 10px 0 6px 0;
+          background: var(--surface);
+          z-index: 2;
+        }
+
+        .sheet-handle__bar {
+          width: 44px;
+          height: 4px;
+          border-radius: 999px;
+          background: rgba(100, 116, 139, 0.55);
+          margin: 0 auto;
+        }
+
+        .sheet-handle__label {
+          margin-top: 6px;
+          text-align: center;
+          font-size: 0.6875rem;
+          color: var(--muted);
+          font-weight: 600;
+          letter-spacing: 0.02em;
         }
 
         #stationList li {
@@ -991,6 +1028,10 @@
     </div>
     <div class="main layout--map-only" id="layoutMain" aria-busy="true">
       <aside id="sidebar">
+        <div class="sheet-handle" id="sheetHandle" aria-hidden="true">
+          <div class="sheet-handle__bar"></div>
+          <div class="sheet-handle__label">Results</div>
+        </div>
         <h2 id="listTitle">Stations</h2>
         <p class="note" id="sortNote" aria-hidden="true"></p>
         <p id="sidebarHint" class="sidebar-hint" hidden></p>
@@ -1376,6 +1417,7 @@
         const splitHandle = document.getElementById("splitHandle");
         const topPanelEl = document.getElementById("topPanel");
         const topHeightHandle = document.getElementById("topHeightHandle");
+        const sheetHandle = document.getElementById("sheetHandle");
 
         function showAppBanner(kind, message, dismissable) {
           appBanner.hidden = false;
@@ -1624,7 +1666,43 @@
             if (splitHandle) {
               splitHandle.hidden = !show;
             }
+            if (!show) {
+              document.body.classList.remove("sheet--open");
+            }
             requestAnimationFrame(() => map.invalidateSize());
+          }
+
+          function isMobileUi() {
+            return window.matchMedia && window.matchMedia("(max-width: 719px)").matches;
+          }
+
+          function openMobileSheet() {
+            if (!isMobileUi()) return;
+            document.body.classList.add("sheet--open");
+          }
+
+          function toggleMobileSheet() {
+            if (!isMobileUi()) return;
+            document.body.classList.toggle("sheet--open");
+          }
+
+          if (sheetHandle) {
+            sheetHandle.addEventListener("click", () => toggleMobileSheet());
+            // Drag up/down on the handle to open/close
+            let startY = null;
+            sheetHandle.addEventListener("touchstart", (e) => {
+              if (!isMobileUi()) return;
+              startY = e.touches && e.touches[0] ? e.touches[0].clientY : null;
+            }, { passive: true });
+            sheetHandle.addEventListener("touchend", (e) => {
+              if (!isMobileUi()) return;
+              if (startY == null) return;
+              const endY = e.changedTouches && e.changedTouches[0] ? e.changedTouches[0].clientY : startY;
+              const dy = endY - startY;
+              if (dy < -18) document.body.classList.add("sheet--open");
+              else if (dy > 18) document.body.classList.remove("sheet--open");
+              startY = null;
+            });
           }
 
           // Drag the divider to resize panels (desktop: left/right, mobile: up/down)
@@ -1809,6 +1887,7 @@
             setListPanelVisible(true);
             listTitleEl.textContent = "Lowest price";
             sortNoteEl.textContent = "";
+            openMobileSheet();
 
             const priced = mapStations.filter((s) => getNumericPrice(s) !== null);
             const sorted = [...priced].sort(comparePriceAscending);
@@ -1852,20 +1931,13 @@
             setSidebarHint(false, "");
             listTitleEl.textContent = "Nearest first";
             sortNoteEl.textContent = "";
+            openMobileSheet();
             repopulateStationPins(() => true);
             showStationPins();
             const sorted = [...mapStations].sort((a, b) => compareByDistance(a, b, lat, lon));
             renderStationList(sorted, "distance", lat, lon);
             const z = Math.max(map.getZoom(), 13);
             map.setView([lat, lon], z);
-            // Mobile: the list is below the map. Scroll it into view so it doesn't look "missing".
-            try {
-              if (window.matchMedia && window.matchMedia("(max-width: 719px)").matches) {
-                sidebarEl.scrollIntoView({ behavior: "smooth", block: "start" });
-              }
-            } catch {
-              /* ignore */
-            }
             syncRefModeControls();
           }
 
@@ -1879,6 +1951,7 @@
             setSidebarHint(false, "");
             listTitleEl.textContent = "Best balance";
             sortNoteEl.textContent = "";
+            openMobileSheet();
 
             const lat0 = refLat;
             const lon0 = refLon;
@@ -1929,14 +2002,6 @@
             showStationPins();
             renderStationList(sorted, "value", lat0, lon0);
             map.setView([lat0, lon0], zoomFromSearchRadiusKm(rangeKm));
-            // Mobile: bring the "matching chargers" list into view.
-            try {
-              if (window.matchMedia && window.matchMedia("(max-width: 719px)").matches) {
-                sidebarEl.scrollIntoView({ behavior: "smooth", block: "start" });
-              }
-            } catch {
-              /* ignore */
-            }
             syncRefModeControls();
           }
 
