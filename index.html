@@ -401,36 +401,29 @@
         }
       }
 
-      /* Sidebar height resizer (desktop) */
-      .sidebar-height-handle {
-        display: none;
-        position: sticky;
-        bottom: 0;
-        left: 0;
-        right: 0;
+      /* Top-panel height resizer (between controls and map) */
+      .top-panel {
+        flex: 0 0 auto;
+      }
+
+      .top-height-handle {
         height: 12px;
-        margin: 10px -16px -16px -16px;
-        background: linear-gradient(to top, rgba(100, 116, 139, 0.12), rgba(100, 116, 139, 0));
-        border-top: 1px solid var(--border);
+        background: linear-gradient(to bottom, rgba(100, 116, 139, 0.12), rgba(100, 116, 139, 0));
+        border-bottom: 1px solid var(--border);
         cursor: row-resize;
         touch-action: none;
         user-select: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
-      .sidebar-height-handle::before {
+      .top-height-handle::before {
         content: "";
-        display: block;
         width: 44px;
         height: 4px;
         border-radius: 999px;
         background: rgba(100, 116, 139, 0.55);
-        margin: 4px auto 0;
-      }
-
-      @media (min-width: 720px) {
-        .sidebar-height-handle {
-          display: block;
-        }
       }
 
       #sidebar h2 {
@@ -926,6 +919,7 @@
     </style>
   </head>
   <body>
+    <div id="topPanel" class="top-panel">
     <header class="app-header">
       <div class="app-header__inner">
         <div class="app-logo" title="Sydney EV">
@@ -993,13 +987,14 @@
       <span id="appBannerText">Loading stations…</span>
       <button type="button" id="appBannerDismiss" class="app-banner__dismiss" hidden>Dismiss</button>
     </div>
+    <div id="topHeightHandle" class="top-height-handle" aria-hidden="true"></div>
+    </div>
     <div class="main layout--map-only" id="layoutMain" aria-busy="true">
       <aside id="sidebar">
         <h2 id="listTitle">Stations</h2>
         <p class="note" id="sortNote" aria-hidden="true"></p>
         <p id="sidebarHint" class="sidebar-hint" hidden></p>
         <ol id="stationList" role="list"></ol>
-        <div id="sidebarHeightHandle" class="sidebar-height-handle" aria-hidden="true"></div>
       </aside>
       <div id="splitHandle" class="split-handle" hidden aria-hidden="true"></div>
       <div id="mapWrap">
@@ -1379,7 +1374,8 @@
         const useMyLocationBtn = document.getElementById("useMyLocationBtn");
         const pickOnMapBtn = document.getElementById("pickOnMapBtn");
         const splitHandle = document.getElementById("splitHandle");
-        const sidebarHeightHandle = document.getElementById("sidebarHeightHandle");
+        const topPanelEl = document.getElementById("topPanel");
+        const topHeightHandle = document.getElementById("topHeightHandle");
 
         function showAppBanner(kind, message, dismissable) {
           appBanner.hidden = false;
@@ -1653,15 +1649,15 @@
             }
             requestAnimationFrame(() => map.invalidateSize());
           };
-
-          const setSidebarHeightPx = (px) => {
-            const rect = layoutMain.getBoundingClientRect();
-            const maxH = Math.max(240, rect.height - 160);
-            const p = clamp(Math.round(px), 220, maxH);
-            sidebarEl.style.height = `${p}px`;
-            sidebarEl.style.alignSelf = "flex-start";
+          const setTopPanelHeightPx = (px) => {
+            if (!topPanelEl) return;
+            const minH = 72;
+            const maxH = Math.max(140, window.innerHeight - 180);
+            const p = clamp(Math.round(px), minH, maxH);
+            topPanelEl.style.height = `${p}px`;
+            topPanelEl.style.overflow = "auto";
             try {
-              localStorage.setItem("sidebarHeightPx", String(p));
+              localStorage.setItem("topPanelHeightPx", String(p));
             } catch {
               /* ignore */
             }
@@ -1680,10 +1676,9 @@
           } catch {
             /* ignore */
           }
-
           try {
-            const savedH = Number(localStorage.getItem("sidebarHeightPx"));
-            if (Number.isFinite(savedH)) setSidebarHeightPx(savedH);
+            const savedTop = Number(localStorage.getItem("topPanelHeightPx"));
+            if (Number.isFinite(savedTop)) setTopPanelHeightPx(savedTop);
           } catch {
             /* ignore */
           }
@@ -1722,28 +1717,37 @@
             });
           }
 
-          if (sidebarHeightHandle) {
-            const isDesktop = () => !(window.matchMedia && window.matchMedia("(max-width: 719px)").matches);
-            const dragHeight = (clientY) => {
-              const rect = layoutMain.getBoundingClientRect();
-              const y = clamp(clientY - rect.top, 220, rect.height - 160);
-              setSidebarHeightPx(y);
+          if (topHeightHandle && topPanelEl) {
+            const dragTop = (clientY) => {
+              const rect = topPanelEl.getBoundingClientRect();
+              const newH = clamp(clientY - rect.top, 72, window.innerHeight - 180);
+              setTopPanelHeightPx(newH);
             };
 
-            sidebarHeightHandle.addEventListener("pointerdown", (e) => {
-              if (!isDesktop()) return;
+            topHeightHandle.addEventListener("pointerdown", (e) => {
               try {
-                sidebarHeightHandle.setPointerCapture(e.pointerId);
+                topHeightHandle.setPointerCapture(e.pointerId);
               } catch {
                 /* ignore */
               }
-              dragHeight(e.clientY);
+              dragTop(e.clientY);
             });
 
-            sidebarHeightHandle.addEventListener("pointermove", (e) => {
-              if (!isDesktop()) return;
+            topHeightHandle.addEventListener("pointermove", (e) => {
               if ((e.buttons & 1) !== 1) return;
-              dragHeight(e.clientY);
+              dragTop(e.clientY);
+            });
+
+            // Double click/tap to reset
+            topHeightHandle.addEventListener("dblclick", () => {
+              topPanelEl.style.height = "";
+              topPanelEl.style.overflow = "";
+              try {
+                localStorage.removeItem("topPanelHeightPx");
+              } catch {
+                /* ignore */
+              }
+              requestAnimationFrame(() => map.invalidateSize());
             });
           }
 
